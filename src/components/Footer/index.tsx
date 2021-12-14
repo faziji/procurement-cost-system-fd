@@ -6,7 +6,7 @@ const Footer: React.FC = () => {
   const intl = useIntl();
   const defaultMessage = intl.formatMessage({
     id: 'app.copyright.produced',
-    defaultMessage: '蚂蚁集团体验技术部出品',
+    defaultMessage: '信息学院软件工程1班诸祥发',
   });
 
   const currentYear = new Date().getFullYear();
@@ -16,20 +16,20 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'Ant Design Pro',
-          title: 'Ant Design Pro',
+          key: '采购和费控管理后台',
+          title: '采购和费控管理后台',
           href: 'https://pro.ant.design',
           blankTarget: true,
         },
         {
-          key: 'github',
+          key: 'github项目地址',
           title: <GithubOutlined />,
-          href: 'https://github.com/ant-design/ant-design-pro',
+          href: 'https://github.com/faziji/procurement-cost-system',
           blankTarget: true,
         },
         {
-          key: 'Ant Design',
-          title: 'Ant Design',
+          key: '供应商采购中心前台',
+          title: '供应商采购中心前台',
           href: 'https://ant.design',
           blankTarget: true,
         },

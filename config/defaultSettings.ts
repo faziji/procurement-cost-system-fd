@@ -12,7 +12,7 @@ const Settings: LayoutSettings & {
   fixedHeader: false,
   fixSiderbar: true,
   colorWeak: false,
-  title: 'Ant Design Pro',
+  title: '采购和费控管理后台',
   pwa: false,
   logo: 'https://gw.alipayobjects.com/zos/rmsportal/KDpgvguMpGfqaHPjicRK.svg',
   iconfontUrl: '',
