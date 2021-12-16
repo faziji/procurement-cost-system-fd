@@ -17,6 +17,9 @@ const Welcome: React.FC = () => {
   return (
     <PageContainer>
       <Card>
+        {/* ======================================= */}
+
+        {/* ======================================= */}
         <Alert
           message={intl.formatMessage({
             id: 'pages.welcome.alertMessage',
