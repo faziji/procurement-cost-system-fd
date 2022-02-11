@@ -4,6 +4,8 @@ This project is initialized with [Ant Design Pro](https://pro.ant.design). Follo
 
 ## Environment Prepare
 
+可运行的 node 版本：14.15.0
+
 Install `node_modules`:
 
 ```bash

@@ -32,6 +32,18 @@ export async function login(body: API.LoginParams, options?: { [key: string]: an
   });
 }
 
+/** 测试学生接口：主要按照antd的请求格式 POST /student/student/create */
+export async function createStudent(body: API.StudentParams, options?: { [key: string]: any }) {
+  return request('/api/student/student/create', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: body,
+    ...(options || {}),
+  });
+}
+
 /** 此处后端没有提供注释 GET /api/notices */
 export async function getNotices(options?: { [key: string]: any }) {
   return request<API.NoticeIconList>('/api/notices', {

@@ -67,6 +67,13 @@ declare namespace API {
     autoLogin?: boolean;
     type?: string;
   };
+  // 学生
+  type StudentParams = {
+    name: string;
+    age: string;
+    gender: boolean;
+    grade: string;
+  };
 
   type ErrorResponse = {
     /** 业务约定的错误码 */

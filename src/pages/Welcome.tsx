@@ -3,6 +3,7 @@ import { PageContainer } from '@ant-design/pro-layout';
 import { Card, Alert, Typography } from 'antd';
 import { useIntl, FormattedMessage } from 'umi';
 import styles from './Welcome.less';
+import TestPage from './TestPage';
 
 const CodePreview: React.FC = ({ children }) => (
   <pre className={styles.pre}>
@@ -16,10 +17,8 @@ const Welcome: React.FC = () => {
   const intl = useIntl();
   return (
     <PageContainer>
+      <TestPage />
       <Card>
-        {/* ======================================= */}
-
-        {/* ======================================= */}
         <Alert
           message={intl.formatMessage({
             id: 'pages.welcome.alertMessage',

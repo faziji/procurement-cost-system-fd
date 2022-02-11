@@ -11,8 +11,10 @@ import React, { useState } from 'react';
 import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-import { login } from '@/services/ant-design-pro/api';
+// import { login } from '@/services/ant-design-pro/api'; // 调换api
+import { login } from '@/services/user/api'; // 调换api
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
+import TestPage from '@/pages/TestPage';
 
 import styles from './index.less';
 
@@ -36,8 +38,8 @@ const Login: React.FC = () => {
 
   const intl = useIntl();
 
-  const fetchUserInfo = async () => {
-    const userInfo = await initialState?.fetchUserInfo?.();
+  const fetchUserInfo = async (username?: any) => {
+    const userInfo = await initialState?.fetchUserInfo?.(username);
     if (userInfo) {
       await setInitialState((s) => ({
         ...s,
@@ -49,30 +51,28 @@ const Login: React.FC = () => {
   const handleSubmit = async (values: API.LoginParams) => {
     try {
       // 登录
-      const msg = await login({ ...values, type });
-      if (msg.status === 'ok') {
-        const defaultLoginSuccessMessage = intl.formatMessage({
-          id: 'pages.login.success',
-          defaultMessage: '登录成功！',
-        });
-        message.success(defaultLoginSuccessMessage);
-        await fetchUserInfo();
-        /** 此方法会跳转到 redirect 参数所在的位置 */
-        if (!history) return;
-        const { query } = history.location;
-        const { redirect } = query as { redirect: string };
-        history.push(redirect || '/');
+      const res = await login({ ...values });
+      // 登录失败
+      if (res.code == 1) {
+        message.error(res.msg);
         return;
       }
-      console.log(msg);
-      // 如果失败去设置用户错误信息
-      setUserLoginState(msg);
+
+      // 登录成功后获取用户信息
+      await fetchUserInfo(values.username);
+
+      // 存储token到本地
+      let token = res.data;
+      console.log('111111111token', token);
+
+      /** 此方法会跳转到 redirect 参数所在的位置 */
+      if (!history) return;
+      const { query } = history.location;
+      const { redirect } = query as { redirect: string };
+      history.push(redirect || '/');
+      message.success(res.msg);
     } catch (error) {
-      const defaultLoginFailureMessage = intl.formatMessage({
-        id: 'pages.login.failure',
-        defaultMessage: '登录失败，请重试！',
-      });
-      message.error(defaultLoginFailureMessage);
+      message.error('登录失败，请重试！');
     }
   };
   const { status, type: loginType } = userLoginState;
@@ -83,13 +83,16 @@ const Login: React.FC = () => {
         {SelectLang && <SelectLang />}
       </div>
       <div className={styles.content}>
+        {/* 用于测试的组件 */}
+        {/* <TestPage /> */}
         <LoginForm
           logo={<img alt="logo" src="/logo.svg" />}
-          title="采购和费控系统"
+          // title="采购和费控系统"  // 暂时先注释，以免明目张胆
+
           subTitle={intl.formatMessage({ id: 'pages.layouts.userLayout.title' })}
-          initialValues={{
-            autoLogin: true,
-          }}
+          // initialValues={{
+          //   autoLogin: true,
+          // }}
           // actions={[
           //   <FormattedMessage
           //     key="loginWith"
@@ -125,7 +128,7 @@ const Login: React.FC = () => {
             <LoginMessage
               content={intl.formatMessage({
                 id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误(admin/ant.design)',
+                defaultMessage: '账户或密码错误',
               })}
             />
           )}
@@ -267,15 +270,15 @@ const Login: React.FC = () => {
               marginBottom: 24,
             }}
           >
-            <ProFormCheckbox noStyle name="autoLogin">
+            {/* <ProFormCheckbox noStyle name="autoLogin">
               <FormattedMessage id="pages.login.rememberMe" defaultMessage="自动登录" />
-            </ProFormCheckbox>
+            </ProFormCheckbox> */}
             <a
               style={{
                 float: 'right',
               }}
             >
-              <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" />
+              {/* <FormattedMessage id="pages.login.forgotPassword" defaultMessage="忘记密码" /> */}
             </a>
           </div>
         </LoginForm>
