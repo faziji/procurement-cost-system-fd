@@ -27,6 +27,8 @@ const loginOut = async () => {
         redirect: pathname + search,
       }),
     });
+    // 清除token
+    localStorage.removeItem("token")
   }
 };
 
@@ -70,20 +72,14 @@ const AvatarDropdown: React.FC<GlobalHeaderRightProps> = ({ menu }) => {
 
   const menuHeaderDropdown = (
     <Menu className={styles.menu} selectedKeys={[]} onClick={onMenuClick}>
-      {menu && (
-        <Menu.Item key="center">
-          <UserOutlined />
-          个人中心
-        </Menu.Item>
-      )}
-      {menu && (
-        <Menu.Item key="settings">
-          <SettingOutlined />
-          个人设置
-        </Menu.Item>
-      )}
-      {menu && <Menu.Divider />}
-
+      <Menu.Item key="center">
+        <UserOutlined />
+        个人中心
+      </Menu.Item>
+      <Menu.Item key="settings">
+        <SettingOutlined />
+        个人设置
+      </Menu.Item>
       <Menu.Item key="logout">
         <LogoutOutlined />
         退出登录

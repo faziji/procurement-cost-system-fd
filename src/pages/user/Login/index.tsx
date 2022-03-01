@@ -45,6 +45,7 @@ const Login: React.FC = () => {
         ...s,
         currentUser: userInfo,
       }));
+      return userInfo;
     }
   };
 
@@ -52,6 +53,17 @@ const Login: React.FC = () => {
     try {
       // 登录
       const res = await login({ ...values });
+
+      /**
+       * ！！！！存储token到本地(临时)！！！！
+       * 之后有时间需要修改并存储在redux中
+       */
+      let tokenLocal: string = ""
+      if (res?.data?.token) {
+        tokenLocal = res?.data?.token
+      }
+      localStorage.setItem("token", tokenLocal);
+
       // 登录失败
       if (res.code == 1) {
         message.error(res.msg);
@@ -59,11 +71,14 @@ const Login: React.FC = () => {
       }
 
       // 登录成功后获取用户信息
-      await fetchUserInfo(values.username);
+      let userInfo = await fetchUserInfo(values.username);
 
-      // 存储token到本地
-      let token = res.data;
-      console.log('111111111token', token);
+      // 获取用户信息失败
+      if (!userInfo) {
+        message.error('登录失败，请重试！')
+        return
+      }
+
 
       /** 此方法会跳转到 redirect 参数所在的位置 */
       if (!history) return;

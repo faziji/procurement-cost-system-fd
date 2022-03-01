@@ -1,9 +1,11 @@
 import React from 'react';
 // eslint-disable-next-line @typescript-eslint/no-empty-interface
-interface IProps {}
+interface IProps { }
 // import { createStudents } from '../services/student/api'
 import { createStudent } from '@/services/ant-design-pro/api';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
+// import Center from './account/center'
 const TestPage: React.FC<IProps> = (props: IProps) => {
   const onClick = () => {
     console.log('da');
@@ -19,7 +21,7 @@ const TestPage: React.FC<IProps> = (props: IProps) => {
     let res = createStudent(obj);
     console.log('1111111res', res);
   };
-  const onChange = () => {};
+  const onChange = () => { };
 
   return (
     <div>
