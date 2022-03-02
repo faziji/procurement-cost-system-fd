@@ -1,10 +1,10 @@
-import { PlusOutlined, HomeOutlined, ContactsOutlined, ClusterOutlined } from '@ant-design/icons';
-import { Avatar, Card, Col, Divider, Input, Row, Tag } from 'antd';
-import React, { useState, useRef } from 'react';
+import { HomeOutlined, ContactsOutlined, ClusterOutlined } from '@ant-design/icons';
+import { Card, Col, Divider, Row } from 'antd';
+import React from 'react';
 import { GridContent } from '@ant-design/pro-layout';
-import { Link, useRequest } from 'umi';
+import { useRequest } from 'umi';
 import type { RouteChildrenProps } from 'react-router';
-import type { CurrentUser, TagType, tabKeyType } from './data.d';
+import type { CurrentUser } from './data.d';
 import { queryCurrent } from './service';
 import styles from './Center.less';
 
