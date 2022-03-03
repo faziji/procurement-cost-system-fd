@@ -1,38 +1,15 @@
-import {
-  AlipayCircleOutlined,
-  LockOutlined,
-  MobileOutlined,
-  TaobaoCircleOutlined,
-  UserOutlined,
-  WeiboCircleOutlined,
-} from '@ant-design/icons';
-import { Alert, message, Tabs } from 'antd';
+import { LockOutlined, MobileOutlined, UserOutlined } from '@ant-design/icons';
+import { message, Tabs } from 'antd';
 import React, { useState } from 'react';
-import { ProFormCaptcha, ProFormCheckbox, ProFormText, LoginForm } from '@ant-design/pro-form';
+import { ProFormCaptcha, ProFormText, LoginForm } from '@ant-design/pro-form';
 import { useIntl, history, FormattedMessage, SelectLang, useModel } from 'umi';
 import Footer from '@/components/Footer';
-// import { login } from '@/services/ant-design-pro/api'; // 调换api
 import { login } from '@/services/user/api'; // 调换api
 import { getFakeCaptcha } from '@/services/ant-design-pro/login';
-import TestPage from '@/pages/TestPage';
 
 import styles from './index.less';
 
-const LoginMessage: React.FC<{
-  content: string;
-}> = ({ content }) => (
-  <Alert
-    style={{
-      marginBottom: 24,
-    }}
-    message={content}
-    type="error"
-    showIcon
-  />
-);
-
 const Login: React.FC = () => {
-  const [userLoginState, setUserLoginState] = useState<API.LoginResult>({});
   const [type, setType] = useState<string>('account');
   const { initialState, setInitialState } = useModel('@@initialState');
 
@@ -58,11 +35,11 @@ const Login: React.FC = () => {
        * ！！！！存储token到本地(临时)！！！！
        * 之后有时间需要修改并存储在redux中
        */
-      let tokenLocal: string = ""
+      let tokenLocal: string = '';
       if (res?.data?.token) {
-        tokenLocal = res?.data?.token
+        tokenLocal = res?.data?.token;
       }
-      localStorage.setItem("token", tokenLocal);
+      localStorage.setItem('token', tokenLocal);
 
       // 登录失败
       if (res.code == 1) {
@@ -75,12 +52,12 @@ const Login: React.FC = () => {
 
       // 获取用户信息失败
       if (!userInfo) {
-        message.error('登录失败，请重试！')
-        return
+        message.error('登录失败，请重试！');
+        return;
       }
 
       // 为了后端不用多一次解析username //!!!待优化
-      localStorage.setItem("username", userInfo?.username);
+      localStorage.setItem('username', userInfo?.username);
 
       /** 此方法会跳转到 redirect 参数所在的位置 */
       if (!history) return;
@@ -92,7 +69,6 @@ const Login: React.FC = () => {
       message.error('登录失败，请重试！');
     }
   };
-  const { status, type: loginType } = userLoginState;
 
   return (
     <div className={styles.container}>
@@ -141,14 +117,6 @@ const Login: React.FC = () => {
             /> */}
           </Tabs>
 
-          {status === 'error' && loginType === 'account' && (
-            <LoginMessage
-              content={intl.formatMessage({
-                id: 'pages.login.accountLogin.errorMessage',
-                defaultMessage: '账户或密码错误',
-              })}
-            />
-          )}
           {type === 'account' && (
             <>
               <ProFormText
@@ -200,7 +168,6 @@ const Login: React.FC = () => {
             </>
           )}
 
-          {status === 'error' && loginType === 'mobile' && <LoginMessage content="验证码错误" />}
           {type === 'mobile' && (
             <>
               <ProFormText
