@@ -60,7 +60,7 @@
         path: '/account/settings',
         name: 'settings',
         icon: 'smile',
-        component: './TestPage',
+        component: './account/settings',
       },
       {
         component: './404',

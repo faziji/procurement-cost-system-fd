@@ -38,8 +38,8 @@ const Login: React.FC = () => {
 
   const intl = useIntl();
 
-  const fetchUserInfo = async (username?: any) => {
-    const userInfo = await initialState?.fetchUserInfo?.(username);
+  const fetchUserInfo = async () => {
+    const userInfo = await initialState?.fetchUserInfo?.();
     if (userInfo) {
       await setInitialState((s) => ({
         ...s,
@@ -71,7 +71,7 @@ const Login: React.FC = () => {
       }
 
       // 登录成功后获取用户信息
-      let userInfo = await fetchUserInfo(values.username);
+      let userInfo: any = await fetchUserInfo();
 
       // 获取用户信息失败
       if (!userInfo) {
@@ -79,6 +79,8 @@ const Login: React.FC = () => {
         return
       }
 
+      // 为了后端不用多一次解析username //!!!待优化
+      localStorage.setItem("username", userInfo?.username);
 
       /** 此方法会跳转到 redirect 参数所在的位置 */
       if (!history) return;
