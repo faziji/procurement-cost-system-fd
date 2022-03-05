@@ -90,18 +90,18 @@ request.interceptors.response.use((res) => {
   const { status } = res;
 
   // 没有token直接跳转登录页
-  if (status == 401) {
-    notification.error({
-      description: '用户没有权限（令牌、用户名、密码错误），重新登录...',
-      message: 'no token',
-    });
+  // if (status == 401) {
+  //   notification.error({
+  //     description: '用户没有权限（令牌、用户名、密码错误），重新登录...',
+  //     message: 'no token',
+  //   });
 
-    // 清除token
-    localStorage.removeItem('token');
-    localStorage.removeItem('username');
-    // jump login
-    history.push('/user/login');
-  }
+  //   // 清除token
+  //   localStorage.removeItem('token');
+  //   localStorage.removeItem('username');
+  //   // jump login
+  //   history.push('/welcome');
+  // }
   return res;
 });
 
@@ -122,7 +122,7 @@ export const login = async (params: any) => {
  *@param username 账号
  */
 export const getCurrentUserInfo = async () => {
-  const data = await request(`/api/user/detail`, {
+  const data = await request(`/api/fontEnd/user/currentUser`, {
     method: 'GET',
   });
   return data;
