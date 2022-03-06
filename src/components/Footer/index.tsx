@@ -13,6 +13,7 @@ const Footer: React.FC = () => {
 
   return (
     <DefaultFooter
+      style={{ padding: '50px' }}
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
@@ -28,8 +29,8 @@ const Footer: React.FC = () => {
           blankTarget: true,
         },
         {
-          key: '供应商采购中心前台',
-          title: '供应商采购中心前台',
+          key: '供应商费用管理后台',
+          title: '供应商费用管理后台',
           href: 'https://ant.design',
           blankTarget: true,
         },
