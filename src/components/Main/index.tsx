@@ -1,14 +1,15 @@
 import React from 'react';
-import Footer from '../Footer'
 import styles from './index.less';
-import Header from '../Header'
 import CalendarTender from '../CalendarTender'
-import { Card, Carousel, Row, Typography } from 'antd';
+import { Avatar, Card, Carousel, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
 import { CalendarOutlined, LoginOutlined } from '@ant-design/icons';
+import { getToken, getUerInfo } from '@/utils/index'
+
+// import { CheckCard } from '@ant-design/pro-card';
 
 
-const Main: React.FC = () => {
+const WelcomeMain: React.FC = () => {
 
     const contentStyle = {
         height: '160px',
@@ -17,8 +18,6 @@ const Main: React.FC = () => {
         textAlign: 'center',
         background: '#364d79',
     };
-
-
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.cardContent}>
@@ -32,7 +31,7 @@ const Main: React.FC = () => {
                             <CalendarTender />
                         </Card>
                     </div>
-                    <div style={{ width: '720px' }}>
+                    {/* <div style={{ width: '720px' }}>
                         <Carousel autoplay>
                             <div>
                                 <h3 style={contentStyle}>1</h3>
@@ -47,7 +46,7 @@ const Main: React.FC = () => {
                                 <h3 style={contentStyle}>4</h3>
                             </div>
                         </Carousel>
-                    </div>
+                    </div> */}
                     <div className={styles.loginWrapper}>
                         <Row className={styles.title}>
                             <Typography.Title className={styles.typographytitle} level={5} ><LoginOutlined style={{ margin: '0 10px' }} />用户登录</Typography.Title>
@@ -56,6 +55,25 @@ const Main: React.FC = () => {
                         <Card className={styles.loginCard}>
                             <FormNormalLogin />
                         </Card>
+
+                        {/* {!getToken() ? <Card className={styles.loginCard}>
+                            <FormNormalLogin />
+                        </Card>
+                            :
+                            <Card className={styles.loginedCard}>
+                                {getUerInfo()}
+                                <CheckCard
+                                    title="Spring Boot"
+                                    avatar={
+                                        <Avatar
+                                            src="https://gw.alipayobjects.com/zos/bmw-prod/2dd637c7-5f50-4d89-a819-33b3d6da73b6.svg"
+                                            size="large"
+                                        />
+                                    }
+                                    description="通过业界流行的技术栈来快速构建 Java 后端应用"
+                                    value="SpringBoot"
+                                />
+                            </Card>} */}
                     </div>
                 </div>
             </div>
@@ -63,16 +81,10 @@ const Main: React.FC = () => {
     )
 }
 
-const Frame: React.FC = () => {
+const Main: React.FC = () => {
+
     return (
-        <div>
-            <Header />
-            <Main />
-            <Footer />
-
-        </div>
-
-    );
-};
-
-export default Frame;
+        <WelcomeMain />
+    )
+}
+export default Main;

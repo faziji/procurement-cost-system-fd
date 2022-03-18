@@ -1,10 +1,33 @@
 import styles from "./index.less";
-import { Form, Input, Button, Checkbox, Row, Col } from "antd";
+import { Form, Input, Button, Checkbox, Row, Col, message } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 
+import { login, getCurrentUserInfo } from '@/services/user/api'
+
 const NormalLoginForm = () => {
-  const onFinish = (values: any) => {
+  const onFinish = async (values: any) => {
     console.log("Received values of form: ", values);
+    let res = await login(values)
+
+    if (res?.code) {
+      message.error(res?.msg)
+      localStorage.removeItem('fdToken')
+      localStorage.removeItem('fdUserInfo')
+    } else {
+      localStorage.setItem('fdToken', res?.data?.token || "")
+
+      try {
+        let resData = await getCurrentUserInfo();
+        localStorage.setItem('fdUserInfo', JSON.stringify(resData?.data))
+        message.success("登录成功！")
+      } catch (error) {
+        localStorage.removeItem('fdToken')
+        message.error("获取用户信息失败")
+      }
+
+    }
+    console.log("Response login of form:", res);
+
   };
 
   return (

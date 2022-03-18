@@ -1,11 +1,17 @@
 import React from 'react'; // import styles from './Welcome.less';
 
-import Frame from '@/components/Frame';
+import Main from '@/components/Main';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 
 const Welcome: React.FC = () => {
   return (
     <>
-      <Frame />
+      <Header />
+
+      <Main />
+      <Footer />
+
     </>
   );
 };

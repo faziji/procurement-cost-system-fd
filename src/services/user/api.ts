@@ -110,7 +110,7 @@ request.interceptors.response.use((res) => {
  *@param username 账号；password 密码
  */
 export const login = async (params: any) => {
-  const data = await request(`/api/user/login`, {
+  const data = await request(`/api/fontEnd/user/login`, {
     method: 'POST',
     data: params,
   });
