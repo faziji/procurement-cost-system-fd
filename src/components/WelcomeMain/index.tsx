@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import styles from './index.less';
 import CalendarTender from '../CalendarTender'
-import { Avatar, Card, Carousel, Col, List, message, Row, Typography } from 'antd';
+import { Card, Col, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
 import { CalendarOutlined, LoginOutlined, ToolOutlined } from '@ant-design/icons';
+import ResourceAnnounce from './ResourceAnnounce'
+import { getConsultationList } from '@/services/resource/api'
+import { useRequest } from '@umijs/hooks';
 
 
 
@@ -41,25 +44,27 @@ const JumpSystemLine = () => {
 
 const WelcomeMain: React.FC = () => {
 
+    const [consultationList, setConsultationList] = useState({})
 
-    const [state, setState] = useState(0)
+    // const getConsultationListMethod = async () => await getConsultationList().then(res => {
+    //     if (res?.code === 0) {
+    //         setConsultationList(res?.data)
+    //     } else {
+    //         console.log('consultationList获取失败');
+    //     }
+    // }
+    // ).catch(error => message.error(error))
 
-    const ResourceContent = () => {
-        let constent = <></>
-        if (state === 1) {
-            constent = <>征询意见</>
-        }
-        else if (state === 2) {
-            constent = <>采购公告</>
-        }
-        else if (state === 3) {
-            constent = <>结果公告</>
-        }
-        else if (state === 4) {
-            constent = <>更正公告</>
-        }
-        return constent
-    }
+    // 获取征询意见列表
+    // getConsultationListMethod()
+    // const consultationList = getConsultationListMethod().
+    // console.log('22222222222222222', consultationList);
+    // 获取tab列表数据
+    const { data: listData } = useRequest(() => {
+        return getConsultationList();
+    });
+    console.log('22222222222222222', listData);
+
 
     return (
         <div className={styles.mainWrapper}>
@@ -75,46 +80,9 @@ const WelcomeMain: React.FC = () => {
                         </Card>
                     </div>
 
-
                     <div className={styles.resourceWrapper}>
-                        <Row className={styles.title}>
-                            <Col span={5}>
-                                <Typography.Title className={styles.typographytitle} level={5} ><ToolOutlined style={{ margin: '0 10px' }} />货物与服务</Typography.Title>
-                            </Col>
-                            <Col>
-                                <div className={styles.titleNav}>
-                                    <div className={styles.navItem} onMouseEnter={() => setState(1)}>
-                                        <div className={styles.navItemText}>
-                                            征询意见
-                                        </div>
-                                    </div>
-                                    <div className={styles.navItem} onMouseEnter={() => setState(2)}>
-                                        <div className={styles.navItemText}>
-                                            采购公告
-                                        </div>
-                                    </div>
-                                    <div className={styles.navItem} onMouseEnter={() => setState(3)}>
-                                        <div className={styles.navItemText}>
-                                            结果公告
-                                        </div>
-                                    </div>
-                                    <div className={styles.navItem} onMouseEnter={() => setState(4)}>
-                                        <div className={styles.navItemText}>
-                                            更正意见
-                                        </div>
-                                    </div>
-
-
-                                </div>
-                            </Col>
-                        </Row>
-                        <Row>
-                            <ResourceContent />
-                        </Row>
-
+                        <ResourceAnnounce />
                     </div>
-
-
 
                     <div className={styles.loginWrapper}>
                         <Row className={styles.title}>
@@ -132,11 +100,4 @@ const WelcomeMain: React.FC = () => {
         </div>
     )
 }
-
-// const Main: React.FC = () => {
-
-//     return (
-//         <WelcomeMain />
-//     )
-// }
 export default WelcomeMain;
