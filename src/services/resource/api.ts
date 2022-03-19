@@ -56,3 +56,26 @@ export const getConsultationList = async () => {
   });
   return data;
 };
+// 获取采购公告
+export const getPurchaseAnnouncementList = async () => {
+  const data = await request(`/api/resource/getPurchaseAnnouncementList`, {
+    method: 'GET',
+  });
+  return data;
+};
+// 获取结果公告
+export const getResultAnnouncementList = async () => {
+  const data = await request(`/api/resource/getResultAnnouncementList`, {
+    method: 'GET',
+  });
+  return data;
+};
+// 获取更正公告
+export const getCorrectAnnouncementList = async () => {
+  const data = await request(`/api/resource/getCorrectAnnouncementList`, {
+    method: 'GET',
+  });
+  return data;
+};
+
+// getCorrectAnnouncementList

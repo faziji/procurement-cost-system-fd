@@ -1,54 +1,97 @@
-import { Col, Row, Typography } from "antd"
+import { Card, Col, Empty, Row, Typography } from "antd"
 import { useState } from "react"
-import { ToolOutlined } from '@ant-design/icons';
+import { ToolOutlined, DoubleRightOutlined } from '@ant-design/icons';
 import styles from './index.less';
-import { getConsultationList } from '@/services/resource/api'
+import { getConsultationList, getPurchaseAnnouncementList, getResultAnnouncementList, getCorrectAnnouncementList } from '@/services/resource/api'
 import { useRequest } from '@umijs/hooks';
-
+import classnames from 'classnames'
 
 const ResourceAnnounce: React.FC = () => {
+    /**
+     * 渲染具体内容
+     */
+    const ResourceItemElem = ({ data }: any) => {
+        let handleData = data?.slice(0, 8) // 取前8个
+        return (
+            <Card style={{ width: 710, height: 359 }}>
+                {
+                    handleData?.length ? handleData.map((item: any, index: any) => {
+                        return (
+                            <div key={item.id} className={styles.resourceItem}>
+                                <Row>
+                                    <Col span={1}>
+                                        [{index + 1}]
+                                    </Col>
+                                    <Col span={15} className={styles.itemHover}>
+                                        {item?.name?.length <= 23 ? item.name : item.name?.slice(0, 23) + '...'}
+                                    </Col>
+                                    <Col span={4} style={{ color: '#ff4d4f', fontSize: 12 }}>
+                                        活动已结束
+                                    </Col>
+                                    <Col span={4} style={{ fontSize: 12 }}>
+                                        {item.publishTime}
+                                    </Col>
+                                </Row>
+                            </div>
+                        )
+                    })
+                        :
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+                }
 
+                <Row>
+                    <Col span={10}></Col>
+                    {
+                        data?.length > 8 && <Col style={{ marginTop: 15 }} className={styles.itemHover}>查看更多<DoubleRightOutlined /></Col>
+                    }
+                </Row>
+            </Card>)
+    }
 
     /**
-     * 获取consultationList
+     * 获取公告资源数据
      */
-    const { data } = useRequest(() => {
+    // 获取征询意见列表
+    const consultationListRes = useRequest(() => {
         return getConsultationList();
     });
-    const consultationList = data?.data
+    const consultationList = consultationListRes?.data?.data
+    // 获取征询意见列表
+    const purchaseAnnouncementRes = useRequest(() => {
+        return getPurchaseAnnouncementList();
+    });
+    const purchaseAnnouncement = purchaseAnnouncementRes?.data?.data
+    // 获取结果公告
+    const resultAnnouncementRes = useRequest(() => {
+        return getResultAnnouncementList();
+    });
+    const resultAnnouncement = resultAnnouncementRes?.data?.data
+    // 获取结果公告
+    const correctAnnouncementRes = useRequest(() => {
+        return getCorrectAnnouncementList();
+    });
+    const correctAnnouncement = correctAnnouncementRes?.data?.data
 
 
-    const [state, setState] = useState(0)
+    const [state, setState] = useState(1)
 
     const ResourceContent = () => {
-        let constent = <>
-            {JSON.stringify(consultationList)}
-            征询意见
-        </>
-
+        let constent = <ResourceItemElem data={consultationList} />
 
         if (state === 1) {
-            constent = <>
-                {JSON.stringify(consultationList)}
-                征询意见
-            </>
+            constent = <ResourceItemElem data={consultationList} />
         }
         else if (state === 2) {
-            constent = <>采购公告</>
+            constent = <ResourceItemElem data={purchaseAnnouncement} />
         }
         else if (state === 3) {
-            constent = <>结果公告</>
+            constent = <ResourceItemElem data={resultAnnouncement} />
         }
         else if (state === 4) {
-            constent = <>更正公告</>
+            constent = <ResourceItemElem data={correctAnnouncement} />
         }
         return constent
     }
-
-
-
-
-
     return (
         <>
             <Row className={styles.title}>
@@ -57,28 +100,26 @@ const ResourceAnnounce: React.FC = () => {
                 </Col>
                 <Col>
                     <div className={styles.titleNav}>
-                        <div className={styles.navItem} onMouseEnter={() => setState(1)}>
+                        <div className={classnames(styles.navItem, state === 1 ? styles.navItemHover : '')} onMouseEnter={() => setState(1)}>
                             <div className={styles.navItemText}>
                                 征询意见
                             </div>
                         </div>
-                        <div className={styles.navItem} onMouseEnter={() => setState(2)}>
+                        <div className={classnames(styles.navItem, state === 2 ? styles.navItemHover : '')} onMouseEnter={() => setState(2)}>
                             <div className={styles.navItemText}>
                                 采购公告
                             </div>
                         </div>
-                        <div className={styles.navItem} onMouseEnter={() => setState(3)}>
+                        <div className={classnames(styles.navItem, state === 3 ? styles.navItemHover : '')} onMouseEnter={() => setState(3)}>
                             <div className={styles.navItemText}>
                                 结果公告
                             </div>
                         </div>
-                        <div className={styles.navItem} onMouseEnter={() => setState(4)}>
+                        <div className={classnames(styles.navItem, state === 4 ? styles.navItemHover : '')} onMouseEnter={() => setState(4)}>
                             <div className={styles.navItemText}>
                                 更正意见
                             </div>
                         </div>
-
-
                     </div>
                 </Col>
             </Row>

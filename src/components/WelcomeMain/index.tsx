@@ -5,9 +5,6 @@ import { Card, Col, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
 import { CalendarOutlined, LoginOutlined, ToolOutlined } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce'
-import { getConsultationList } from '@/services/resource/api'
-import { useRequest } from '@umijs/hooks';
-
 
 
 const JumpSystemLine = () => {
@@ -43,12 +40,6 @@ const JumpSystemLine = () => {
 }
 
 const WelcomeMain: React.FC = () => {
-    // 获取consultationList
-    // const { data: { data: consultationList } } = useRequest(() => {
-    //     return getConsultationList();
-    // });
-
-
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.cardContent}>

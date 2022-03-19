@@ -1,4 +1,6 @@
 .title{
+    color: #337ab7;
+
     height: 37px;
     background: #e9f0f9;
     
@@ -8,7 +10,7 @@
     }
 
     .titleNav{
-        background-color: gray;
+        // background-color: gray;
         // width: 540px;
         display: flex;
         align-items: center;
@@ -18,7 +20,7 @@
             padding: 0 8px;
             height: 37px;
             line-height: 37px;
-            background-color: rgb(198, 155, 76);
+            // background-color: rgb(198, 155, 76);
 
             display: flex;
             justify-content: center;
@@ -34,5 +36,44 @@
                 cursor: pointer;
             }
         }
+        
+        .navItemHover{
+            // width: 80px;
+            padding: 0 8px;
+            height: 37px;
+            line-height: 37px;
+
+            background-color: #0c7ed9;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px 5px 0 0;
+
+            display: flex;
+            justify-content: center;
+
+            .navItemText{
+                padding: 0 8px;
+            }
+        }
+    }
+}
+
+.resourceItem{
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    
+    // background-color: #7cbcf0;
+    margin: 4px 0;
+    
+}
+
+
+.itemHover{
+    color: #128bed;
+    cursor: pointer;
+    &:hover{
+        text-decoration:underline;
+        color: #337ab7
     }
 }
