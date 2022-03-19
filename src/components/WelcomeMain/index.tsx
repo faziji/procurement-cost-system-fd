@@ -43,27 +43,10 @@ const JumpSystemLine = () => {
 }
 
 const WelcomeMain: React.FC = () => {
-
-    const [consultationList, setConsultationList] = useState({})
-
-    // const getConsultationListMethod = async () => await getConsultationList().then(res => {
-    //     if (res?.code === 0) {
-    //         setConsultationList(res?.data)
-    //     } else {
-    //         console.log('consultationList获取失败');
-    //     }
-    // }
-    // ).catch(error => message.error(error))
-
-    // 获取征询意见列表
-    // getConsultationListMethod()
-    // const consultationList = getConsultationListMethod().
-    // console.log('22222222222222222', consultationList);
-    // 获取tab列表数据
-    const { data: listData } = useRequest(() => {
-        return getConsultationList();
-    });
-    console.log('22222222222222222', listData);
+    // 获取consultationList
+    // const { data: { data: consultationList } } = useRequest(() => {
+    //     return getConsultationList();
+    // });
 
 
     return (

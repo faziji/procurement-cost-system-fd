@@ -2,14 +2,36 @@ import { Col, Row, Typography } from "antd"
 import { useState } from "react"
 import { ToolOutlined } from '@ant-design/icons';
 import styles from './index.less';
+import { getConsultationList } from '@/services/resource/api'
+import { useRequest } from '@umijs/hooks';
+
 
 const ResourceAnnounce: React.FC = () => {
+
+
+    /**
+     * 获取consultationList
+     */
+    const { data } = useRequest(() => {
+        return getConsultationList();
+    });
+    const consultationList = data?.data
+
+
     const [state, setState] = useState(0)
 
     const ResourceContent = () => {
-        let constent = <></>
+        let constent = <>
+            {JSON.stringify(consultationList)}
+            征询意见
+        </>
+
+
         if (state === 1) {
-            constent = <>征询意见</>
+            constent = <>
+                {JSON.stringify(consultationList)}
+                征询意见
+            </>
         }
         else if (state === 2) {
             constent = <>采购公告</>
