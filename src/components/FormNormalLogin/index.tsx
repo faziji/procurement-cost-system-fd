@@ -1,10 +1,14 @@
-import styles from "./index.less";
-import { Form, Input, Button, Checkbox, Row, Col, message } from "antd";
+import { Form, Input, Button, Checkbox, Row, Col, message, Card } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
+// import UserOutlined from "@ant-design/icons"
+// import LockOutlined from "@ant-design/icons"
 
 import { login, getCurrentUserInfo } from '@/services/user/api'
+import { useState } from "react";
+import { getToken, getUerInfo } from "@/utils";
 
-const NormalLoginForm = () => {
+
+const NormalLoginForm = (props: any) => {
   const onFinish = async (values: any) => {
     console.log("Received values of form: ", values);
     let res = await login(values)
@@ -19,6 +23,7 @@ const NormalLoginForm = () => {
       try {
         let resData = await getCurrentUserInfo();
         localStorage.setItem('fdUserInfo', JSON.stringify(resData?.data))
+        props.handleLogined(true)
         message.success("登录成功！")
       } catch (error) {
         localStorage.removeItem('fdToken')
@@ -36,6 +41,7 @@ const NormalLoginForm = () => {
       className="login-form"
       initialValues={{ remember: true }}
       onFinish={onFinish}
+      style={{ height: 270 }}
     >
       <Form.Item
         name="username"
@@ -71,49 +77,59 @@ const NormalLoginForm = () => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
+        <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: 245 }}>
           登录
         </Button>
         <p style={{ color: '#767676' }}>注册登录即表示同意<a href="">用户协议</a>、<a href="">隐私政策</a></p>
       </Form.Item>
-      <Form.Item>
-        <Row>
-          <Col span={8}>
-            <div className={styles.loginFormEntry1} >
-              <div className={styles.entryWrapper}>
-                <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ds.png" alt="" />
-                <p>供应商入口</p>
-              </div>
-            </div>
-          </Col>
-          <Col span={8}>
-            <div className={styles.loginFormEntry2} >
-              <div className={styles.entryWrapper}>
-                <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ds.png" alt="" />
-                <p>管理后台</p>
-              </div>
-            </div>
-          </Col>
-          <Col span={8}>
-            <div className={styles.loginFormEntry3} >
-              <div className={styles.entryWrapper}>
-                <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ds.png" alt="" />
-                <p>管理后台</p>
-              </div>
-            </div>
-          </Col>
-
-        </Row>
-      </Form.Item>
-
     </Form>
   );
 };
 
-export default () => (
-  <div className={styles.container}>
-    <div id="components-form-demo-normal-login">
-      <NormalLoginForm />
-    </div>
-  </div>
-);
+/**
+ * 已登录表格
+ */
+const NormalLoginedForm = (props: any) => {
+  /**
+   * 退出登录
+   * 删除fdToken和fdUserInfo
+   */
+  const removelocalStorage = () => {
+
+    localStorage.removeItem('fdToken')
+    localStorage.removeItem('fdUserInfo')
+    props.handleLogined(false)
+    message.success('退出登录成功！')
+  }
+
+  /**
+   * 从本地获取用户信息
+   */
+  const userInfo = JSON.parse(getUerInfo() || "")
+
+  return (
+    <Form
+      name="normal_login"
+      className="login-form"
+      style={{ height: 270 }}
+    >
+
+      <Form.Item>
+        {getUerInfo()}
+        登录成功,
+        <a onClick={removelocalStorage}>[退出登录]</a>
+      </Form.Item>
+    </Form>
+  )
+}
+
+
+
+const FormNormalLogin = () => {
+  // 登录状态
+  const [logined, setLogined] = useState(!!getToken())
+  return logined ? <NormalLoginedForm handleLogined={setLogined} /> : <NormalLoginForm handleLogined={setLogined} />
+
+}
+
+export default FormNormalLogin;
