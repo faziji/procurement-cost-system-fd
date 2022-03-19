@@ -1,5 +1,5 @@
-import { Form, Input, Button, Checkbox, Row, Col, message, Card } from "antd";
-import { UserOutlined, LockOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Checkbox, Row, Col, message, Card, Avatar, Descriptions } from "antd";
+import { UserOutlined, LockOutlined, AntDesignOutlined } from "@ant-design/icons";
 // import UserOutlined from "@ant-design/icons"
 // import LockOutlined from "@ant-design/icons"
 
@@ -107,6 +107,7 @@ const NormalLoginedForm = (props: any) => {
    */
   const userInfo = JSON.parse(getUerInfo() || "")
 
+
   return (
     <Form
       name="normal_login"
@@ -115,11 +116,30 @@ const NormalLoginedForm = (props: any) => {
     >
 
       <Form.Item>
-        {getUerInfo()}
-        登录成功,
+        <Avatar
+          icon={<AntDesignOutlined />}
+          src={userInfo?.avatar}
+        />
+        登录成功,欢迎您{userInfo.name}!
         <a onClick={removelocalStorage}>[退出登录]</a>
       </Form.Item>
+      <Form.Item>
+        {/* {getUerInfo()} */}
+        <Row>
+          公司名：{userInfo.companyName}
+        </Row>
+        <Row>
+          联系人姓名：{userInfo.name}
+        </Row>
+        <Row>
+          邮箱：{userInfo.email}
+        </Row>
+        <Row>
+          当前账号状态：{userInfo.role}
+        </Row>
+      </Form.Item>
     </Form>
+
   )
 }
 
