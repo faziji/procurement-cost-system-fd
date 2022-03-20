@@ -18,7 +18,7 @@ const Header: React.FC = () => {
                 </Link>
             </Menu.Item>
             <Menu.Item key="2" className={styles.menuItem}>
-                <Link to="/department">
+                <Link to="/department/organization">
                     组织架构
                 </Link>
             </Menu.Item>

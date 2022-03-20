@@ -2,10 +2,10 @@ import Footer from '@/components/Frame/Footer';
 import Header from '@/components/Frame/Header';
 import React, { useState } from 'react';
 import styles from './index.less';
-import { DownOutlined } from '@ant-design/icons'
+import { DownOutlined, RightOutlined } from '@ant-design/icons'
 
 
-const Department: React.FC = () => {
+const Organization: React.FC = () => {
     return (
         <>
             <Header />
@@ -14,7 +14,7 @@ const Department: React.FC = () => {
 
                     <div className={styles.leftContent}>
                         <div className={styles.navTitle}>
-                            <DownOutlined style={{ marginLeft: 40 }} />部门概况
+                            <DownOutlined style={{ marginLeft: 30 }} />部门概况
                         </div>
                         <hr />
                         <div className={styles.navItem}>
@@ -22,7 +22,9 @@ const Department: React.FC = () => {
                         </div>
                         <hr />
                         <div className={styles.navItem}>
-                            组织架构
+                            <p>
+                                <RightOutlined style={{ fontSize: '16px', margin: '0 5px' }} />部门简介
+                            </p>
                         </div>
                         <hr />
                         <div className={styles.navItem}>
@@ -43,4 +45,4 @@ const Department: React.FC = () => {
     )
 }
 
-export default Department
+export default Organization

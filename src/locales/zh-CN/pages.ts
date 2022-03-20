@@ -67,4 +67,6 @@ export default {
   'pages.searchTable.batchApproval': '批量审批',
   'menu.department': '部门概况',
   'menu.department.welcome': '部门概况详情页',
+  'menu.department.introduce': '部门介绍',
+  'menu.department.organization': '组织架构',
 };
