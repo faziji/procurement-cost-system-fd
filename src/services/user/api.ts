@@ -127,3 +127,27 @@ export const getCurrentUserInfo = async () => {
   });
   return data;
 };
+
+/**
+ * 供应商注册信息
+ *@param username 账号
+ */
+export const createSupplier = async (params: any) => {
+  const data = await request(`/api/supplier/createSupplier`, {
+    method: 'POST',
+    data: params,
+  });
+  return data;
+};
+
+/**
+ * 更新供应商信息
+ *@param username 账号
+ */
+export const updateSupplierDetail = async (params: any) => {
+  const data = await request(`/api/supplier/updateSupplierDetail`, {
+    method: 'POST',
+    data: params,
+  });
+  return data;
+};

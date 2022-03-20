@@ -70,7 +70,7 @@ const NormalLoginForm = (props: any) => {
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>记住密码</Checkbox>
         </Form.Item>
-        <NavLink to="/register" style={{ marginLeft: '10px' }}>用户注册</NavLink>
+        <NavLink to="/register" style={{ marginLeft: '10px' }}>用户注册，</NavLink>
 
 
         <a className="login-form-forgot" href="">
