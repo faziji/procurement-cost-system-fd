@@ -65,4 +65,6 @@ export default {
   'pages.searchTable.tenThousand': '万',
   'pages.searchTable.batchDeletion': '批量删除',
   'pages.searchTable.batchApproval': '批量审批',
+  'menu.department': '部门概况',
+  'menu.department.welcome': '部门概况详情页',
 };

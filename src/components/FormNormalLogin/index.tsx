@@ -2,6 +2,8 @@ import { Form, Input, Button, Checkbox, Row, Col, message, Card, Avatar, Descrip
 import { UserOutlined, LockOutlined, AntDesignOutlined } from "@ant-design/icons";
 // import UserOutlined from "@ant-design/icons"
 // import LockOutlined from "@ant-design/icons"
+import { NavLink } from 'react-router-dom'
+
 
 import { login, getCurrentUserInfo } from '@/services/user/api'
 import { useState } from "react";
@@ -68,7 +70,7 @@ const NormalLoginForm = (props: any) => {
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>记住密码</Checkbox>
         </Form.Item>
-        <a href="" style={{ marginLeft: '10px' }}>用户注册</a>
+        <NavLink to="/register" style={{ marginLeft: '10px' }}>用户注册</NavLink>
 
 
         <a className="login-form-forgot" href="">

@@ -5,6 +5,7 @@ import styles from './index.less';
 import { getConsultationList, getPurchaseAnnouncementList, getResultAnnouncementList, getCorrectAnnouncementList } from '@/services/resource/api'
 import { useRequest } from '@umijs/hooks';
 import classnames from 'classnames'
+import HeaderSearch from '@/components/HeaderSearch'
 
 const ResourceAnnounce: React.FC = () => {
     /**
@@ -119,6 +120,10 @@ const ResourceAnnounce: React.FC = () => {
                             <div className={styles.navItemText}>
                                 更正意见
                             </div>
+                        </div>
+                        <div className={styles.navItemText}>
+                            {/* 查询<HeaderSearch options={[]} /> */}
+                            {/* 查询 */}
                         </div>
                     </div>
                 </Col>

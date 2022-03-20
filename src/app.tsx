@@ -56,7 +56,7 @@ export const layout: RunTimeLayoutConfig = ({ initialState }) => {
     footerRender: () => <Footer />,
     onPageChange: () => {
       const { location } = history;
-      history.push('/welcome');
+      // history.push('/welcome');
     },
     menuHeaderRender: undefined,
     // 自定义 403 页面

@@ -1,0 +1,61 @@
+.mainWrapper{
+    background-color: #bfa;
+    // height: 600px;
+    display: flex;
+    justify-content: center;
+
+    .contentWrapper{
+        width: 1377px;
+        height: 600px;
+        background-color: pink;
+    }
+}
+
+
+.headerWrapper{
+    .title{
+        display: flex;
+        justify-content: center;
+        .titleContent{
+            width: 1377px;
+            height: 110px;
+            background-color: pink;
+            /* stylelint-disable-next-line declaration-block-no-shorthand-property-overrides */
+            background: url("http://ztbzx.cqu.edu.cn/sfw_cms/res/cms/images/banner.jpg");
+            opacity: .8;
+        }
+    }
+    
+    .headerNav{
+        height: 40px;
+        color: white;
+        // background-color: rgb(111, 111, 213);
+        // opacity: 0.5;
+
+        display: flex;
+        justify-content: center;
+
+        .headerNavWrapper{
+            width: 1377px;
+            background-color: #128bed;
+            display: flex;
+            cursor: pointer;
+
+            .navItem{
+                // background-color: green;
+                color: white;
+                width: 172px;
+                height: 40px;
+                line-height: 40px;
+                // background-color: rgb(69, 182, 179);
+                display: flex;
+                justify-content: center;
+
+                &:hover{
+                    background-color: rgb(68, 87, 184);
+                }
+
+            }
+        }
+    }
+}
