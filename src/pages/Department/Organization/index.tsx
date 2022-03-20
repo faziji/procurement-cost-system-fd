@@ -3,6 +3,7 @@ import Header from '@/components/Frame/Header';
 import React, { useState } from 'react';
 import styles from './index.less';
 import { DownOutlined, RightOutlined } from '@ant-design/icons'
+import { NavLink } from 'umi';
 
 
 const Organization: React.FC = () => {
@@ -12,20 +13,23 @@ const Organization: React.FC = () => {
             <div className={styles.mainWrapper}>
                 <div className={styles.mainContent}>
 
-                    <div className={styles.leftContent}>
-                        <div className={styles.navTitle}>
-                            <DownOutlined style={{ marginLeft: 30 }} />部门概况
-                        </div>
+                    <div className={styles.leftContent} >
+                        <NavLink to="/department">
+                            <div className={styles.navTitle}>
+                                <DownOutlined style={{ marginLeft: 30 }} />部门概况
+                            </div>
+                        </NavLink>
                         <hr />
-                        <div className={styles.navItem}>
+                        <NavLink className={styles.navItem} to="/department/introduce">
                             部门简介
-                        </div>
+                        </NavLink>
                         <hr />
-                        <div className={styles.navItem}>
+                        <NavLink className={styles.navItem} to="/department/organization">
                             <p>
                                 <RightOutlined style={{ fontSize: '16px', margin: '0 5px' }} />部门简介
                             </p>
-                        </div>
+                        </NavLink>
+
                         <hr />
                         <div className={styles.navItem}>
                             岗位职责
