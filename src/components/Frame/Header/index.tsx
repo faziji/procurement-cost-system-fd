@@ -33,7 +33,13 @@ const Header: React.FC = () => {
 
     return (
         <div className={styles.headerWrapper}>
-            <div className={styles.title} style={{ height: "110px", backgroundColor: 'pink' }}><h1>采购招标中心</h1></div>
+            <div className={styles.headerTitle}>
+                <div className={styles.headerContent}>
+                    <Link to="/welcome">
+                        <h1 className={styles.headerContentText}>企业招标采购中心</h1>
+                    </Link>
+                </div>
+            </div>
             <div className={styles.headerNav}>
 
                 <div className={styles.headerNavContent}>

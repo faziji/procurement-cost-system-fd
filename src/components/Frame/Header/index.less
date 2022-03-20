@@ -1,10 +1,30 @@
 .headerWrapper{
     // height: 600px;
     // background-color:#bfa;
+    // display: flex;
+    // flex-wrap: wrap;
+
+    .headerTitle{
+        display: flex;
+        justify-content: center;
+        .headerContent{
+            height: 100%;
+            width: 1377px;
+            background: no-repeat url("http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/bg-header.png");
+            background-size:100% 100%;
+
+            .headerContentText{
+                line-height: 115px;
+                height: 85px;
+                color: #3b9ef0;
+                font-weight: 600;
+                margin-left: 60px;
+                cursor: pointer;
+            }
+        }
+    }
     .headerNav{
         height: 40px;
-        // background-color: rgb(136, 136, 211);
-        // opacity: 0.5;
         display: flex;
         justify-content: center;
 
@@ -23,7 +43,7 @@
 .navItem{
     cursor: pointer;
     color: white;
-    width: 160px;
+    width: 172px;
     height: 40px;
     line-height: 40px;
     font-weight: 600;
