@@ -18,7 +18,7 @@ sidemenu: false
  * background: '#f0f2f5'
  */
 import React from 'react';
-import Footer from '@/components/Footer';
+import Footer from '@/components/Frame/Footer';
 
 export default () => <Footer />;
 ```
