@@ -1,5 +1,5 @@
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import Footer from '@/components/Frame/Footer';
+import Header from '@/components/Frame/Header';
 import React, { useState } from 'react';
 import styles from './index.less';
 import { DownOutlined } from '@ant-design/icons'
