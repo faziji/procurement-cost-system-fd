@@ -1,18 +1,16 @@
-import Footer from '@/components/Frame/Footer';
-import Header from '@/components/Frame/Header';
+import Footer from '@/components/Footer';
+import Header from '@/components/Header';
 import React, { useState } from 'react';
 import styles from './index.less';
 import { DownOutlined } from '@ant-design/icons'
 
 
 const Department: React.FC = () => {
-
     return (
         <>
             <Header />
             <div className={styles.mainWrapper}>
                 <div className={styles.mainContent}>
-
 
                     <div className={styles.leftContent}>
                         <div className={styles.navTitle}>

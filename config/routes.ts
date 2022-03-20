@@ -29,17 +29,6 @@
         component: './404',
       },
     ],
-    //   routes: [
-    //     {
-    //   path: '/department',
-    //   routes:[{
-    //     name: 'welcome',
-    //     path: '/welcome',
-    //     component: './Welcome',
-    //     // redirect: '/welcome',
-    //   },
-    // ]
-    //   ],
   },
   {
     path: '/',
