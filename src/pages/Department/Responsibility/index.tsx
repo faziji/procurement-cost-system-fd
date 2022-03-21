@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { FrameNav } from '@/components/Frame';
 
 
 const Organization: React.FC = () => {
-
-    const [current, setCurrent] = useState(1)
 
     const menu = [
         {
@@ -32,7 +30,7 @@ const Organization: React.FC = () => {
 
     return (
         <>
-            <FrameNav menu={menu} current={current} onCurrent={setCurrent}>组织架构{current}</FrameNav>
+            <FrameNav menu={menu}>组织架构</FrameNav>
         </>
     )
 }

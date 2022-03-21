@@ -1,53 +1,44 @@
-import Footer from '@/components/Frame/Footer';
-import Header from '@/components/Frame/Header';
 import React, { useState } from 'react';
-import styles from './index.less';
-import { DownOutlined, RightOutlined } from '@ant-design/icons'
-import { NavLink } from 'umi';
+import { FrameNav } from '@/components/Frame';
 
 
-const Introduce: React.FC = () => {
+const Introduce: React.FC = (porps: any) => {
+
+    const [current, setCurrent] = useState(porps.location.query?.current || 1)
+
+    // 当路由变化参数时更新组件状态
+    if (current !== porps.location.query?.current) {
+        setCurrent(porps.location.query?.current)
+    }
+
+    const menu = [
+        {
+            route: '/department',
+            itemName: '部门概况', // 唯一
+            id: 0
+        },
+        {
+            route: '/department',
+            itemName: '部门简介', // 唯一
+            id: 1
+        },
+        {
+            route: '/department',
+            itemName: '组织架构', // 唯一
+            id: 2
+        },
+        {
+            route: '/department',
+            itemName: '岗位职责', // 唯一
+            id: 3
+        },
+    ]
+
+
     return (
         <>
-            <Header />
-            <div className={styles.mainWrapper}>
-                <div className={styles.mainContent}>
-
-                    <div className={styles.leftContent}>
-                        <NavLink to="/department">
-                            <div className={styles.navTitle}>
-                                <DownOutlined style={{ marginLeft: 30 }} />部门概况
-                            </div>
-                        </NavLink>
-                        <hr />
-                        <NavLink className={styles.navItem} to="/department/introduce">
-
-                            <p>
-                                <RightOutlined style={{ fontSize: '16px', margin: '0 5px' }} />部门简介
-                            </p>
-                        </NavLink>
-
-                        <hr />
-                        <NavLink className={styles.navItem} to="/department/organization">
-                            组织架构
-                        </NavLink>
-
-                        <hr />
-                        <div className={styles.navItem}>
-                            岗位职责
-                        </div>
-                        <hr />
-
-                        <img style={{ width: 200 }} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/list.jpg" alt="图片" />
-                    </div>
-
-                </div>
-            </div>
-
-            <Footer />
-
+            <FrameNav menu={menu} current={current} onCurrent={setCurrent}>部门简介{current}</FrameNav>
         </>
-
     )
 }
 

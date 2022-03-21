@@ -13,17 +13,17 @@ const Header: React.FC = () => {
     const menu = (
         <Menu>
             <Menu.Item key="1" className={styles.menuItem}>
-                <Link to="/department">
+                <Link to="/department?current=1">
                     部门简介
                 </Link>
             </Menu.Item>
             <Menu.Item key="2" className={styles.menuItem}>
-                <Link to="/department/organization">
+                <Link to="/department?current=2">
                     组织架构
                 </Link>
             </Menu.Item>
             <Menu.Item key="3" className={styles.menuItem}>
-                <Link to="/department">
+                <Link to="/department?current=3">
                     岗位职责
                 </Link>
             </Menu.Item>

@@ -1,46 +1,45 @@
-import Footer from '@/components/Frame/Footer';
-import Header from '@/components/Frame/Header';
 import React, { useState } from 'react';
-import styles from './index.less';
-import { DownOutlined } from '@ant-design/icons'
+import { FrameNav } from '@/components/Frame';
 
 
-const Department: React.FC = () => {
+const Responsibility: React.FC = (porps: any) => {
+
+    const [current, setCurrent] = useState(porps.location.query?.current || 1)
+
+    // 当路由变化参数时更新组件状态
+    if (current !== porps.location.query?.current) {
+        setCurrent(porps.location.query?.current)
+    }
+
+    const menu = [
+        {
+            route: '/department',
+            itemName: '部门概况', // 唯一
+            id: 0
+        },
+        {
+            route: '/department',
+            itemName: '部门简介', // 唯一
+            id: 1
+        },
+        {
+            route: '/department',
+            itemName: '组织架构', // 唯一
+            id: 2
+        },
+        {
+            route: '/department',
+            itemName: '岗位职责', // 唯一
+            id: 3
+        },
+    ]
+
+
     return (
         <>
-            <Header />
-            <div className={styles.mainWrapper}>
-                <div className={styles.mainContent}>
-
-                    <div className={styles.leftContent}>
-                        <div className={styles.navTitle}>
-                            <DownOutlined style={{ marginLeft: 40 }} />部门概况
-                        </div>
-                        <hr />
-                        <div className={styles.navItem}>
-                            部门简介
-                        </div>
-                        <hr />
-                        <div className={styles.navItem}>
-                            组织架构
-                        </div>
-                        <hr />
-                        <div className={styles.navItem}>
-                            岗位职责
-                        </div>
-                        <hr />
-
-                        <img style={{ width: 200 }} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/list.jpg" alt="图片" />
-                    </div>
-
-                </div>
-            </div>
-
-            <Footer />
-
+            <FrameNav menu={menu} current={current} onCurrent={setCurrent}>部门简介{current}</FrameNav>
         </>
-
     )
 }
 
-export default Department
+export default Responsibility

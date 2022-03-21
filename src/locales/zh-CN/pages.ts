@@ -69,4 +69,5 @@ export default {
   'menu.department.welcome': '部门概况详情页',
   'menu.department.introduce': '部门介绍',
   'menu.department.organization': '组织架构',
+  'menu.department.responsibility': '岗位职责',
 };
