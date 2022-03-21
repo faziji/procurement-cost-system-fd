@@ -5,6 +5,7 @@ export const departmentMenu = [
   {
     route: '/department',
     itemName: '部门概况',
+    // itemNameDocument:'部门概况.docx',
     id: 0,
   },
   {

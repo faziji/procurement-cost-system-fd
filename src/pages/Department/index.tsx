@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { FrameNav } from '@/components/Frame';
 import { departmentMenu } from '@/resources/index'
+// import {url}
+// const { url } = require("../../../config/qiniuyun").qiniuyn;
+import { qiNiuUrl } from '../../../config/qiniuyun'
 
 
-const Responsibility: React.FC = (porps: any) => {
+
+const Department: React.FC = (porps: any) => {
+
+    let url = qiNiuUrl + "DepartmentFD/部门简介.docx"
 
     const [current, setCurrent] = useState(porps.location.query?.current || 1)
 
@@ -19,4 +25,4 @@ const Responsibility: React.FC = (porps: any) => {
     )
 }
 
-export default Responsibility
+export default Department
