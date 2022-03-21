@@ -1,9 +1,10 @@
 import Footer from "@/components/Frame/Footer"
 import Header from "@/components/Frame/Header"
-import { NavLink } from "umi";
+import { Link, NavLink } from "umi";
 import styles from './index.less';
 
-import { DownOutlined, RightOutlined } from '@ant-design/icons'
+import { DownOutlined, HomeOutlined, RightOutlined } from '@ant-design/icons'
+import { Breadcrumb, Col, Divider, Row } from "antd";
 
 /**
  * 内容不带左侧导航栏
@@ -51,10 +52,31 @@ export const FrameNav: any = (props: any) => {
                             ))
                         }
                         <img style={{ width: 200 }} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/list.jpg" alt="图片" />
-
                     </div>
-                    <div className={styles.rightContent}>
-                        {props.children}
+                    <div className={styles.rightContent} >
+                        <Row >
+                            <Col className={styles.rightContentCol}>
+                                {menu[current || 1].itemName}
+                            </Col>
+                            <Col className={styles.rightContentColBreadcrumb}>
+                                当前位置：
+                            </Col>
+                            <Col className={styles.rightContentColBreadcrumb}>
+                                <Breadcrumb>
+                                    <Breadcrumb.Item><Link to={'/welcome'}><HomeOutlined />首页</Link></Breadcrumb.Item>
+                                    <Breadcrumb.Item>
+                                        <Link to={menu[0].route}>{menu[0]?.itemName}</Link>
+                                    </Breadcrumb.Item>
+                                    <Breadcrumb.Item>
+                                        {menu[current || 1].itemName}
+                                    </Breadcrumb.Item>
+                                </Breadcrumb>
+                            </Col>
+                        </Row>
+                        <Divider />
+                        <Row>
+                            {props.children}
+                        </Row>
                     </div>
                 </div>
             </div>
