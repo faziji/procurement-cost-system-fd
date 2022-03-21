@@ -7,28 +7,23 @@ import {
     Route,
     Link
 } from 'react-router-dom'
+import { departmentMenu } from '@/resources';
 
 const Header: React.FC = () => {
 
-    const menu = (
+    const departmentMenuItem = (
         <Menu>
-            <Menu.Item key="1" className={styles.menuItem}>
-                <Link to="/department?current=1">
-                    部门简介
-                </Link>
-            </Menu.Item>
-            <Menu.Item key="2" className={styles.menuItem}>
-                <Link to="/department?current=2">
-                    组织架构
-                </Link>
-            </Menu.Item>
-            <Menu.Item key="3" className={styles.menuItem}>
-                <Link to="/department?current=3">
-                    岗位职责
-                </Link>
-            </Menu.Item>
+            {
+                departmentMenu.slice(1).map(item => (
+                    <Menu.Item key={item.id} className={styles.menuItem}>
+                        <Link to={`/department?current=${item.id}`} >
+                            {item.itemName}
+                        </Link>
+                    </Menu.Item>
+                ))
+            }
         </Menu>
-    );
+    )
 
 
     return (
@@ -46,37 +41,37 @@ const Header: React.FC = () => {
                     <NavLink className={styles.navItem} to="/welcome">
                         首页
                     </NavLink>
-                    <Dropdown overlay={menu} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department?current=1'>
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
+                        <NavLink className={styles.navItem} to={`${departmentMenu[0].itemName}?current=1`}>
                             部门概况
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={menu} placement="bottomCenter">
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
                         <NavLink className={styles.navItem} to='/department'>
                             政策法规
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={menu} placement="bottomCenter">
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
                         <NavLink className={styles.navItem} to='/department'>
                             办事指南
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={menu} placement="bottomCenter">
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
                         <NavLink className={styles.navItem} to='/department'>
                             下载中心
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={menu} placement="bottomCenter">
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
                         <NavLink className={styles.navItem} to='/department'>
                             党建工作
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={menu} placement="bottomCenter">
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
                         <NavLink className={styles.navItem} to='/department'>
                             联系我们
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={menu} placement="bottomCenter">
+                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
                         <NavLink className={styles.navItem} to='/department'>
                             管理后台
                         </NavLink>

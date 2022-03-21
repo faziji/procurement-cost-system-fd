@@ -1,11 +1,9 @@
 import Footer from "@/components/Frame/Footer"
 import Header from "@/components/Frame/Header"
-import { useState } from "react";
 import { NavLink } from "umi";
 import styles from './index.less';
 
 import { DownOutlined, RightOutlined } from '@ant-design/icons'
-
 
 /**
  * 内容不带左侧导航栏
@@ -25,28 +23,7 @@ const Frame: React.FC = (props: any) => {
 
 }
 
-
-
-// export const LeftNav: any = (props: any) => {
-
-//     // 记录当前路由页
-//     const [current, setCurrent] = useState(1)
-//     console.log('2222222222', current);
-
-//     return (
-//         <>
-
-//         </>
-//     )
-// }
-
-
-
-
-
-
 export const FrameNav: any = (props: any) => {
-
     const { menu, current, onCurrent } = props
 
     return (
