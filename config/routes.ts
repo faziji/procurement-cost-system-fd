@@ -20,6 +20,12 @@
     component: './Department',
   },
   {
+    path: '/policy',
+    name: 'policy',
+    layout: false, // 删除侧边栏和菜单栏
+    component: './Policy',
+  },
+  {
     path: '/',
     redirect: '/welcome',
   },

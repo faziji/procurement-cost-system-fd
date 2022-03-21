@@ -7,7 +7,7 @@ import {
     Route,
     Link
 } from 'react-router-dom'
-import { departmentMenu } from '@/resources';
+import { departmentMenu, policyMenu } from '@/resources';
 
 const Header: React.FC = () => {
 
@@ -16,7 +16,7 @@ const Header: React.FC = () => {
             {
                 departmentMenu.slice(1).map(item => (
                     <Menu.Item key={item.id} className={styles.menuItem}>
-                        <Link to={`/department?current=${item.id}`} >
+                        <Link to={item.route} >
                             {item.itemName}
                         </Link>
                     </Menu.Item>
@@ -24,7 +24,19 @@ const Header: React.FC = () => {
             }
         </Menu>
     )
-
+    const policyMenuItem = (
+        <Menu>
+            {
+                policyMenu.slice(1).map(item => (
+                    <Menu.Item key={item.id} className={styles.menuItem}>
+                        <Link to={item.route} >
+                            {item.itemName}
+                        </Link>
+                    </Menu.Item>
+                ))
+            }
+        </Menu>
+    )
 
     return (
         <div className={styles.headerWrapper}>
@@ -42,12 +54,12 @@ const Header: React.FC = () => {
                         首页
                     </NavLink>
                     <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to={`${departmentMenu[0].itemName}?current=1`}>
+                        <NavLink className={styles.navItem} to={departmentMenu[1].route}>
                             部门概况
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
+                    <Dropdown overlay={policyMenuItem} placement="bottomCenter">
+                        <NavLink className={styles.navItem} to={policyMenu[1].route}>
                             政策法规
                         </NavLink>
                     </Dropdown>

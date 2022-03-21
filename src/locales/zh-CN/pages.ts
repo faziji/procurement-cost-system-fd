@@ -70,4 +70,5 @@ export default {
   'menu.department.introduce': '部门介绍',
   'menu.department.organization': '组织架构',
   'menu.department.responsibility': '岗位职责',
+  'menu.policy': '政策法规',
 };

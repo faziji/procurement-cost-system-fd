@@ -32,7 +32,7 @@ export const FrameNav: any = (props: any) => {
             <div className={styles.mainWrapperNav}>
                 <div className={styles.mainContent}>
                     <div className={styles.leftContent}>
-                        <NavLink to={menu[0].route}>
+                        <NavLink to={menu[1].route}>
                             <div className={styles.navTitle}>
                                 <DownOutlined style={{ marginLeft: 30 }} />{menu[0].itemName}
                             </div>
@@ -41,7 +41,7 @@ export const FrameNav: any = (props: any) => {
                         {
                             menu.slice(1).map((item: any) => (
                                 <>
-                                    <NavLink className={styles.navItem} to={`${item.route}?current=${item.id}`} key={item.toString()} onClick={() => onCurrent(item.id)}>
+                                    <NavLink className={styles.navItem} to={item.route} key={item.toString()} onClick={() => onCurrent(item.id)}>
                                         <p>
                                             {current == item.id && <RightOutlined style={{ fontSize: '16px', margin: '0 5px' }} />} {item.itemName}
                                         </p>
