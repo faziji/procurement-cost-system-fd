@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FrameNav } from '@/components/Frame';
 
 
@@ -6,10 +6,13 @@ const Responsibility: React.FC = (porps: any) => {
 
     const [current, setCurrent] = useState(porps.location.query?.current || 1)
 
-    // 当路由变化参数时更新组件状态
-    if (current !== porps.location.query?.current) {
-        setCurrent(porps.location.query?.current)
-    }
+    useEffect(() => {
+        // 当路由变化参数时更新组件状态
+        if (current !== porps.location.query?.current) {
+            setCurrent(porps.location.query?.current)
+        }
+    }, [])
+
 
     const menu = [
         {
