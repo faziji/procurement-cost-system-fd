@@ -64,7 +64,7 @@ export const FrameNav: any = (props: any) => {
                         {
                             menu.slice(1).map((item: any) => (
                                 <>
-                                    <NavLink className={styles.navItem} to={"/department?current=" + item.id} key={item.toString()} onClick={() => onCurrent(item.id)}>
+                                    <NavLink className={styles.navItem} to={`${item.route}?current=${item.id}`} key={item.toString()} onClick={() => onCurrent(item.id)}>
                                         <p>
                                             {current == item.id && <RightOutlined style={{ fontSize: '16px', margin: '0 5px' }} />} {item.itemName}
                                         </p>

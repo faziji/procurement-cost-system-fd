@@ -47,7 +47,7 @@ const Header: React.FC = () => {
                         首页
                     </NavLink>
                     <Dropdown overlay={menu} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
+                        <NavLink className={styles.navItem} to='/department?current=1'>
                             部门概况
                         </NavLink>
                     </Dropdown>
