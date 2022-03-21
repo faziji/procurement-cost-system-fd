@@ -1,15 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, memo, useState } from 'react';
 import { FrameNav } from '@/components/Frame';
 import { departmentMenu } from '@/resources/index'
-// import {url}
-// const { url } = require("../../../config/qiniuyun").qiniuyn;
-import { qiNiuUrl } from '../../../config/qiniuyun'
 
+import FileViewer from 'react-file-viewer';
+import { CustomErrorComponent } from 'custom-error';
+import { qiNiuUrl } from '../../../config/qiniuyun'
 
 
 const Department: React.FC = (porps: any) => {
 
-    let url = qiNiuUrl + "DepartmentFD/部门简介.docx"
+    // let url = qiNiuUrl + "DepartmentFD/部门简介.docx"
+    const onError = (e: any) => {
+        console.log('显示错误');
+    }
 
     const [current, setCurrent] = useState(porps.location.query?.current || 1)
 
@@ -18,9 +21,26 @@ const Department: React.FC = (porps: any) => {
         setCurrent(porps.location.query?.current)
     }
 
+    const FileViewerEle = memo((props) => {
+        return (
+            <div>
+                <FileViewer
+                    // style={{ backgroundColor: "red" }}
+                    fileType="docx"
+                    filePath={qiNiuUrl + departmentMenu[current || 1].itemName + '.docx'}
+                    errorComponent={CustomErrorComponent}
+                    onError={onError} />
+            </div>
+        )
+    }, current)
+
+
     return (
         <>
-            <FrameNav menu={departmentMenu} current={current} onCurrent={setCurrent}>部门简介{current}</FrameNav>
+            <FrameNav menu={departmentMenu} current={current} onCurrent={setCurrent}>
+                <FileViewerEle />
+                {/* <Child /> */}
+            </FrameNav>
         </>
     )
 }

@@ -3,6 +3,11 @@ import Header from "@/components/Frame/Header"
 import { Link, NavLink } from "umi";
 import styles from './index.less';
 
+import FileViewer from 'react-file-viewer';
+import { CustomErrorComponent } from 'custom-error';
+import { qiNiuUrl } from '../../../config/qiniuyun'
+
+
 import { DownOutlined, HomeOutlined, RightOutlined } from '@ant-design/icons'
 import { Breadcrumb, Col, Divider, Row } from "antd";
 
@@ -26,6 +31,10 @@ const Frame: React.FC = (props: any) => {
 
 export const FrameNav: any = (props: any) => {
     const { menu, current, onCurrent } = props
+
+    const onError = (e: any) => {
+        console.log('显示错误');
+    }
 
     return (
         <>
@@ -74,6 +83,14 @@ export const FrameNav: any = (props: any) => {
                             </Col>
                         </Row>
                         <Divider />
+                        {/* <Row>
+                            <FileViewer
+                                style={{ backgroundColor: "red" }}
+                                fileType="docx"
+                                filePath={qiNiuUrl + menu[current || 1].itemName + '.docx'}
+                                errorComponent={CustomErrorComponent}
+                                onError={onError} />
+                        </Row> */}
                         <Row>
                             {props.children}
                         </Row>
