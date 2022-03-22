@@ -26,8 +26,8 @@ export const FrameNav: any = (props: any) => {
     const { menu, current, onCurrent } = props
 
     // 当路由变化参数时更新组件状态
-    if (current !== props.location.query?.current) {
-        onCurrent(props.location.query?.current)
+    if (current !== props.location?.query?.current) {
+        onCurrent(props.location?.query?.current)
     }
 
     return (
