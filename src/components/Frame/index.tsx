@@ -101,19 +101,11 @@ export const FrameNav: any = (props: any) => {
                             </Col>
                         </Row>
                         <Divider />
-                        {/* <Row>
-                            <FileViewer
-                                style={{ backgroundColor: "red" }}
-                                fileType="docx"
-                                filePath={qiNiuUrl + menu[current || 1].itemName + '.docx'}
-                                errorComponent={CustomErrorComponent}
-                                onError={onError} />
-                        </Row> */}
                         <Row>
                             <FileViewerEle />
-
                         </Row>
                         <Row>
+                            {/* 插槽 */}
                             {props.children}
                         </Row>
                     </div>
