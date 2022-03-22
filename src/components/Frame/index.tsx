@@ -59,7 +59,7 @@ export const FrameNav: any = (props: any) => {
                     <div className={styles.rightContent} >
                         <Row >
                             <Col className={styles.rightContentCol}>
-                                {menu[current || 1].itemName}
+                                {menu[current || 1]?.itemName}
                             </Col>
                             <Col className={styles.rightContentColBreadcrumb}>
                                 当前位置：
@@ -71,7 +71,7 @@ export const FrameNav: any = (props: any) => {
                                         <Link to={menu[0].route}>{menu[0]?.itemName}</Link>
                                     </Breadcrumb.Item>
                                     <Breadcrumb.Item>
-                                        {menu[current || 1].itemName}
+                                        {menu[current || 1]?.itemName}
                                     </Breadcrumb.Item>
                                 </Breadcrumb>
                             </Col>

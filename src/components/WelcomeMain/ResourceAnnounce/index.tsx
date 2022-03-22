@@ -5,13 +5,14 @@ import styles from './index.less';
 import { getConsultationList, getPurchaseAnnouncementList, getResultAnnouncementList, getCorrectAnnouncementList } from '@/services/resource/api'
 import { useRequest } from '@umijs/hooks';
 import classnames from 'classnames'
-import HeaderSearch from '@/components/HeaderSearch'
+import { Link } from "umi";
 
 const ResourceAnnounce: React.FC = () => {
     /**
      * 渲染具体内容
      */
-    const ResourceItemElem = ({ data }: any) => {
+    const ResourceItemElem = ({ data, state }: any) => {
+
         let handleData = data?.slice(0, 8) // 取前8个
         return (
             <Card style={{ width: 710, height: 359 }}>
@@ -43,7 +44,9 @@ const ResourceAnnounce: React.FC = () => {
                 <Row>
                     <Col span={10}></Col>
                     {
-                        data?.length > 8 && <Col style={{ marginTop: 15 }} className={styles.itemHover}>查看更多<DoubleRightOutlined /></Col>
+                        data?.length > 8 && <Col style={{ marginTop: 15 }} className={styles.itemHover}>
+                            <Link to={`/resources?current=${state}`}>查看更多<DoubleRightOutlined /></Link>
+                        </Col>
                     }
                 </Row>
             </Card>)
@@ -77,19 +80,19 @@ const ResourceAnnounce: React.FC = () => {
     const [state, setState] = useState(1)
 
     const ResourceContent = () => {
-        let constent = <ResourceItemElem data={consultationList} />
+        let constent = <ResourceItemElem data={consultationList} state={state} />
 
         if (state === 1) {
-            constent = <ResourceItemElem data={consultationList} />
+            constent = <ResourceItemElem data={consultationList} state={state} />
         }
         else if (state === 2) {
-            constent = <ResourceItemElem data={purchaseAnnouncement} />
+            constent = <ResourceItemElem data={purchaseAnnouncement} state={state} />
         }
         else if (state === 3) {
-            constent = <ResourceItemElem data={resultAnnouncement} />
+            constent = <ResourceItemElem data={resultAnnouncement} state={state} />
         }
         else if (state === 4) {
-            constent = <ResourceItemElem data={correctAnnouncement} />
+            constent = <ResourceItemElem data={correctAnnouncement} state={state} />
         }
         return constent
     }

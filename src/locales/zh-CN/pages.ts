@@ -72,4 +72,8 @@ export default {
   'menu.department.responsibility': '岗位职责',
   'menu.policy': '政策法规',
   'menu.contact': '联系我们',
+  'menu.instruction': '办事指南',
+  'menu.resources': '货物与服务',
+  'menu.download': '下载中心',
+  'menu.party': '党建活动',
 };

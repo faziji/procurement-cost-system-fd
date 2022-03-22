@@ -137,7 +137,7 @@ const NormalLoginedForm = (props: any) => {
           邮箱：{userInfo.email}
         </Row>
         <Row>
-          当前账号状态：{userInfo.role}
+          当前账号状态：{userInfo.role === "supplier-reviewing" ? '申请中...' : userInfo.role === "supplier-unaccess" ? '已拒绝' : userInfo.role === 'supplier' ? '正常' : '账号异常'}
         </Row>
       </Form.Item>
     </Form>
