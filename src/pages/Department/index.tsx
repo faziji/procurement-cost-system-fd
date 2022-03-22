@@ -5,6 +5,7 @@ import { departmentMenu } from '@/resources/index'
 import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
 import { qiNiuUrl } from '../../../config/qiniuyun'
+import styles from './index.less'
 
 
 const Department: React.FC = (porps: any) => {
@@ -23,9 +24,8 @@ const Department: React.FC = (porps: any) => {
 
     const FileViewerEle = memo((props) => {
         return (
-            <div>
+            <div className={styles.fileViewerWrapper}>
                 <FileViewer
-                    // style={{ backgroundColor: "red" }}
                     fileType="docx"
                     filePath={qiNiuUrl + departmentMenu[current || 1].itemName + '.docx'}
                     errorComponent={CustomErrorComponent}
