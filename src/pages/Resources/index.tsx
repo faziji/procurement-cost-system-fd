@@ -118,8 +118,8 @@ const Resources: React.FC = (props: any) => {
         <>
             <FrameNav menu={resourceMenu} current={current} onCurrent={setCurrent} {...props} >
                 {/* 留空添加额外的组件 */}
-                {/* <ResourceContent />
-                {current} */}
+                <ResourceContent />
+                {current}
             </FrameNav>
         </>
     )

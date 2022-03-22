@@ -55,12 +55,19 @@
     layout: false,
     component: './MenuPage/DOCX/Contact',
   },
-  // 货物与服务：征询意见、采购公告、结果公告、更正意见
+  // 货物与服务列表：征询意见、采购公告、结果公告、更正意见
   {
     path: '/resources',
     name: 'resources',
     layout: false,
     component: './Resources',
+  },
+  //  货物与服务具体节点详情页
+  {
+    path: '/resourceDetail',
+    name: 'resourceDetail',
+    layout: false,
+    component: './ResourceDetail',
   },
   {
     path: '/',

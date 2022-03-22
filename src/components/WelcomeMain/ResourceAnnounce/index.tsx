@@ -25,7 +25,9 @@ const ResourceAnnounce: React.FC = () => {
                                         [{index + 1}]
                                     </Col>
                                     <Col span={15} className={styles.itemHover}>
-                                        {item?.name?.length <= 23 ? item.name : item.name?.slice(0, 23) + '...'}
+                                        <Link to={`/resourceDetail?current=${state}&id=${item.id}`}>
+                                            {item?.name?.length <= 23 ? item.name : item.name?.slice(0, 23) + '...'}
+                                        </Link>
                                     </Col>
                                     <Col span={4} style={{ color: '#ff4d4f', fontSize: 12 }}>
                                         活动已结束

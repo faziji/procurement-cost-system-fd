@@ -76,4 +76,5 @@ export default {
   'menu.resources': '货物与服务',
   'menu.download': '下载中心',
   'menu.party': '党建活动',
+  'menu.resourceDetail': '公告详情页',
 };
