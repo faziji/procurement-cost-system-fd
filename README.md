@@ -1,65 +1,25 @@
-# Ant Design Pro
-
-This project is initialized with [Ant Design Pro](https://pro.ant.design). Follow is the quick guide for how to use.
-
 ## 提交代码
 
 `git commit --no-verify -m "XXX"`
 
-项目中存在pre-commit(客户端)钩子，在提交前会自动进行风格检查。进入项目的.git文件夹(文件夹默认隐藏,可先设置显示或者命令ls查找),再进入hooks文件夹,删除pre-commit文件,重新git commit -m 'xxx' git push即可。问题已经解决！
+项目中存在 pre-commit(客户端)钩子，在提交前会自动进行风格检查。进入项目的.git 文件夹(文件夹默认隐藏,可先设置显示或者命令 ls 查找),再进入 hooks 文件夹,删除 pre-commit 文件,重新 git commit -m 'xxx' git push 即可。问题已经解决！
 
-## Environment Prepare
+## 环境准备
 
 可运行的 node 版本：14.15.0
 
-Install `node_modules`:
+安装依赖 `yarn install`
 
-```bash
-npm install
-```
+启动项目 `yarn start`
 
-or
+## 资源管理
 
-```bash
-yarn
-```
+七牛云资源公网访问地址 http://r8dp8c34q.hn-bkt.clouddn.com
 
-## Provided Scripts
+- 所有的头像资源都是放在七牛云的根路径
 
-Ant Design Pro provides some useful script to help you quick start and build with web project, code style check and test.
+- 菜单栏相关的资源是放在七牛云的 DepartmentFD 文件夹下，公网地址`export const qiNiuUrl = 'http://r8dp8c34q.hn-bkt.clouddn.com/DepartmentFD/xxxxxx.docx';`
 
-Scripts provided in `package.json`. It's safe to modify or add additional script:
+- 暂时所有的可阅读文件仅支持 docx，后续再支持 pdf 的文件格式
 
-### Start project
-
-```bash
-npm start
-```
-
-### Build project
-
-```bash
-npm run build
-```
-
-### Check code style
-
-```bash
-npm run lint
-```
-
-You can also use script to auto fix some lint error:
-
-```bash
-npm run lint:fix
-```
-
-### Test code
-
-```bash
-npm test
-```
-
-## More
-
-You can view full document on our [official website](https://pro.ant.design). And welcome any feedback in our [github](https://github.com/ant-design/ant-design-pro).
+需要替换菜单栏等相关资源的话，只需要在七牛云的管理后台中替换即可。
