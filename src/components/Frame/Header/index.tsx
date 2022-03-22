@@ -6,7 +6,7 @@ import {
     BrowserRouter as Router,
     Link
 } from 'react-router-dom'
-import { departmentMenu, policyMenu, contactMenu, instructionMenu } from '@/resources';
+import { departmentMenu, policyMenu, contactMenu, instructionMenu, downloadMenu, partyMenu } from '@/resources';
 
 const Header: React.FC = () => {
 
@@ -42,6 +42,36 @@ const Header: React.FC = () => {
         <Menu>
             {
                 instructionMenu.slice(1).map(item => (
+                    <Menu.Item key={item.id} className={styles.menuItem}>
+                        <Link to={item.route} >
+                            {item.itemName}
+                        </Link>
+                    </Menu.Item>
+                ))
+            }
+        </Menu>
+    )
+
+    // 下载中心
+    const downloadMenuItem = (
+        <Menu>
+            {
+                downloadMenu.slice(1).map(item => (
+                    <Menu.Item key={item.id} className={styles.menuItem}>
+                        <Link to={item.route} >
+                            {item.itemName}
+                        </Link>
+                    </Menu.Item>
+                ))
+            }
+        </Menu>
+    )
+
+    // 党建工作
+    const partyMenuItem = (
+        <Menu>
+            {
+                partyMenu.slice(1).map(item => (
                     <Menu.Item key={item.id} className={styles.menuItem}>
                         <Link to={item.route} >
                             {item.itemName}
@@ -97,30 +127,28 @@ const Header: React.FC = () => {
                         </NavLink>
                     </Dropdown>
                     <Dropdown overlay={instructionMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/instruction'>
+                        <NavLink className={styles.navItem} to={instructionMenu[1].route}>
                             办事指南
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
+                    <Dropdown overlay={downloadMenuItem} placement="bottomCenter">
+                        <NavLink className={styles.navItem} to={downloadMenu[1].route}>
                             下载中心
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
+                    <Dropdown overlay={partyMenuItem} placement="bottomCenter">
+                        <NavLink className={styles.navItem} to={partyMenu[1].route}>
                             党建工作
                         </NavLink>
                     </Dropdown>
                     <Dropdown overlay={contactMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/contact'>
+                        <NavLink className={styles.navItem} to={contactMenu[1].route}>
                             联系我们
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
-                            管理后台
-                        </NavLink>
-                    </Dropdown>
+                    <NavLink className={styles.navItem} to='/welcome'>
+                        管理后台
+                    </NavLink>
                 </div>
             </div>
             {/* <div className={styles.banner}><img src="http://ztbzx.cqu.edu.cn/sfw_cms/res/cms/images/banner.jpg" alt='banner' /></div> */}

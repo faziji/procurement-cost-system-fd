@@ -78,6 +78,48 @@ export const instructionMenu = [
 ];
 
 /**
+ * 下载中心
+ */
+export const downloadMenu = [
+  {
+    route: '/instruction',
+    itemName: '下载中心',
+    id: 0,
+  },
+  {
+    route: '/instruction?current=1',
+    itemName: '采购人',
+    id: 1,
+  },
+  {
+    route: '/instruction?current=2',
+    itemName: '供应商',
+    id: 2,
+  },
+  {
+    route: '/instruction?current=3',
+    itemName: '综合类',
+    id: 3,
+  },
+];
+
+/**
+ * 党建工作party
+ */
+export const partyMenu = [
+  {
+    route: '/party',
+    itemName: '党建工作',
+    id: 0,
+  },
+  {
+    route: '/party?current=1',
+    itemName: '党建工作',
+    id: 1,
+  },
+];
+
+/**
  * 联系我们contact
  */
 export const contactMenu = [

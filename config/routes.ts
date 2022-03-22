@@ -35,12 +35,19 @@
     component: './MenuPage/MENU/Instruction',
   },
   // 下载中心
-  // {
-  //   path: '/download',
-  //   name: 'download',
-  //   layout: false,
-  //   component: './Download',
-  // },
+  {
+    path: '/download',
+    name: 'download',
+    layout: false,
+    component: './MenuPage/MENU/Download',
+  },
+  // 党建工作
+  {
+    path: '/party',
+    name: 'party',
+    layout: false,
+    component: './MenuPage/MENU/Party',
+  },
   // 联系我们
   {
     path: '/contact',
