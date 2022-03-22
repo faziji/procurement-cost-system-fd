@@ -55,3 +55,41 @@ export const policyMenu = [
     id: 4,
   },
 ];
+
+/**
+ * 办事指南
+ */
+export const instructionMenu = [
+  {
+    route: '/instruction',
+    itemName: '办事指南',
+    id: 0,
+  },
+  {
+    route: '/instruction?current=1',
+    itemName: '采购人指南',
+    id: 1,
+  },
+  {
+    route: '/instruction?current=2',
+    itemName: '供应商指南',
+    id: 2,
+  },
+];
+
+/**
+ * 联系我们contact
+ */
+export const contactMenu = [
+  {
+    route: '/contact',
+    itemName: '联系我们',
+    // itemNameDocument:'联系我们.docx',
+    id: 0,
+  },
+  {
+    route: '/contact?current=1',
+    itemName: '联系我们',
+    id: 1,
+  },
+];

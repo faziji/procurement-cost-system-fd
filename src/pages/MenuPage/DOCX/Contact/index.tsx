@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { FrameNav } from '@/components/Frame';
-import { departmentMenu } from '@/resources/index'
+import { contactMenu } from '@/resources/index'
 import styles from './index.less';
 
 
 import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
-import { qiNiuUrl } from '../../../config/qiniuyun'
+import { qiNiuUrl } from '../../../../../config/qiniuyun'
 import { memo } from "react";
 
-const Department: React.FC = (props: any) => {
+const Contact: React.FC = (props: any) => {
 
     const [current, setCurrent] = useState(props.location.query?.current || 1)
 
@@ -22,7 +22,7 @@ const Department: React.FC = (props: any) => {
             <div className={styles.fileViewerWrapper}>
                 <FileViewer
                     fileType="docx"
-                    filePath={qiNiuUrl + departmentMenu[current || 1].itemName + '.docx'}
+                    filePath={qiNiuUrl + contactMenu[current || 1].itemName + '.docx'}
                     errorComponent={CustomErrorComponent}
                     onError={onError} />
             </div>
@@ -31,7 +31,7 @@ const Department: React.FC = (props: any) => {
 
     return (
         <>
-            <FrameNav menu={departmentMenu} current={current} onCurrent={setCurrent} {...props} >
+            <FrameNav menu={contactMenu} current={current} onCurrent={setCurrent} {...props} >
                 {/* 留空添加额外的组件 */}
                 <FileViewerEle />
             </FrameNav>
@@ -39,4 +39,4 @@ const Department: React.FC = (props: any) => {
     )
 }
 
-export default Department
+export default Contact

@@ -6,7 +6,7 @@ import {
     BrowserRouter as Router,
     Link
 } from 'react-router-dom'
-import { departmentMenu, policyMenu } from '@/resources';
+import { departmentMenu, policyMenu, contactMenu, instructionMenu } from '@/resources';
 
 const Header: React.FC = () => {
 
@@ -37,6 +37,40 @@ const Header: React.FC = () => {
         </Menu>
     )
 
+    // 办事指南
+    const instructionMenuItem = (
+        <Menu>
+            {
+                instructionMenu.slice(1).map(item => (
+                    <Menu.Item key={item.id} className={styles.menuItem}>
+                        <Link to={item.route} >
+                            {item.itemName}
+                        </Link>
+                    </Menu.Item>
+                ))
+            }
+        </Menu>
+    )
+
+    // 联系我们
+    const contactMenuItem = (
+        <Menu>
+            {
+                contactMenu.slice(1).map(item => (
+                    <Menu.Item key={item.id} className={styles.menuItem}>
+                        <Link to={item.route} >
+                            {item.itemName}
+                        </Link>
+                    </Menu.Item>
+                ))
+            }
+        </Menu>
+    )
+
+
+
+
+
     return (
         <div className={styles.headerWrapper}>
             <div className={styles.headerTitle}>
@@ -62,8 +96,8 @@ const Header: React.FC = () => {
                             政策法规
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
+                    <Dropdown overlay={instructionMenuItem} placement="bottomCenter">
+                        <NavLink className={styles.navItem} to='/instruction'>
                             办事指南
                         </NavLink>
                     </Dropdown>
@@ -77,8 +111,8 @@ const Header: React.FC = () => {
                             党建工作
                         </NavLink>
                     </Dropdown>
-                    <Dropdown overlay={departmentMenuItem} placement="bottomCenter">
-                        <NavLink className={styles.navItem} to='/department'>
+                    <Dropdown overlay={contactMenuItem} placement="bottomCenter">
+                        <NavLink className={styles.navItem} to='/contact'>
                             联系我们
                         </NavLink>
                     </Dropdown>

@@ -3,27 +3,50 @@
     path: '/welcome',
     name: 'welcome',
     icon: 'smile',
-    layout: false, // 删除侧边栏和菜单栏
+    layout: false,
     component: './Welcome',
   },
   {
     path: '/register',
     name: 'register',
     icon: 'smile',
-    layout: false, // 删除侧边栏和菜单栏
+    layout: false,
     component: './Register',
   },
+  // 部门概况
   {
     path: '/department',
     name: 'department',
-    layout: false, // 删除侧边栏和菜单栏
-    component: './Department',
+    layout: false,
+    component: './MenuPage/DOCX/Department',
   },
+  // 政策法规
   {
     path: '/policy',
     name: 'policy',
-    layout: false, // 删除侧边栏和菜单栏
-    component: './Policy',
+    layout: false,
+    component: './MenuPage/MENU/Policy',
+  },
+  // 办事指南
+  {
+    path: '/instruction',
+    name: 'instruction',
+    layout: false,
+    component: './MenuPage/MENU/Instruction',
+  },
+  // 下载中心
+  // {
+  //   path: '/download',
+  //   name: 'download',
+  //   layout: false,
+  //   component: './Download',
+  // },
+  // 联系我们
+  {
+    path: '/contact',
+    name: 'contact',
+    layout: false,
+    component: './MenuPage/DOCX/Contact',
   },
   {
     path: '/',
