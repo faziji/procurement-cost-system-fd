@@ -1,10 +1,9 @@
 
-import { Button, Dropdown, Menu } from 'antd';
+import { Dropdown, Menu } from 'antd';
 import { NavLink } from 'umi';
 import styles from './index.less';
 import {
     BrowserRouter as Router,
-    Route,
     Link
 } from 'react-router-dom'
 import { departmentMenu, policyMenu } from '@/resources';

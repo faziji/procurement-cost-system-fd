@@ -10,6 +10,7 @@ import { qiNiuUrl } from '../../../config/qiniuyun'
 
 import { DownOutlined, HomeOutlined, RightOutlined } from '@ant-design/icons'
 import { Breadcrumb, Col, Divider, Row } from "antd";
+import { memo } from "react";
 
 /**
  * 内容不带左侧导航栏
@@ -32,9 +33,26 @@ const Frame: React.FC = (props: any) => {
 export const FrameNav: any = (props: any) => {
     const { menu, current, onCurrent } = props
 
+    // 当路由变化参数时更新组件状态
+    if (current !== props.location.query?.current) {
+        onCurrent(props.location.query?.current)
+    }
+
     const onError = (e: any) => {
         console.log('显示错误');
     }
+
+    const FileViewerEle = memo((props: any) => {
+        return (
+            <div className={styles.fileViewerWrapper}>
+                <FileViewer
+                    fileType="docx"
+                    filePath={qiNiuUrl + menu[current || 1].itemName + '.docx'}
+                    errorComponent={CustomErrorComponent}
+                    onError={onError} />
+            </div>
+        )
+    }, current)
 
     return (
         <>
@@ -91,6 +109,10 @@ export const FrameNav: any = (props: any) => {
                                 errorComponent={CustomErrorComponent}
                                 onError={onError} />
                         </Row> */}
+                        <Row>
+                            <FileViewerEle />
+
+                        </Row>
                         <Row>
                             {props.children}
                         </Row>
