@@ -150,7 +150,8 @@ const ResourceAnnounce: any = (props: any) => {
     }
 
     const ResourceContentMore = () => {
-        let content = <ResourceItemElemMore data={consultationList} state={state} />
+        let allData = [...consultationList, ...purchaseAnnouncement, ...resultAnnouncement, ...correctAnnouncement].slice(0, 10)
+        let content = <ResourceItemElemMore data={allData} state={state} />
         if (state === 1) {
             content = <ResourceItemElemMore data={consultationList} state={state} />
         }
