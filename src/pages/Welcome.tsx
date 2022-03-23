@@ -11,7 +11,6 @@ const Welcome: React.FC = () => {
 
       <WelcomeMain />
       <Footer />
-
     </>
   );
 };

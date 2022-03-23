@@ -8,7 +8,8 @@ import classnames from 'classnames'
 import { Link } from "umi";
 import { history } from "umi";
 
-const ResourceAnnounce: React.FC = (props: any) => {
+const ResourceAnnounce: any = (props: any) => {
+    let { onLoginCardVisiable } = props
     /**
      * 渲染具体内容
      */
@@ -62,7 +63,7 @@ const ResourceAnnounce: React.FC = (props: any) => {
 
         let handleData = data // 取前8个
         return (
-            <div style={{ width: 710 }}>
+            <div style={{ width: 1000 }}>
                 {
                     handleData?.length ? handleData.map((item: any, index: any) => {
                         return (
@@ -76,7 +77,7 @@ const ResourceAnnounce: React.FC = (props: any) => {
                                             {item.name}
                                         </Link>
                                     </Col>
-                                    <Col span={4} style={{ color: '#ff4d4f', fontSize: 12 }}>
+                                    <Col span={4} style={{ color: '#ff4d4f', fontSize: 12, paddingLeft: 25 }}>
                                         活动已结束
                                     </Col>
                                     <Col span={4} style={{ fontSize: 12 }}>
@@ -157,6 +158,12 @@ const ResourceAnnounce: React.FC = (props: any) => {
         return content
     }
 
+    // 替换更多的列组件以及隐藏登录面板
+    const handleMoreList = () => {
+        setMoreList(true)
+        onLoginCardVisiable(false)
+    }
+
     return (
         <>
             {!moreList ? <><Row className={styles.title}>
@@ -164,7 +171,7 @@ const ResourceAnnounce: React.FC = (props: any) => {
                     <Typography.Title className={styles.typographytitle} level={5} ><ToolOutlined style={{ margin: '0 10px' }} />货物与服务</Typography.Title>
                 </Col>
                 <Col>
-                    <Link to='/welcome?list=true' className={styles.titleNav} onClick={() => setMoreList(true)}>
+                    <Link to='/welcome' className={styles.titleNav} onClick={handleMoreList}>
                         <div className={classnames(styles.navItem, state === 1 ? styles.navItemHover : '')} onMouseEnter={() => setState(1)}>
                             <div className={styles.navItemText}>
                                 征询意见

@@ -40,6 +40,10 @@ const JumpSystemLine = () => {
 }
 
 const WelcomeMain: React.FC = () => {
+
+    // 是否展示login
+    const [loginCardVisiable, setLoginCardVisiable] = useState(true)
+
     return (
         <div className={styles.mainWrapper}>
             <div className={styles.cardContent}>
@@ -55,10 +59,10 @@ const WelcomeMain: React.FC = () => {
                     </div>
 
                     <div className={styles.resourceWrapper}>
-                        <ResourceAnnounce />
+                        <ResourceAnnounce onLoginCardVisiable={setLoginCardVisiable} />
                     </div>
 
-                    <div className={styles.loginWrapper}>
+                    {loginCardVisiable && <div className={styles.loginWrapper}>
                         <Row className={styles.title}>
                             <Typography.Title className={styles.typographytitle} level={5} ><LoginOutlined style={{ margin: '0 10px' }} />用户登录</Typography.Title>
                         </Row>
@@ -67,7 +71,7 @@ const WelcomeMain: React.FC = () => {
                             <JumpSystemLine />
                         </Card>
 
-                    </div>
+                    </div>}
                 </div>
 
             </div>
