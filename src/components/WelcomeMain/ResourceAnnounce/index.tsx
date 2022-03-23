@@ -1,4 +1,4 @@
-import { Card, Col, Divider, Empty, Row, Typography } from "antd"
+import { Card, Col, Divider, Empty, Pagination, Row, Typography } from "antd"
 import { memo, useEffect, useState } from "react"
 import { ToolOutlined, DoubleRightOutlined } from '@ant-design/icons';
 import styles from './index.less';
@@ -228,12 +228,15 @@ const ResourceAnnounce: any = (props: any) => {
 
                     </Card>
                     <Card className={styles.moreListContent}>
-                        {/* {JSON.stringify(consultationList)} */}
                         <ResourceContentMore />
+                        {/* 分页，暂时未完成 */}
+                        <Pagination
+                            total={85}
+                            showSizeChanger
+                            showQuickJumper
+                            showTotal={total => `共有 ${total} 条`}
+                        />
                     </Card >
-                    {/* <div >
-
-                    </div> */}
                 </div>
 
             }
