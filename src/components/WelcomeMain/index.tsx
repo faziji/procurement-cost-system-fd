@@ -5,7 +5,6 @@ import { Card, Col, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
 import { CalendarOutlined, LoginOutlined, ToolOutlined } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce'
-import { history } from 'umi';
 
 
 const JumpSystemLine = () => {
@@ -44,6 +43,10 @@ const WelcomeMain: React.FC = () => {
 
     // 是否展示login
     const [loginCardVisiable, setLoginCardVisiable] = useState(true)
+    // 是否是日历点击搜索跳转的内容
+    const [calendarSearch, setCalendarSearch] = useState(false)
+    const [calendarSearchTime, setCalendarSearchTime] = useState('') // 日历搜索的时间
+
 
     return (
         <div className={styles.mainWrapper}>
@@ -55,15 +58,15 @@ const WelcomeMain: React.FC = () => {
                             <Typography.Title className={styles.typographytitle} level={5} ><CalendarOutlined style={{ margin: '0 10px' }} />投标日历</Typography.Title>
                         </Row>
                         <Card className={styles.calendarCard}>
-                            <CalendarTender />
+                            <CalendarTender setCalendarSearchTime={setCalendarSearchTime} />
                         </Card>
                     </div>
 
-                    <div className={styles.resourceWrapper}>
+                    {/* 不是通过日历搜索 */}
+                    {!calendarSearch && <div className={styles.resourceWrapper}>
                         <ResourceAnnounce onLoginCardVisiable={setLoginCardVisiable} />
-                    </div>
-
-                    {loginCardVisiable && <div className={styles.loginWrapper}>
+                    </div>}
+                    {loginCardVisiable && !calendarSearch && <div className={styles.loginWrapper}>
                         <Row className={styles.title}>
                             <Typography.Title className={styles.typographytitle} level={5} ><LoginOutlined style={{ margin: '0 10px' }} />用户登录</Typography.Title>
                         </Row>
@@ -71,8 +74,16 @@ const WelcomeMain: React.FC = () => {
                             <FormNormalLogin />
                             <JumpSystemLine />
                         </Card>
-
                     </div>}
+                    {/* 通过日历搜索 */}
+                    {calendarSearch && <>
+                        <div className={styles.calendarSearchWrapper}>
+                            <div>
+
+                            </div>
+                            {calendarSearchTime}
+                        </div>
+                    </>}
                 </div>
 
             </div>

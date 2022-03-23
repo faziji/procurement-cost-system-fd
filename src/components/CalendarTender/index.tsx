@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Select, Typography, Row, Col, Card } from 'antd';
-import { CalendarOutlined } from '@ant-design/icons';
 import styles from './index.less';
 
 
@@ -19,7 +18,7 @@ import TimeComponent from '../TimeComponent';
 // }
 
 
-const CalendarTender: React.FC = () => {
+const CalendarTender: any = ({ setCalendarSearchTime }: any) => {
   const dateCellRender = (value: any) => {
     // 需要标记的时间 // 待请求完善
     let resData = ['2022-03-07', '2022-03-10']
@@ -127,7 +126,7 @@ const CalendarTender: React.FC = () => {
 
   const handleSelect = (value: any) => {
     // 之后在这里点击跳转
-    console.log('111111', value);
+    setCalendarSearchTime(moment(value).format('YYYY-MM-DD'))
   }
 
   return (
