@@ -13,7 +13,7 @@ const ResourceAnnounce: any = (props: any) => {
     /**
      * 渲染具体内容
      */
-    const ResourceItemElem = ({ data, state }: any) => {
+    const ResourceItemElem = ({ data, state, handleMoreList }: any) => {
 
         let handleData = data?.slice(0, 8) // 取前8个
         return (
@@ -49,7 +49,8 @@ const ResourceAnnounce: any = (props: any) => {
                     <Col span={10}></Col>
                     {
                         data?.length > 8 && <Col style={{ marginTop: 15 }} className={styles.itemHover}>
-                            <Link to={`/resources?current=${state}`}>查看更多<DoubleRightOutlined /></Link>
+                            {/* <Link to={`/resources?current=${state}`}>查看更多<DoubleRightOutlined /></Link> */}
+                            <div onClick={() => handleMoreList()}>查看更多<DoubleRightOutlined /></div>
                         </Col>
                     }
                 </Row>
@@ -123,20 +124,27 @@ const ResourceAnnounce: any = (props: any) => {
     // 更多页面的组件
     const [moreList, setMoreList] = useState(false)
 
+
+    // 替换更多的列组件以及隐藏登录面板
+    const handleMoreList = () => {
+        setMoreList(true)
+        onLoginCardVisiable(false)
+    }
+
     const ResourceContent = () => {
-        let content = <ResourceItemElem data={consultationList} state={state} />
+        let content = <ResourceItemElem data={consultationList} state={state} handleMoreList={handleMoreList} />
 
         if (state === 1) {
-            content = <ResourceItemElem data={consultationList} state={state} />
+            content = <ResourceItemElem data={consultationList} state={state} handleMoreList={handleMoreList} />
         }
         else if (state === 2) {
-            content = <ResourceItemElem data={purchaseAnnouncement} state={state} />
+            content = <ResourceItemElem data={purchaseAnnouncement} state={state} handleMoreList={handleMoreList} />
         }
         else if (state === 3) {
-            content = <ResourceItemElem data={resultAnnouncement} state={state} />
+            content = <ResourceItemElem data={resultAnnouncement} state={state} handleMoreList={handleMoreList} />
         }
         else if (state === 4) {
-            content = <ResourceItemElem data={correctAnnouncement} state={state} />
+            content = <ResourceItemElem data={correctAnnouncement} state={state} handleMoreList={handleMoreList} />
         }
         return content
     }
@@ -158,11 +166,7 @@ const ResourceAnnounce: any = (props: any) => {
         return content
     }
 
-    // 替换更多的列组件以及隐藏登录面板
-    const handleMoreList = () => {
-        setMoreList(true)
-        onLoginCardVisiable(false)
-    }
+
 
     return (
         <>
@@ -171,7 +175,7 @@ const ResourceAnnounce: any = (props: any) => {
                     <Typography.Title className={styles.typographytitle} level={5} ><ToolOutlined style={{ margin: '0 10px' }} />货物与服务</Typography.Title>
                 </Col>
                 <Col>
-                    <Link to='/welcome?list=true' className={styles.titleNav} onClick={handleMoreList}>
+                    <Link to='/welcome' className={styles.titleNav} onClick={handleMoreList}>
                         <div className={classnames(styles.navItem, state === 1 ? styles.navItemHover : '')} onMouseEnter={() => setState(1)}>
                             <div className={styles.navItemText}>
                                 征询意见
