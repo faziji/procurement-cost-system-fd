@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Select, Typography, Row, Col, Card } from 'antd';
+import { Select, Typography, Row, Col, Card, message } from 'antd';
 import styles from './index.less';
 
 
@@ -18,18 +18,16 @@ import TimeComponent from '../TimeComponent';
 // }
 
 
-const CalendarTender: any = ({ setCalendarSearchTime }: any) => {
+const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) => {
+  let resData = ['2022-03-07', '2022-03-10']
+
   const dateCellRender = (value: any) => {
     // 需要标记的时间 // 待请求完善
-    let resData = ['2022-03-07', '2022-03-10']
-
 
     // 每次读取的时间
     let reverst = moment(value).format('YYYY-MM-DD')
     // 获取获取当天
     let nowDate = moment(new Date()).format('YYYY-MM-DD')
-
-
 
     const render = () => {
       if (resData.includes(reverst)) {
@@ -126,7 +124,12 @@ const CalendarTender: any = ({ setCalendarSearchTime }: any) => {
 
   const handleSelect = (value: any) => {
     // 之后在这里点击跳转
-    setCalendarSearchTime(moment(value).format('YYYY-MM-DD'))
+    let handleData = moment(value).format('YYYY-MM-DD')
+    if (resData.includes(handleData)) {
+      setCalendarSearchTime(handleData)
+      setCalendarSearch(true)
+    }
+    else message.info('所选日期无投标项目开发')
   }
 
   return (

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from './index.less';
 import CalendarTender from '../CalendarTender'
-import { Card, Col, message, Row, Typography } from 'antd';
+import { Card, Col, Divider, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
-import { CalendarOutlined, LoginOutlined, ToolOutlined } from '@ant-design/icons';
+import { CalendarOutlined, ContainerOutlined, LoginOutlined, MergeCellsOutlined, ToolOutlined } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce'
 
 
@@ -58,7 +58,7 @@ const WelcomeMain: React.FC = () => {
                             <Typography.Title className={styles.typographytitle} level={5} ><CalendarOutlined style={{ margin: '0 10px' }} />投标日历</Typography.Title>
                         </Row>
                         <Card className={styles.calendarCard}>
-                            <CalendarTender setCalendarSearchTime={setCalendarSearchTime} />
+                            <CalendarTender setCalendarSearchTime={setCalendarSearchTime} setCalendarSearch={setCalendarSearch} />
                         </Card>
                     </div>
 
@@ -78,10 +78,11 @@ const WelcomeMain: React.FC = () => {
                     {/* 通过日历搜索 */}
                     {calendarSearch && <>
                         <div className={styles.calendarSearchWrapper}>
-                            <div>
+                            <Card className={styles.calendarSearchTitle}>
 
-                            </div>
-                            {calendarSearchTime}
+                                <p><ContainerOutlined style={{ fontSize: 22, marginRight: 10 }} />{calendarSearchTime}投标项目</p>
+                                <Divider dashed />
+                            </Card>
                         </div>
                     </>}
                 </div>
