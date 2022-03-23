@@ -77,3 +77,55 @@
         color: #337ab7
     }
 }
+
+
+
+.resourceItemMore{
+    // height: 30px;
+    // line-height: 30px;
+    font-size: 16px;
+    
+    // background-color: #7cbcf0;
+    margin: 4px 0;
+}
+.itemHoverMore{
+    color: #128bed;
+    cursor: pointer;
+    &:hover{
+        text-decoration:underline;
+        color: #337ab7
+    }
+}
+
+
+// moreList
+.moreListWrapper{
+    // background-color: #bfa;
+    // height: 300px;
+
+    .moreListNav{
+        height: 85px;
+        margin-bottom: 10px;
+        // background-color: pink;
+
+        .moreListNavTitle{
+            // background-color: #0c7ed9;
+            margin: 0 3px;
+            padding: 0 10px;
+            color: #333;
+            // color: white;
+            cursor: pointer;
+
+            &:hover{
+                background-color: #0c7ed9;
+                color: white;
+            }
+        }
+
+        // 当前选中状态
+        .navItemSelected{
+            background-color: #0c7ed9;
+            color: white;
+        }
+    }
+}
