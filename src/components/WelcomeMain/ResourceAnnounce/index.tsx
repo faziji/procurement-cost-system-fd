@@ -1,6 +1,6 @@
 import { Card, Col, Divider, Empty, Pagination, Row, Typography } from "antd"
 import { memo, useEffect, useState } from "react"
-import { ToolOutlined, DoubleRightOutlined } from '@ant-design/icons';
+import { ToolOutlined, DoubleRightOutlined, DoubleLeftOutlined } from '@ant-design/icons';
 import styles from './index.less';
 import { getConsultationList, getPurchaseAnnouncementList, getResultAnnouncementList, getCorrectAnnouncementList } from '@/services/resource/api'
 import { useRequest } from '@umijs/hooks';
@@ -171,7 +171,7 @@ const ResourceAnnounce: any = (props: any) => {
                     <Typography.Title className={styles.typographytitle} level={5} ><ToolOutlined style={{ margin: '0 10px' }} />货物与服务</Typography.Title>
                 </Col>
                 <Col>
-                    <Link to='/welcome' className={styles.titleNav} onClick={handleMoreList}>
+                    <Link to='/welcome?list=true' className={styles.titleNav} onClick={handleMoreList}>
                         <div className={classnames(styles.navItem, state === 1 ? styles.navItemHover : '')} onMouseEnter={() => setState(1)}>
                             <div className={styles.navItemText}>
                                 征询意见
@@ -222,6 +222,11 @@ const ResourceAnnounce: any = (props: any) => {
                             </div>
                             <div className={classnames(styles.moreListNavTitle, state == 4 ? styles.navItemSelected : '')} onClick={() => setState(4)}>
                                 更正公告
+                            </div>
+                            <div className={styles.preStep} onClick={() => window.location.reload()} >
+                                <p>
+                                    <DoubleLeftOutlined />返回
+                                </p>
                             </div>
                         </Row>
                         <Divider dashed />

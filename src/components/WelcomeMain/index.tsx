@@ -5,6 +5,7 @@ import { Card, Col, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
 import { CalendarOutlined, LoginOutlined, ToolOutlined } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce'
+import { history } from 'umi';
 
 
 const JumpSystemLine = () => {
