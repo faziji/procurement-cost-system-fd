@@ -1,10 +1,13 @@
-import React, { useState } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import styles from './index.less';
 import CalendarTender from '../CalendarTender'
 import { Card, Col, Divider, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
 import { CalendarOutlined, ContainerOutlined, LoginOutlined, MergeCellsOutlined, ToolOutlined } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce'
+import ResourceItemElemMore from './ResourceItemElemMore'
+import { useRequest } from 'umi';
+import { getPurchaseAnnouncementList } from '@/services/resource/api';
 
 
 const JumpSystemLine = () => {
@@ -39,13 +42,25 @@ const JumpSystemLine = () => {
     )
 }
 
-const WelcomeMain: React.FC = () => {
+
+
+const WelcomeMain: any = () => {
 
     // 是否展示login
     const [loginCardVisiable, setLoginCardVisiable] = useState(true)
     // 是否是日历点击搜索跳转的内容
     const [calendarSearch, setCalendarSearch] = useState(false)
     const [calendarSearchTime, setCalendarSearchTime] = useState('') // 日历搜索的时间
+
+    const [purchaseAnnouncement, setPurchaseAnnouncement] = useState({})
+
+    // 获取征询意见列表
+    useEffect(() => {
+        // 之后要传到后台筛选数据
+        getPurchaseAnnouncementList().then(res => {
+            setPurchaseAnnouncement(res?.data)
+        }).catch(err => console.log(err))
+    }, [calendarSearchTime]);
 
 
     return (
@@ -79,9 +94,11 @@ const WelcomeMain: React.FC = () => {
                     {calendarSearch && <>
                         <div className={styles.calendarSearchWrapper}>
                             <Card className={styles.calendarSearchTitle}>
-
                                 <p><ContainerOutlined style={{ fontSize: 22, marginRight: 10 }} />{calendarSearchTime}投标项目</p>
                                 <Divider dashed />
+                            </Card>
+                            <Card className={styles.calendarSearchContent}>
+                                <ResourceItemElemMore data={purchaseAnnouncement} />
                             </Card>
                         </div>
                     </>}

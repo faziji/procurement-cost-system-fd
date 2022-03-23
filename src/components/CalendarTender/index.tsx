@@ -129,7 +129,7 @@ const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) 
       setCalendarSearchTime(handleData)
       setCalendarSearch(true)
     }
-    else message.info('所选日期无投标项目开发')
+    else message.info('所选日期无投标项目开放！')
   }
 
   return (

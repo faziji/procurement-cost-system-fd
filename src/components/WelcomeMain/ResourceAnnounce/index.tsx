@@ -49,7 +49,6 @@ const ResourceAnnounce: any = (props: any) => {
                     <Col span={10}></Col>
                     {
                         data?.length > 8 && <Col style={{ marginTop: 15 }} className={styles.itemHover}>
-                            {/* <Link to={`/resources?current=${state}`}>查看更多<DoubleRightOutlined /></Link> */}
                             <div onClick={() => handleMoreList()}>查看更多<DoubleRightOutlined /></div>
                         </Col>
                     }
