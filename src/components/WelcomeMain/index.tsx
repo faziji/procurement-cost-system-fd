@@ -3,7 +3,7 @@ import styles from './index.less';
 import CalendarTender from '../CalendarTender'
 import { Card, Col, Divider, message, Row, Typography } from 'antd';
 import FormNormalLogin from '../FormNormalLogin';
-import { CalendarOutlined, ContainerOutlined, LoginOutlined, MergeCellsOutlined, ToolOutlined } from '@ant-design/icons';
+import { CalendarOutlined, ContainerOutlined, DoubleLeftOutlined, LoginOutlined, MergeCellsOutlined, ToolOutlined } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce'
 import ResourceItemElemMore from './ResourceItemElemMore'
 import { useRequest } from 'umi';
@@ -94,7 +94,10 @@ const WelcomeMain: any = () => {
                     {calendarSearch && <>
                         <div className={styles.calendarSearchWrapper}>
                             <Card className={styles.calendarSearchTitle}>
-                                <p><ContainerOutlined style={{ fontSize: 22, marginRight: 10 }} />{calendarSearchTime}投标项目</p>
+                                <Row>
+                                    <p><ContainerOutlined style={{ fontSize: 22, marginRight: 10 }} />{calendarSearchTime}投标项目</p>
+                                    <p className={styles.calendarSearchTitleText} onClick={() => window.location.reload()}> <DoubleLeftOutlined />返回</p>
+                                </Row>
                                 <Divider dashed />
                             </Card>
                             <Card className={styles.calendarSearchContent}>
