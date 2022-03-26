@@ -99,7 +99,7 @@ const RegistrationForm = (props: any) => {
         rules={[
           {
             required: true,
-            message: "Please input your password!",
+            message: "请输入密码",
           },
         ]}
         hasFeedback
@@ -115,7 +115,7 @@ const RegistrationForm = (props: any) => {
         rules={[
           {
             required: true,
-            message: "Please confirm your password!",
+            message: "请再次输入密码",
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
@@ -123,7 +123,7 @@ const RegistrationForm = (props: any) => {
                 return Promise.resolve();
               }
               return Promise.reject(
-                "The two passwords that you entered do not match!"
+                "两次输入密码不一致"
               );
             },
           }),

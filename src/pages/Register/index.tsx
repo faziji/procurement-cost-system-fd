@@ -3,7 +3,7 @@ import styles from './index.less';
 import FormRegister from './FormRegister';
 import { useState } from 'react';
 import Success from './Success';
-import { Avatar, Button, Form, Input, message } from 'antd';
+import { Avatar, Button, Card, Form, Input, message } from 'antd';
 import { updateSupplierDetail } from '@/services/user/api'
 import { history } from 'umi'
 
@@ -83,7 +83,7 @@ const Register: React.FC = () => {
         } else if (registerSuccess) {
             return <Success handleRegisterComplete={setRegisterComplete} />
         } else {
-            return <FormRegister handleSuccess={setRegisterSuccess} />
+            return <Card><FormRegister handleSuccess={setRegisterSuccess} /></Card>
         }
     }
 

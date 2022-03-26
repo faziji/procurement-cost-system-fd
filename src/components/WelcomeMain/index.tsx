@@ -16,7 +16,7 @@ const JumpSystemLine = () => {
             <Col span={8}>
                 <div className={styles.loginFormEntry1} >
                     <div className={styles.entryWrapper}>
-                        <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ds.png" alt="" />
+                        <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-gys.png" alt="" />
                         <p>供应商入口</p>
                     </div>
                 </div>
@@ -24,8 +24,8 @@ const JumpSystemLine = () => {
             <Col span={8}>
                 <div className={styles.loginFormEntry2} >
                     <div className={styles.entryWrapper}>
-                        <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ds.png" alt="" />
-                        <p>管理后台</p>
+                        <img className={styles.imagePic} src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ps.png" alt="" />
+                        <p>评审入口</p>
                     </div>
                 </div>
             </Col>
