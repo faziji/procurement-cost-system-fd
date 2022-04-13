@@ -69,6 +69,13 @@
     layout: false,
     component: './ResourceDetail',
   },
+  //  指南详情页
+  {
+    path: '/guideDetail',
+    name: 'guideDetail',
+    layout: false,
+    component: './GuideDetail',
+  },
   {
     path: '/',
     redirect: '/welcome',

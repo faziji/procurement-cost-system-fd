@@ -11,34 +11,12 @@ import { CustomErrorComponent } from 'custom-error';
 
 
 
-const ResourceDetail: React.FC = (props: any) => {
-    const { current, id } = props.location?.query
+const GuideDetail: React.FC = (props: any) => {
+    const data = props.location?.query
 
-    let data: any = {}
+    // let data: any = {}
 
-    if (current == 1) {
-        const consultationListRes = useRequest(() => {
-            return detailConsultation({ id });
-        });
-        data = consultationListRes?.data
-    } else if (current == 2) {
-        const detailPurchaseAnnouncementRes = useRequest(() => {
-            return detailPurchaseAnnouncement({ id });
-        });
-        data = detailPurchaseAnnouncementRes?.data
-    } else if (current == 3) {
-        const detailResultAnnouncementRes = useRequest(() => {
-            return detailResultAnnouncement({ id });
-        });
-        data = detailResultAnnouncementRes?.data
-    } else if (current == 4) {
-        const detailCorrectAnnouncementRes = useRequest(() => {
-            return detailCorrectAnnouncement({ id });
-        });
-        data = detailCorrectAnnouncementRes?.data
-    } else {
-        data = { name: "网络异常" }
-    }
+
 
     const onError = (e: any) => {
         console.log('显示错误');
@@ -50,11 +28,14 @@ const ResourceDetail: React.FC = (props: any) => {
                 <div className={styles.contentWrapper}>
                     <div className={styles.contentTitle}>
                         <div className={styles.contentTitleText}>
-                            {data?.name}
+                            <h3>
+                                {data?.name}
+                            </h3>
                         </div>
                         <div className={styles.contentTitleDesc}>
-                            发布时间：{data?.publishTime} <p>| <EyeOutlined /></p>
-                            浏览次数：{data?.viewTime}
+                            发布时间：{data?.createdAt}
+                            {/* <p>| <EyeOutlined /></p> */}
+                            {/* 浏览次数：{data?.viewTime} */}
                         </div>
                     </div>
 
@@ -63,11 +44,13 @@ const ResourceDetail: React.FC = (props: any) => {
                     {data?.key ?
                         <FileViewer
                             fileType="docx"
-                            filePath={qiNiuUrl + data?.key}
+                            filePath={qiNiuUrl + "Resources/" + data?.key}
                             errorComponent={CustomErrorComponent}
                             onError={onError} />
                         : null
                     }
+
+                    {/* {key}--- */}
 
                 </div>
             </Frame>
@@ -76,4 +59,4 @@ const ResourceDetail: React.FC = (props: any) => {
 }
 
 
-export default ResourceDetail;
+export default GuideDetail;

@@ -86,22 +86,22 @@ export const instructionMenu = [
  */
 export const downloadMenu = [
   {
-    route: '/instruction',
+    route: '/download',
     itemName: '下载中心',
     id: 0,
   },
   {
-    route: '/instruction?current=1',
+    route: '/download?current=1',
     itemName: '采购人',
     id: 1,
   },
   {
-    route: '/instruction?current=2',
+    route: '/download?current=2',
     itemName: '供应商',
     id: 2,
   },
   {
-    route: '/instruction?current=3',
+    route: '/download?current=3',
     itemName: '综合类',
     id: 3,
   },
