@@ -22,7 +22,7 @@ const Contact: React.FC = (props: any) => {
             <div className={styles.fileViewerWrapper}>
                 <FileViewer
                     fileType="docx"
-                    filePath={qiNiuUrl + contactMenu[current || 1].itemName + '.docx'}
+                    filePath={qiNiuUrl + 'ResourcesFD/' + contactMenu[current || 1].itemName + '.docx'}
                     errorComponent={CustomErrorComponent}
                     onError={onError} />
             </div>

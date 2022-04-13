@@ -4,6 +4,13 @@ import { EyeOutlined } from "@ant-design/icons";
 import { useRequest } from "umi";
 import styles from './index.less'
 
+import { qiNiuUrl } from '../../../config/qiniuyun'
+import FileViewer from 'react-file-viewer';
+import { CustomErrorComponent } from 'custom-error';
+
+
+
+
 const ResourceDetail: React.FC = (props: any) => {
     const { current, id } = props.location?.query
 
@@ -33,6 +40,10 @@ const ResourceDetail: React.FC = (props: any) => {
         data = { name: "网络异常" }
     }
 
+    const onError = (e: any) => {
+        console.log('显示错误');
+    }
+
     return (
         <>
             <Frame>
@@ -46,7 +57,17 @@ const ResourceDetail: React.FC = (props: any) => {
                             浏览次数：{data?.viewTime}
                         </div>
                     </div>
-                    {current}---------{id}----{JSON.stringify(data)}
+
+                    {/* {current}---------{id}----{JSON.stringify(data)}---{qiNiuUrl} */}
+                    {/* 会有一个bug，资源无法访问的时候会一直 */}
+                    {data?.key &&
+                        <FileViewer
+                            fileType="docx"
+                            filePath={qiNiuUrl + data?.key}
+                            errorComponent={CustomErrorComponent}
+                            onError={onError} />
+                    }
+
                 </div>
             </Frame>
         </>
