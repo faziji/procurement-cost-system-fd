@@ -51,14 +51,14 @@ request.interceptors.response.use((res) => {
 
 // 获取征询意见
 export const getConsultationList = async () => {
-  const data = await request(`/api/resource/getConsultationList`, {
+  const data = await request(`/api/fontEnd/resource/getConsultationList`, {
     method: 'GET',
   });
   return data;
 };
 // 获取征询意见详情
 export const detailConsultation = async (params: any) => {
-  const data = await request(`/api/resource/detailConsultation`, {
+  const data = await request(`/api/fontEnd/resource/detailConsultation`, {
     method: 'GET',
     params,
   });
@@ -66,14 +66,14 @@ export const detailConsultation = async (params: any) => {
 };
 // 获取采购公告
 export const getPurchaseAnnouncementList = async () => {
-  const data = await request(`/api/resource/getPurchaseAnnouncementList`, {
+  const data = await request(`/api/fontEnd/resource/getPurchaseAnnouncementList`, {
     method: 'GET',
   });
   return data;
 };
 // 获取采购结果详情
 export const detailPurchaseAnnouncement = async (params: any) => {
-  const data = await request(`/api/resource/detailPurchaseAnnouncement`, {
+  const data = await request(`/api/fontEnd/resource/detailPurchaseAnnouncement`, {
     method: 'GET',
     params,
   });
@@ -81,14 +81,14 @@ export const detailPurchaseAnnouncement = async (params: any) => {
 };
 // 获取结果公告
 export const getResultAnnouncementList = async () => {
-  const data = await request(`/api/resource/getResultAnnouncementList`, {
+  const data = await request(`/api/fontEnd/resource/getResultAnnouncementList`, {
     method: 'GET',
   });
   return data;
 };
 // 获取结果公告详情
 export const detailResultAnnouncement = async (params: any) => {
-  const data = await request(`/api/resource/detailResultAnnouncement`, {
+  const data = await request(`/api/fontEnd/resource/detailResultAnnouncement`, {
     method: 'GET',
     params,
   });
@@ -96,14 +96,14 @@ export const detailResultAnnouncement = async (params: any) => {
 };
 // 获取更正公告
 export const getCorrectAnnouncementList = async () => {
-  const data = await request(`/api/resource/getCorrectAnnouncementList`, {
+  const data = await request(`/api/fontEnd/resource/getCorrectAnnouncementList`, {
     method: 'GET',
   });
   return data;
 };
 // 获取更正公告详情
 export const detailCorrectAnnouncement = async (params: any) => {
-  const data = await request(`/api/resource/detailCorrectAnnouncement`, {
+  const data = await request(`/api/fontEnd/resource/detailCorrectAnnouncement`, {
     method: 'GET',
     params,
   });
