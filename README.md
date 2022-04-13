@@ -19,6 +19,7 @@
 - 所有的头像资源都是放在七牛云的根路径
 
 - 菜单栏相关的资源是放在七牛云的 DepartmentFD 文件夹下，公网地址`export const qiNiuUrl = 'http://r8dp8c34q.hn-bkt.clouddn.com/DepartmentFD/xxxxxx.docx';`
+- 公网地址修改为`http://ra6dzp178.hn-bkt.clouddn.com/ResourceFD/xxxxxx.docx';` 2022.4.13
 
 - 暂时所有的可阅读文件仅支持 docx，后续再支持 pdf 的文件格式
 
