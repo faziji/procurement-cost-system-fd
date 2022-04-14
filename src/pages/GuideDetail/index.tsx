@@ -1,22 +1,17 @@
 import Frame from "@/components/Frame";
-import { detailConsultation, detailPurchaseAnnouncement, detailResultAnnouncement, detailCorrectAnnouncement } from "@/services/resource/api";
-import { EyeOutlined } from "@ant-design/icons";
-import { useRequest } from "umi";
+import { DownloadOutlined, EyeOutlined } from "@ant-design/icons";
 import styles from './index.less'
 
 import { qiNiuUrl } from '../../../config/qiniuyun'
 import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
+import { Button } from "antd";
 
 
 
 
 const GuideDetail: React.FC = (props: any) => {
     const data = props.location?.query
-
-    // let data: any = {}
-
-
 
     const onError = (e: any) => {
         console.log('显示错误');
@@ -34,12 +29,9 @@ const GuideDetail: React.FC = (props: any) => {
                         </div>
                         <div className={styles.contentTitleDesc}>
                             发布时间：{data?.createdAt}
-                            {/* <p>| <EyeOutlined /></p> */}
-                            {/* 浏览次数：{data?.viewTime} */}
                         </div>
+                        {data?.type === "download" && <a target="_blank" href={qiNiuUrl + "Resources/" + data?.key}><Button type="dashed" shape="round" icon={<DownloadOutlined />} />点击下载</a>}
                     </div>
-
-                    {/* {current}---------{id}----{JSON.stringify(data)}---{qiNiuUrl} */}
                     {/* 会有一个bug，资源无法访问的时候会一直 */}
                     {data?.key ?
                         <FileViewer
@@ -49,9 +41,6 @@ const GuideDetail: React.FC = (props: any) => {
                             onError={onError} />
                         : null
                     }
-
-                    {/* {key}--- */}
-
                 </div>
             </Frame>
         </>

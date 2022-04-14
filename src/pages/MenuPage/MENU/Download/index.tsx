@@ -22,8 +22,11 @@ import { FrameNav } from '@/components/Frame';
 import { downloadMenu } from '@/resources/index'
 import styles from './index.less';
 import { getDownloadList } from '@/services/guide/api';
-import { Col, Divider, Empty, Pagination, Row } from 'antd';
+import { Button, Col, Divider, Empty, Pagination, Row } from 'antd';
 import moment from 'moment';
+import { qiNiuUrl } from '../../../../../config/qiniuyun'
+import { DownloadOutlined } from '@ant-design/icons';
+
 
 
 const Download: React.FC = (props: any) => {
@@ -53,11 +56,14 @@ const Download: React.FC = (props: any) => {
                                             <Col span={1}>
                                                 [{index + 1}]
                                             </Col>
-                                            <Col span={19} className={styles.itemHoverMore}>
-                                                <a className={styles.itemHoverMore} href={`/guideDetail?key=${item.key}&name=${item.name}&createdAt=${moment(item.createdAt).format('YYYY-MM-DD')}`}> {item.name}</a>
+                                            <Col span={18} className={styles.itemHoverMore}>
+                                                <a className={styles.itemHoverMore} href={`/guideDetail?key=${item.key}&name=${item.name}&createdAt=${moment(item.createdAt).format('YYYY-MM-DD')}&type=download`}> {item.name}</a>
                                             </Col>
-                                            <Col span={4} style={{ fontSize: 14 }}>
+                                            <Col span={3} style={{ fontSize: 14 }}>
                                                 {moment(item.createdAt).format('YYYY-MM-DD')}
+                                            </Col>
+                                            <Col span={2} className={styles.itemHoverMore}>
+                                                <a className={styles.itemHoverMore} target="_blank" href={qiNiuUrl + "Resources/" + item.key}><Button type="dashed" shape="round" icon={<DownloadOutlined />} /></a>
                                             </Col>
                                         </Row>
                                         <Divider dashed />

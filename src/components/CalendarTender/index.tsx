@@ -122,9 +122,11 @@ const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) 
     );
   }
 
+  // 存在bug:切换年份或月份时提示错误
   const handleSelect = (value: any) => {
     // 之后在这里点击跳转
     let handleData = moment(value).format('YYYY-MM-DD')
+
     if (resData.includes(handleData)) {
       setCalendarSearchTime(handleData)
       setCalendarSearch(true)
