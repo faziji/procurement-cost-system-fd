@@ -1,193 +1,181 @@
-.mainWrapper{
-    // height: 600px;  // 临时，后续得内容撑开
+.mainWrapper {
+  // height: 600px;  // 临时，后续得内容撑开
+  display: flex;
+  justify-content: center;
+
+  .cardContent {
     display: flex;
-    justify-content: center;
-    
-    .cardContent{
-        padding-top: 5px;
-        width: 1377px;
-        display: flex;
-        justify-content: space-between;
-        // background-color:#bfa;
-        
-        .firstLineBox{
-            width: 1377px;
-            margin-bottom: 200px; // 临时，后续得内容撑开
-            // height: 396px;
-            display: flex;
-            justify-content: space-between;
-            // background-color: pink;
+    justify-content: space-between;
+    width: 1377px;
+    padding-top: 5px;
+    // background-color:#bfa;
 
-            .calendarWrapper{
+    .firstLineBox {
+      // height: 396px;
+      display: flex;
+      justify-content: space-between;
+      width: 1377px;
+      margin-bottom: 200px; // 临时，后续得内容撑开
+      // background-color: pink;
 
-                .title{
-                    background: #e9f0f9;
-                    
-                    .typographytitle{
-                        color: #0c7ed9;
-                        padding-top: 5px;
-                    }
-                }
-            }
+      .calendarWrapper {
+        .title {
+          background: #e9f0f9;
 
-            .resourceWrapper{
-                // width: 710px;
-                // background-color: rgb(96, 96, 167);
-                
-                .title{
-                    height: 37px;
-                    background: #e9f0f9;
-                    
-                    .typographytitle{
-                        color: #0c7ed9;
-                        padding-top: 5px;
-                    }
-
-                    .titleNav{
-                        background-color: gray;
-                        // width: 540px;
-                        display: flex;
-                        align-items: center;
-
-                        .navItem{
-                            // width: 80px;
-                            padding: 0 8px;
-                            height: 37px;
-                            line-height: 37px;
-                            background-color: rgb(198, 155, 76);
-
-                            display: flex;
-                            justify-content: center;
-
-                            .navItemText{
-                                padding: 0 8px;
-                            }
-
-                            &:hover{
-                                background-color: #0c7ed9;
-                                // padding: 5px;
-                                border-radius: 5px 5px 0 0;
-                                color: white;
-                                cursor: pointer;
-                            }
-                        }
-                    }
-                }
-            }
-            
-
-            .loginWrapper{
-
-                .title{
-                    background: #e9f0f9;
-                    
-                    .typographytitle{
-                        color: #0c7ed9;
-                        padding-top: 5px;
-                    }
-                }
-
-                .loginCard{
-                    width: 320px;
-                    height: 360px;
-                }
-            }
+          .typographytitle {
+            padding-top: 5px;
+            color: #0c7ed9;
+          }
         }
+      }
+
+      .resourceWrapper {
+        // width: 710px;
+        // background-color: rgb(96, 96, 167);
+
+        .title {
+          height: 37px;
+          background: #e9f0f9;
+
+          .typographytitle {
+            padding-top: 5px;
+            color: #0c7ed9;
+          }
+
+          .titleNav {
+            // width: 540px;
+            display: flex;
+            align-items: center;
+            background-color: gray;
+
+            .navItem {
+              display: flex;
+              justify-content: center;
+              height: 37px;
+              // width: 80px;
+              padding: 0 8px;
+              line-height: 37px;
+              background-color: rgb(198, 155, 76);
+
+              .navItemText {
+                padding: 0 8px;
+              }
+
+              &:hover {
+                color: white;
+                background-color: #0c7ed9;
+                // padding: 5px;
+                border-radius: 5px 5px 0 0;
+                cursor: pointer;
+              }
+            }
+          }
+        }
+      }
+
+      .loginWrapper {
+        .title {
+          background: #e9f0f9;
+
+          .typographytitle {
+            padding-top: 5px;
+            color: #0c7ed9;
+          }
+        }
+
+        .loginCard {
+          width: 320px;
+          height: 360px;
+        }
+      }
     }
+  }
 }
 
-
-
-
-
-
-
-.common{
-    width: 75px;
-    height: 75px;
-    margin-top: -20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: white
+.common {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin-top: -20px;
+  color: white;
 }
 
 .loginFormEntry1 {
-    .common();
-  
-    background-color: #67c23a;
-  
-    .entryWrapper{
-        .imagePic{
-            width: 24px;
-            height: 24px;
-            margin-top: 14px;
-            margin-left: 20px;
-        }
+  .common();
+
+  background-color: #67c23a;
+
+  .entryWrapper {
+    cursor: pointer;
+    .imagePic {
+      width: 24px;
+      height: 24px;
+      margin-top: 14px;
+      margin-left: 20px;
     }
-  
+  }
 }
 .loginFormEntry2 {
-    .common();
-  
-    background-color: #909399;
-  
-    .entryWrapper{
-        .imagePic{
-            width: 24px;
-            height: 24px;
-            margin-top: 14px;
-            margin-left: 15px;
-        }
+  .common();
+
+  background-color: #909399;
+
+  .entryWrapper {
+    cursor: pointer;
+    .imagePic {
+      width: 24px;
+      height: 24px;
+      margin-top: 14px;
+      margin-left: 15px;
     }
-  
+  }
 }
-  
+
 /* stylelint-disable-next-line no-duplicate-selectors */
 .loginFormEntry3 {
-    .common();
-  
-    background-color: #128bed;
-  
+  .common();
+
+  background-color: #128bed;
+
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  .entryWrapper {
     /* stylelint-disable-next-line no-duplicate-selectors */
-    .entryWrapper{
-        /* stylelint-disable-next-line no-duplicate-selectors */
-        .imagePic{
-            width: 24px;
-            height: 24px;
-            margin-top: 14px;
-            margin-left: 15px;
-        }
+    cursor: pointer;
+    .imagePic {
+      width: 24px;
+      height: 24px;
+      margin-top: 14px;
+      margin-left: 15px;
     }
-  
+  }
 }
 
 // 日历搜索相关的样式
-.calendarSearchWrapper{
-    // height: 80px;
-    // background-color: rgb(199, 111, 111);
-    width: 1050px;
-    height: 600px;
-    // background-color: #bfa;
+.calendarSearchWrapper {
+  // height: 80px;
+  // background-color: rgb(199, 111, 111);
+  width: 1050px;
+  height: 600px;
+  // background-color: #bfa;
 
-    .calendarSearchTitle{
-        height: 60px;
-        // background-color: rgba(199, 111, 111, 0.226);
-        font-size: 16px;
-        font-weight: bold;
-        color: #1c75d3;
-    }
+  .calendarSearchTitle {
+    height: 60px;
+    color: #1c75d3;
+    font-weight: bold;
+    // background-color: rgba(199, 111, 111, 0.226);
+    font-size: 16px;
+  }
 }
-.calendarSearchTitleText{
-    position: absolute;
-    right: 20px;
-    font-size: 14px;
-    color: #333;
-    cursor: pointer;
-    font-weight: normal;
-    &:hover{
-        color:#1c75d3
-    }
+.calendarSearchTitleText {
+  position: absolute;
+  right: 20px;
+  color: #333;
+  font-weight: normal;
+  font-size: 14px;
+  cursor: pointer;
+  &:hover {
+    color: #1c75d3;
+  }
 }
-
-

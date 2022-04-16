@@ -1,0 +1,154 @@
+.mainWrapper {
+  display: flex;
+  justify-content: center;
+}
+.mainWrapper .cardContent {
+  display: flex;
+  justify-content: space-between;
+  width: 1377px;
+  padding-top: 5px;
+}
+.mainWrapper .cardContent .firstLineBox {
+  display: flex;
+  justify-content: space-between;
+  width: 1377px;
+  margin-bottom: 200px;
+}
+.mainWrapper .cardContent .firstLineBox .calendarWrapper .title {
+  background: #e9f0f9;
+}
+.mainWrapper .cardContent .firstLineBox .calendarWrapper .title .typographytitle {
+  padding-top: 5px;
+  color: #0c7ed9;
+}
+.mainWrapper .cardContent .firstLineBox .resourceWrapper .title {
+  height: 37px;
+  background: #e9f0f9;
+}
+.mainWrapper .cardContent .firstLineBox .resourceWrapper .title .typographytitle {
+  padding-top: 5px;
+  color: #0c7ed9;
+}
+.mainWrapper .cardContent .firstLineBox .resourceWrapper .title .titleNav {
+  display: flex;
+  align-items: center;
+  background-color: gray;
+}
+.mainWrapper .cardContent .firstLineBox .resourceWrapper .title .titleNav .navItem {
+  display: flex;
+  justify-content: center;
+  height: 37px;
+  padding: 0 8px;
+  line-height: 37px;
+  background-color: #c69b4c;
+}
+.mainWrapper .cardContent .firstLineBox .resourceWrapper .title .titleNav .navItem .navItemText {
+  padding: 0 8px;
+}
+.mainWrapper .cardContent .firstLineBox .resourceWrapper .title .titleNav .navItem:hover {
+  color: white;
+  background-color: #0c7ed9;
+  border-radius: 5px 5px 0 0;
+  cursor: pointer;
+}
+.mainWrapper .cardContent .firstLineBox .loginWrapper .title {
+  background: #e9f0f9;
+}
+.mainWrapper .cardContent .firstLineBox .loginWrapper .title .typographytitle {
+  padding-top: 5px;
+  color: #0c7ed9;
+}
+.mainWrapper .cardContent .firstLineBox .loginWrapper .loginCard {
+  width: 320px;
+  height: 360px;
+}
+.common {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin-top: -20px;
+  color: white;
+}
+.loginFormEntry1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin-top: -20px;
+  color: white;
+  background-color: #67c23a;
+}
+.loginFormEntry1 .entryWrapper {
+  cursor: pointer;
+}
+.loginFormEntry1 .entryWrapper .imagePic {
+  width: 24px;
+  height: 24px;
+  margin-top: 14px;
+  margin-left: 20px;
+}
+.loginFormEntry2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin-top: -20px;
+  color: white;
+  background-color: #909399;
+}
+.loginFormEntry2 .entryWrapper {
+  cursor: pointer;
+}
+.loginFormEntry2 .entryWrapper .imagePic {
+  width: 24px;
+  height: 24px;
+  margin-top: 14px;
+  margin-left: 15px;
+}
+/* stylelint-disable-next-line no-duplicate-selectors */
+.loginFormEntry3 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 75px;
+  height: 75px;
+  margin-top: -20px;
+  color: white;
+  background-color: #128bed;
+  /* stylelint-disable-next-line no-duplicate-selectors */
+}
+.loginFormEntry3 .entryWrapper {
+  /* stylelint-disable-next-line no-duplicate-selectors */
+  cursor: pointer;
+}
+.loginFormEntry3 .entryWrapper .imagePic {
+  width: 24px;
+  height: 24px;
+  margin-top: 14px;
+  margin-left: 15px;
+}
+.calendarSearchWrapper {
+  width: 1050px;
+  height: 600px;
+}
+.calendarSearchWrapper .calendarSearchTitle {
+  height: 60px;
+  color: #1c75d3;
+  font-weight: bold;
+  font-size: 16px;
+}
+.calendarSearchTitleText {
+  position: absolute;
+  right: 20px;
+  color: #333;
+  font-weight: normal;
+  font-size: 14px;
+  cursor: pointer;
+}
+.calendarSearchTitleText:hover {
+  color: #1c75d3;
+}
