@@ -83,6 +83,20 @@
     layout: false,
     component: './My',
   },
+  // 我的关注
+  {
+    path: '/myAttention',
+    name: 'myAttention',
+    layout: false,
+    component: './myAttention',
+  },
+  // 我的投标
+  {
+    path: '/myTender',
+    name: 'myTender',
+    layout: false,
+    component: './myTender',
+  },
   {
     path: '/',
     redirect: '/welcome',

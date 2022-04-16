@@ -33,7 +33,7 @@ const JumpSystemLine = () => {
         </Link>
       </Col>
       <Col span={8}>
-        <div className={styles.loginFormEntry2}>
+        <Link to={'/myAttention'} className={styles.loginFormEntry2}>
           <div className={styles.entryWrapper}>
             <img
               className={styles.imagePic}
@@ -42,19 +42,19 @@ const JumpSystemLine = () => {
             />
             <p>我的关注</p>
           </div>
-        </div>
+        </Link>
       </Col>
       <Col span={8}>
-        <div className={styles.loginFormEntry3}>
+        <Link to={'/myTender'} className={styles.loginFormEntry3}>
           <div className={styles.entryWrapper}>
             <img
               className={styles.imagePic}
               src="http://www2.scut.edu.cn/_upload/tpl/09/04/2308/template2308/img/icon-ds.png"
               alt=""
             />
-            <p>管理后台</p>
+            <p>我的投标</p>
           </div>
-        </div>
+        </Link>
       </Col>
     </Row>
   );

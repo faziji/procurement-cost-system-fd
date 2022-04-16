@@ -78,4 +78,7 @@ export default {
   'menu.party': '党建活动',
   'menu.resourceDetail': '公告详情页',
   'menu.guideDetail': '指南详情页',
+  'menu.my': '我的信息',
+  'menu.myAttention': '我的关注',
+  'menu.myTender': '我的投标',
 };

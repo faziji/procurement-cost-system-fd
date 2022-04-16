@@ -1,40 +1,36 @@
-import { Form, Input, Button, Checkbox, Row, Col, message, Card, Avatar, Descriptions } from "antd";
-import { UserOutlined, LockOutlined, AntDesignOutlined } from "@ant-design/icons";
+import { Form, Input, Button, Checkbox, Row, Col, message, Card, Avatar, Descriptions } from 'antd';
+import { UserOutlined, LockOutlined, AntDesignOutlined } from '@ant-design/icons';
 // import UserOutlined from "@ant-design/icons"
 // import LockOutlined from "@ant-design/icons"
-import { NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom';
 
-
-import { login, getCurrentUserInfo } from '@/services/user/api'
-import { useState } from "react";
-import { getToken, getUerInfo } from "@/utils";
-
+import { login, getCurrentUserInfo } from '@/services/user/api';
+import { useState } from 'react';
+import { getToken, getUerInfo } from '@/utils';
 
 const NormalLoginForm = (props: any) => {
   const onFinish = async (values: any) => {
-    console.log("Received values of form: ", values);
-    let res = await login(values)
+    console.log('Received values of form: ', values);
+    let res = await login(values);
 
     if (res?.code) {
-      message.error(res?.msg)
-      localStorage.removeItem('fdToken')
-      localStorage.removeItem('fdUserInfo')
+      message.error(res?.msg);
+      localStorage.removeItem('fdToken');
+      localStorage.removeItem('fdUserInfo');
     } else {
-      localStorage.setItem('fdToken', res?.data?.token || "")
+      localStorage.setItem('fdToken', res?.data?.token || '');
 
       try {
         let resData = await getCurrentUserInfo();
-        localStorage.setItem('fdUserInfo', JSON.stringify(resData?.data))
-        props.handleLogined(true)
-        message.success("登录成功！")
+        localStorage.setItem('fdUserInfo', JSON.stringify(resData?.data));
+        props.handleLogined(true);
+        message.success('登录成功！');
       } catch (error) {
-        localStorage.removeItem('fdToken')
-        message.error("获取用户信息失败")
+        localStorage.removeItem('fdToken');
+        message.error('获取用户信息失败');
       }
-
     }
-    console.log("Response login of form:", res);
-
+    console.log('Response login of form:', res);
   };
 
   return (
@@ -47,7 +43,7 @@ const NormalLoginForm = (props: any) => {
     >
       <Form.Item
         name="username"
-        rules={[{ required: true, message: "Please input your Username!" }]}
+        rules={[{ required: true, message: 'Please input your Username!' }]}
       >
         <Input
           prefix={<UserOutlined className="site-form-item-icon" />}
@@ -57,7 +53,7 @@ const NormalLoginForm = (props: any) => {
       </Form.Item>
       <Form.Item
         name="password"
-        rules={[{ required: true, message: "Please input your Password!" }]}
+        rules={[{ required: true, message: 'Please input your Password!' }]}
       >
         <Input
           prefix={<LockOutlined className="site-form-item-icon" />}
@@ -70,8 +66,9 @@ const NormalLoginForm = (props: any) => {
         <Form.Item name="remember" valuePropName="checked" noStyle>
           <Checkbox>记住密码</Checkbox>
         </Form.Item>
-        <NavLink to="/register" style={{ marginLeft: '10px' }}>用户注册，</NavLink>
-
+        <NavLink to="/register" style={{ marginLeft: '10px' }}>
+          用户注册，
+        </NavLink>
 
         <a className="login-form-forgot" href="">
           忘记密码
@@ -79,10 +76,17 @@ const NormalLoginForm = (props: any) => {
       </Form.Item>
 
       <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button" style={{ width: 245 }}>
+        <Button
+          type="primary"
+          htmlType="submit"
+          className="login-form-button"
+          style={{ width: 245 }}
+        >
           登录
         </Button>
-        <p style={{ color: '#767676' }}>注册登录即表示同意<a href="">用户协议</a>、<a href="">隐私政策</a></p>
+        <p style={{ color: '#767676' }}>
+          注册登录即表示同意<a href="">用户协议</a>、<a href="">隐私政策</a>
+        </p>
       </Form.Item>
     </Form>
   );
@@ -97,61 +101,53 @@ const NormalLoginedForm = (props: any) => {
    * 删除fdToken和fdUserInfo
    */
   const removelocalStorage = () => {
-
-    localStorage.removeItem('fdToken')
-    localStorage.removeItem('fdUserInfo')
-    props.handleLogined(false)
-    message.success('退出登录成功！')
-  }
+    localStorage.removeItem('fdToken');
+    localStorage.removeItem('fdUserInfo');
+    props.handleLogined(false);
+    message.success('退出登录成功！');
+  };
 
   /**
    * 从本地获取用户信息
    */
-  const userInfo = JSON.parse(getUerInfo() || "")
-
+  const userInfo = JSON.parse(getUerInfo() || '');
 
   return (
-    <Form
-      name="normal_login"
-      className="login-form"
-      style={{ height: 270 }}
-    >
-
+    <Form name="normal_login" className="login-form" style={{ height: 270 }}>
       <Form.Item>
-        <Avatar
-          icon={<AntDesignOutlined />}
-          src={userInfo?.avatar}
-        />
-        登录成功,欢迎您{userInfo.name}!
-        <a onClick={removelocalStorage}>[退出登录]</a>
+        <Avatar icon={<AntDesignOutlined />} src={userInfo?.avatar} />
+        登录成功,欢迎您{userInfo.name}!<a onClick={removelocalStorage}>[退出登录]</a>
       </Form.Item>
       <Form.Item>
         {/* {getUerInfo()} */}
+        <Row>公司名：{userInfo.companyName}</Row>
+        <Row>统一信用代码：{userInfo.username}</Row>
+        <Row>联系人姓名：{userInfo.name}</Row>
+        <Row>联系电话：{userInfo.phone}</Row>
+        <Row>邮箱：{userInfo.email}</Row>
         <Row>
-          公司名：{userInfo.companyName}
-        </Row>
-        <Row>
-          联系人姓名：{userInfo.name}
-        </Row>
-        <Row>
-          邮箱：{userInfo.email}
-        </Row>
-        <Row>
-          当前账号状态：{userInfo.role === "supplier-reviewing" ? '申请中...' : userInfo.role === "supplier-unaccess" ? '已拒绝' : userInfo.role === 'supplier' ? '正常' : '账号异常'}
+          当前账号状态：
+          {userInfo.role === 'supplier-reviewing'
+            ? '申请中...'
+            : userInfo.role === 'supplier-unaccess'
+            ? '已拒绝'
+            : userInfo.role === 'supplier'
+            ? '正常'
+            : '账号异常'}
         </Row>
       </Form.Item>
     </Form>
-
-  )
-}
-
-
+  );
+};
 
 const FormNormalLogin = () => {
   // 登录状态
-  const [logined, setLogined] = useState(!!getToken())
-  return logined ? <NormalLoginedForm handleLogined={setLogined} /> : <NormalLoginForm handleLogined={setLogined} />
-
-}
+  const [logined, setLogined] = useState(!!getToken());
+  return logined ? (
+    <NormalLoginedForm handleLogined={setLogined} />
+  ) : (
+    <NormalLoginForm handleLogined={setLogined} />
+  );
+};
 
 export default FormNormalLogin;
