@@ -135,6 +135,9 @@ const NormalLoginedForm = (props: any) => {
             ? '正常'
             : '账号异常'}
         </Row>
+        <Row style={{ color: 'red' }}>
+          {userInfo.status === 'disable' && '本账号被禁用，请联系管理员解封！'}
+        </Row>
       </Form.Item>
     </Form>
   );
