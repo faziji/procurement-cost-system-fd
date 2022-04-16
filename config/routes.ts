@@ -76,6 +76,13 @@
     layout: false,
     component: './GuideDetail',
   },
+  //  我的信息
+  {
+    path: '/my',
+    name: 'my',
+    layout: false,
+    component: './My',
+  },
   {
     path: '/',
     redirect: '/welcome',

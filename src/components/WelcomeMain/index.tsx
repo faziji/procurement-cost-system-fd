@@ -15,12 +15,13 @@ import ResourceAnnounce from './ResourceAnnounce';
 import ResourceItemElemMore from './ResourceItemElemMore';
 import { useRequest } from 'umi';
 import { getPurchaseAnnouncementList } from '@/services/resource/api';
+import { Link } from 'umi';
 
 const JumpSystemLine = () => {
   return (
     <Row>
       <Col span={8}>
-        <div className={styles.loginFormEntry1}>
+        <Link to={'/my'} className={styles.loginFormEntry1}>
           <div className={styles.entryWrapper}>
             <img
               className={styles.imagePic}
@@ -29,7 +30,7 @@ const JumpSystemLine = () => {
             />
             <p>我的信息</p>
           </div>
-        </div>
+        </Link>
       </Col>
       <Col span={8}>
         <div className={styles.loginFormEntry2}>
