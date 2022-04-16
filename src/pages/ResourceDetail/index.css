@@ -1,0 +1,32 @@
+.contentWrapper {
+  height: 700px;
+}
+.contentWrapper .contentTitle {
+  height: 100px;
+  margin-top: 5px;
+}
+.contentWrapper .contentTitle .contentTitleText {
+  padding: 5px;
+  color: #282828;
+  font-size: 18px;
+  font-family: 'Microsoft YaHei';
+  line-height: 26px;
+  text-align: center;
+  border-bottom: 1px solid #8dbce26b;
+}
+.contentWrapper .contentTitle .contentTitleDesc {
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+.contentWrapper .contentTitle .contentTitleDesc p {
+  margin: 0 3px 0 6px;
+  opacity: 0.5;
+}
+.contentWrapper .contentTitle .tenderButton {
+  display: flex;
+  justify-content: center;
+}
+.proFormWrapper {
+  height: 500px;
+}
