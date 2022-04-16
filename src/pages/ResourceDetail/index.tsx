@@ -31,17 +31,29 @@ import styles from './index.less';
 import { qiNiuUrl } from '../../../config/qiniuyun';
 import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
-import { Button, message } from 'antd';
+import { Alert, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
 
 const ResourceDetail: React.FC = (props: any) => {
   const { current, id } = props.location?.query;
   // 是否已投标
   const [tendered, setTendered] = useState(false);
+  // 是否申请通过
+  const [applyed, setApplyed] = useState(false);
+  // 是否被禁用账号
+  const [forbidden, setForbidden] = useState(false);
 
   useEffect(() => {
-    const { username: supplierUsername } = JSON.parse(getUerInfo() || '{}');
+    const { username: supplierUsername, role, status } = JSON.parse(getUerInfo() || '{}');
     console.log('判断是否已投标', supplierUsername, id);
+
+    if (role == 'supplier') {
+      setApplyed(true);
+    }
+    if (status !== 'enable') {
+      setForbidden(true);
+    }
+
     getTenderList({ supplierUsername, announcementId: id })
       .then((res) => {
         console.log('已投标', res, tendered);
@@ -140,9 +152,25 @@ const ResourceDetail: React.FC = (props: any) => {
             </div>
             <div className={styles.tenderButton}>
               {current == 2 && !tenderPageVisiable && (
-                <Button type="primary" onClick={handleTender} disabled={tendered}>
-                  {!tendered ? '我要投标' : '已投标'}
+                <Button
+                  style={{ width: 200 }}
+                  type="primary"
+                  onClick={handleTender}
+                  disabled={tendered || !applyed}
+                >
+                  {tendered ? '已投标' : '我要投标'}
                 </Button>
+              )}
+            </div>
+
+            <div>
+              {(!applyed || forbidden) && (
+                <Alert
+                  style={{ width: 350, marginLeft: 520 }}
+                  message="未登录、审核未通过、禁用账户无法投标！"
+                  type="warning"
+                  showIcon
+                />
               )}
             </div>
           </div>
