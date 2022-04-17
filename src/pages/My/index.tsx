@@ -1,23 +1,3 @@
-// import styles from './index.less';
-// import { getUerInfo } from '@/utils';
-// import { Card } from 'antd';
-
-// const My: React.FC = (props: any) => {
-//   const data = props.location?.query;
-
-//   return (
-//     <>
-//       <Frame>
-//         <div className={styles.contentWrapper}>
-//           {/* <Card>{getUerInfo()}</Card> */}
-//         </div>
-//       </Frame>
-//     </>
-//   );
-// };
-
-// export default My;
-
 import Frame from '@/components/Frame';
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import { GridContent } from '@ant-design/pro-layout';

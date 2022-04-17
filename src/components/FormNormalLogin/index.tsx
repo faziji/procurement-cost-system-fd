@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 
 import { login, getCurrentUserInfo } from '@/services/user/api';
 import { useState } from 'react';
-import { getToken, getUerInfo } from '@/utils';
+import { getToken, getUserInfo } from '@/utils';
 
 const NormalLoginForm = (props: any) => {
   const onFinish = async (values: any) => {
@@ -110,7 +110,7 @@ const NormalLoginedForm = (props: any) => {
   /**
    * 从本地获取用户信息
    */
-  const userInfo = JSON.parse(getUerInfo() || '');
+  const userInfo = JSON.parse(getUserInfo() || '');
 
   return (
     <Form name="normal_login" className="login-form" style={{ height: 270 }}>
@@ -119,7 +119,7 @@ const NormalLoginedForm = (props: any) => {
         登录成功,欢迎您{userInfo.name}!<a onClick={removelocalStorage}>[退出登录]</a>
       </Form.Item>
       <Form.Item>
-        {/* {getUerInfo()} */}
+        {/* {getUserInfo()} */}
         <Row>公司名：{userInfo.companyName}</Row>
         <Row>统一信用代码：{userInfo.username}</Row>
         <Row>联系人姓名：{userInfo.name}</Row>

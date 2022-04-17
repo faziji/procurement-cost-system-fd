@@ -14,7 +14,7 @@ import ProForm, {
   ProFormUploadButton,
 } from '@ant-design/pro-form';
 
-import { getUerInfo } from '../../utils';
+import { getUserInfo } from '../../utils';
 
 import {
   detailConsultation,
@@ -44,7 +44,7 @@ const ResourceDetail: React.FC = (props: any) => {
   const [forbidden, setForbidden] = useState(false);
 
   useEffect(() => {
-    const { username: supplierUsername, role, status } = JSON.parse(getUerInfo() || '{}');
+    const { username: supplierUsername, role, status } = JSON.parse(getUserInfo() || '{}');
     console.log('判断是否已投标', supplierUsername, id);
 
     if (role == 'supplier') {
@@ -110,9 +110,9 @@ const ResourceDetail: React.FC = (props: any) => {
 
   const submitTender = async (value: any) => {
     // console.log('submitTender', value, data);
-    // console.log('getUerInfo', JSON.parse(getUerInfo() || '{}'));
+    // console.log('getUserInfo', JSON.parse(getUserInfo() || '{}'));
     const { username: supplierUsername, companyName: supplierName } = JSON.parse(
-      getUerInfo() || '{}',
+      getUserInfo() || '{}',
     );
     const reqData = {
       announcementId: data.id,

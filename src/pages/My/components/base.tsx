@@ -1,19 +1,13 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
 import { Button, Input, Upload, message } from 'antd';
 import ProForm, { ProFormFieldSet, ProFormText } from '@ant-design/pro-form';
 import { useRequest } from 'umi';
+import { history } from 'umi';
 // import { queryCurrent, baseSettings } from '../service';
+import { getUserInfo } from '@/utils';
 
 import styles from './BaseView.less';
-
-// 验证电话号码格式
-const validatorPhone = (rule: any, value: string[], callback: (message?: string) => void) => {
-  if (!value[0]) {
-    callback('Please input your phone number!');
-  }
-  callback();
-};
 
 // 获取返回加载图片的base64地址
 const getBase64 = (img: any, callback: any) => {
@@ -63,14 +57,23 @@ const AvatarView = ({ avatar }: { avatar: string }) => {
 };
 
 const BaseView: React.FC = () => {
-  const { data: currentUser, loading } = useRequest(() => {
-    return queryCurrent();
+  useEffect(() => {
+    const currentUser = getUserInfo();
+    // 用户未登录
+    if (currentUser == 'undefined' || !currentUser) {
+      message.error('用户未登录，跳转登录...');
+      history.push('/welcome');
+      return;
+    }
   });
 
   const getAvatarURL = () => {
+    const currentUser = JSON.parse(getUserInfo() || '{}');
+    console.log('11111111111111111', currentUser);
+
     if (currentUser) {
-      if (currentUser.avatar) {
-        return currentUser.avatar;
+      if (currentUser?.avatar) {
+        return currentUser?.avatar;
       }
       const url = 'https://a.msstatic.com/huya/main3/components/helperbar/img/mm_de16b.png';
       return url;
@@ -83,61 +86,61 @@ const BaseView: React.FC = () => {
       ...data,
       phone: data.phone[0],
     };
-    baseSettings(info)
-      .then((result) => {
-        message.success('更新基本信息成功');
-      })
-      .catch((err) => {
-        message.error('更新基本信息失败');
-      });
+    // baseSettings(info)
+    //   .then((result) => {
+    //     message.success('更新基本信息成功');
+    //   })
+    //   .catch((err) => {
+    //     message.error('更新基本信息失败');
+    //   });
   };
   return (
     <div className={styles.baseView}>
-      {loading ? null : (
-        <>
-          <div className={styles.left}>
-            <ProForm
-              layout="vertical"
-              onFinish={handleFinish}
-              submitter={{
-                resetButtonProps: {
-                  style: {
-                    display: 'none',
-                  },
+      <>
+        <div className={styles.left}>
+          <ProForm
+            layout="vertical"
+            onFinish={handleFinish}
+            submitter={{
+              resetButtonProps: {
+                style: {
+                  display: 'none',
                 },
-                submitButtonProps: {
-                  children: '更新基本信息',
+              },
+              submitButtonProps: {
+                children: '更新基本信息',
+              },
+            }}
+            initialValues={
+              {
+                // phone: currentUser?.phone?.split('-'),
+              }
+            }
+            hideRequiredMark
+          >
+            <ProFormText
+              width="md"
+              name="email"
+              label="邮箱"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入您的邮箱!',
                 },
-              }}
-              initialValues={{
-                ...currentUser,
-                phone: currentUser?.phone?.split('-'),
-              }}
-              hideRequiredMark
-            >
-              <ProFormText
-                width="md"
-                name="email"
-                label="邮箱"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的邮箱!',
-                  },
-                ]}
-              />
-              <ProFormText
-                width="md"
-                name="name"
-                label="昵称"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的昵称!',
-                  },
-                ]}
-              />
-              {/* <ProFormTextArea
+              ]}
+            />
+            <ProFormText
+              width="md"
+              name="name"
+              label="昵称"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入您的昵称!',
+                },
+              ]}
+            />
+            {/* <ProFormTextArea
                 name="profile"
                 label="个人简介"
                 rules={[
@@ -148,26 +151,24 @@ const BaseView: React.FC = () => {
                 ]}
                 placeholder="个人简介"
               /> */}
-              <ProFormFieldSet
-                name="phone"
-                label="联系电话"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入您的联系电话!',
-                  },
-                  { validator: validatorPhone },
-                ]}
-              >
-                <Input className={styles.phone_number} />
-              </ProFormFieldSet>
-            </ProForm>
-          </div>
-          <div className={styles.right}>
-            <AvatarView avatar={getAvatarURL()} />
-          </div>
-        </>
-      )}
+            <ProFormFieldSet
+              name="phone"
+              label="联系电话"
+              rules={[
+                {
+                  required: true,
+                  message: '请输入您的联系电话!',
+                },
+              ]}
+            >
+              <Input className={styles.phone_number} />
+            </ProFormFieldSet>
+          </ProForm>
+        </div>
+        <div className={styles.right}>
+          <AvatarView avatar={getAvatarURL()} />
+        </div>
+      </>
     </div>
   );
 };
