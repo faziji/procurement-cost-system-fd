@@ -4,7 +4,7 @@ import { Button, Input, Upload, message } from 'antd';
 import ProForm, { ProFormFieldSet, ProFormText } from '@ant-design/pro-form';
 import { useRequest } from 'umi';
 import { history } from 'umi';
-// import { queryCurrent, baseSettings } from '../service';
+import { getCurrentUserInfo } from '@/services/user/api';
 import { getUserInfo } from '@/utils';
 
 import styles from './BaseView.less';
@@ -56,21 +56,25 @@ const AvatarView = ({ avatar }: { avatar: string }) => {
   );
 };
 
-const BaseView: React.FC = () => {
+const BaseView: any = () => {
+  const [currentUser, setCurrentUser] = useState({});
   useEffect(() => {
-    const currentUser = getUserInfo();
-    // 用户未登录
-    if (currentUser == 'undefined' || !currentUser) {
-      message.error('用户未登录，跳转登录...');
-      history.push('/welcome');
-      return;
-    }
-  });
+    getCurrentUserInfo()
+      .then((res: any) => {
+        setCurrentUser(res?.data);
+      })
+      .catch((err) => {
+        console.log('发生了错误', err);
+      });
+  }, []);
+
+  if (currentUser == 'noLoginUser') {
+    message.error('用户未登录，跳转登录...');
+    history.push('/welcome');
+    return;
+  }
 
   const getAvatarURL = () => {
-    const currentUser = JSON.parse(getUserInfo() || '{}');
-    console.log('11111111111111111', currentUser);
-
     if (currentUser) {
       if (currentUser?.avatar) {
         return currentUser?.avatar;
@@ -80,12 +84,13 @@ const BaseView: React.FC = () => {
     }
     return '';
   };
-
   const handleFinish = async (data: any) => {
     let info = {
       ...data,
       phone: data.phone[0],
     };
+    console.log('提交的数据是', info);
+
     // baseSettings(info)
     //   .then((result) => {
     //     message.success('更新基本信息成功');
@@ -94,6 +99,10 @@ const BaseView: React.FC = () => {
     //     message.error('更新基本信息失败');
     //   });
   };
+
+  // const currentUser
+  console.log('111111111111', currentUser);
+
   return (
     <div className={styles.baseView}>
       <>
@@ -111,11 +120,11 @@ const BaseView: React.FC = () => {
                 children: '更新基本信息',
               },
             }}
-            initialValues={
-              {
-                // phone: currentUser?.phone?.split('-'),
-              }
-            }
+            initialValues={{
+              ...currentUser,
+              // phone: currentUser?.phone?.split('-'),
+              // ...currentUser,
+            }}
             hideRequiredMark
           >
             <ProFormText
@@ -140,17 +149,6 @@ const BaseView: React.FC = () => {
                 },
               ]}
             />
-            {/* <ProFormTextArea
-                name="profile"
-                label="个人简介"
-                rules={[
-                  {
-                    required: true,
-                    message: '请输入个人简介!',
-                  },
-                ]}
-                placeholder="个人简介"
-              /> */}
             <ProFormFieldSet
               name="phone"
               label="联系电话"
@@ -164,6 +162,7 @@ const BaseView: React.FC = () => {
               <Input className={styles.phone_number} />
             </ProFormFieldSet>
           </ProForm>
+          {JSON.stringify(currentUser)}
         </div>
         <div className={styles.right}>
           <AvatarView avatar={getAvatarURL()} />
