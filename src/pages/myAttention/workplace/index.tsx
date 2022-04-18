@@ -1,5 +1,5 @@
-import type { FC } from 'react';
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from 'antd';
+import { FC, useEffect, useState } from 'react';
+import { Avatar, Card, Col, List, Skeleton, Row, Statistic, Tag, Empty } from 'antd';
 
 import { Link, useRequest } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -7,7 +7,8 @@ import moment from 'moment';
 import EditableLinkGroup from './components/EditableLinkGroup';
 import styles from './style.less';
 // import type { ActivitiesType, CurrentUser } from './data.d';
-import { queryProjectNotice, queryActivities, fakeChartData } from './service';
+import { queryProjectNotice, queryActivities, fakeChartData, getAttentionList } from './service';
+
 import { getUserInfo } from '@/utils';
 
 const links = [
@@ -87,8 +88,9 @@ const Workplace: FC = () => {
   // const { loading: projectLoading, data: projectNotice = [] } = useRequest(queryProjectNotice);
   // const { loading: activitiesLoading, data: activities = [] } = useRequest(queryActivities);
   // const { data } = useRequest(fakeChartData);
+  // const { loading, data = [] } = useRequest();
 
-  const renderActivities = (item: ActivitiesType) => {
+  const renderActivities = (item: any) => {
     const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
       if (item[key]) {
         return (
@@ -122,6 +124,21 @@ const Workplace: FC = () => {
 
   // 获取用户信息
   const currentUser = JSON.parse(getUserInfo() || '{}');
+  const [attentions, setAttentions] = useState([]);
+
+  useEffect(() => {
+    // 获取用户信息
+    getAttentionList({
+      username: currentUser?.username,
+    })
+      .then((res) => {
+        console.log('返回的值是', res);
+        setAttentions(res?.data);
+      })
+      .catch((err) => {
+        console.log('发生了错误');
+      });
+  }, []);
 
   return (
     <Card>
@@ -141,29 +158,63 @@ const Workplace: FC = () => {
               // loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
-              {/* {projectNotice.map((item) => (
-              <Card.Grid className={styles.projectGrid} key={item.id}>
-                <Card bodyStyle={{ padding: 0 }} bordered={false}>
-                  <Card.Meta
-                    title={
-                      <div className={styles.cardTitle}>
-                        <Avatar size="small" src={item.logo} />
-                        <Link to={item.href}>{item.title}</Link>
+              {/* {JSON.stringify(attentions)} */}
+              {attentions?.length != 0 &&
+                attentions.map((item: any) => (
+                  <Card.Grid className={styles.projectGrid} key={item.id}>
+                    <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                      <Card.Meta
+                        title={
+                          <div className={styles.cardTitle}>
+                            {/* <Avatar size="small" src={item.logo} /> */}
+                            <Link
+                              to={`/resourceDetail?current=${
+                                item.announcementType == 'consultation'
+                                  ? 1
+                                  : item.announcementType == 'purchaseannouncement'
+                                  ? 2
+                                  : item.announcementType == 'resultannouncement'
+                                  ? 3
+                                  : 4
+                              }&id=${item.announcementId}`}
+                            >
+                              {item.announcementName}
+                            </Link>
+                          </div>
+                        }
+                        description={'描述：' + item.announcementDescription}
+                      />
+                      <div className={styles.projectItemContent}>
+                        {item.announcementType == 'consultation' ? (
+                          <Tag color="green" key={item?.announcementType}>
+                            征询意见
+                          </Tag>
+                        ) : item.announcementType == 'purchaseannouncement' ? (
+                          <Tag color="orange" key={item?.announcementType}>
+                            采购公告
+                          </Tag>
+                        ) : item.announcementType == 'resultannouncement' ? (
+                          <Tag color="blue" key={item?.announcementType}>
+                            结果公告
+                          </Tag>
+                        ) : (
+                          <Tag color="red" key={item?.announcementType}>
+                            更正公告
+                          </Tag>
+                        )}
+                        {/* <Link to={item.memberLink}>{item.announcementType || ''}</Link> */}
+                        {item.updatedAt && (
+                          <span className={styles.datetime} title={item.createdAt}>
+                            {moment(item.createdAt).fromNow()}
+                          </span>
+                        )}
                       </div>
-                    }
-                    description={item.description}
-                  />
-                  <div className={styles.projectItemContent}>
-                    <Link to={item.memberLink}>{item.member || ''}</Link>
-                    {item.updatedAt && (
-                      <span className={styles.datetime} title={item.updatedAt}>
-                        {moment(item.updatedAt).fromNow()}
-                      </span>
-                    )}
-                  </div>
-                </Card>
-              </Card.Grid>
-            ))} */}
+                    </Card>
+                  </Card.Grid>
+                ))}
+              {attentions?.length == 0 && (
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无关注" />
+              )}
             </Card>
           </Col>
           <Col xl={8} lg={24} md={24} sm={24} xs={24}>

@@ -24,15 +24,16 @@ import {
 } from '@/services/resource/api';
 
 import { createTender, getTenderList } from '@/services/tender/api';
-import { EyeOutlined } from '@ant-design/icons';
+import Icon, { EyeOutlined, PlusOutlined } from '@ant-design/icons';
 import { useRequest } from 'umi';
 import styles from './index.less';
 
 import { qiNiuUrl } from '../../../config/qiniuyun';
 import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
-import { Alert, Button, message } from 'antd';
+import { Affix, Alert, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
+import classnames from 'classnames';
 
 const ResourceDetail: React.FC = (props: any) => {
   const { current, id } = props.location?.query;
@@ -137,6 +138,8 @@ const ResourceDetail: React.FC = (props: any) => {
     console.log('返回的数据是');
   };
 
+  const [top, setTop] = useState(10);
+
   return (
     <>
       <Frame>
@@ -173,6 +176,20 @@ const ResourceDetail: React.FC = (props: any) => {
                 />
               )}
             </div>
+            <Affix offsetTop={top}>
+              {/* <Button type="primary" onClick={() => setTop(top + 10)} shape="round">
+                <>
+                  <PlusOutlined />
+                  关注
+                </>
+              </Button> */}
+              <Button type="primary" onClick={() => setTop(top + 10)} shape="round" disabled>
+                <>
+                  <PlusOutlined />
+                  已关注
+                </>
+              </Button>
+            </Affix>
           </div>
 
           {/* {current}---------{id}----{JSON.stringify(data)}---{qiNiuUrl} */}
