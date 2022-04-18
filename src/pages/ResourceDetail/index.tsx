@@ -23,8 +23,14 @@ import {
   detailCorrectAnnouncement,
 } from '@/services/resource/api';
 
-import { createTender, getTenderList } from '@/services/tender/api';
-import Icon, { EyeOutlined, PlusOutlined } from '@ant-design/icons';
+import {
+  createTender,
+  getTenderList,
+  getAttentionList,
+  createAttention,
+  deleteAttention,
+} from '@/services/tender/api';
+import Icon, { EyeOutlined, MinusOutlined, PlusOutlined } from '@ant-design/icons';
 import { useRequest } from 'umi';
 import styles from './index.less';
 
@@ -33,7 +39,6 @@ import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
 import { Affix, Alert, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
-import classnames from 'classnames';
 
 const ResourceDetail: React.FC = (props: any) => {
   const { current, id } = props.location?.query;
@@ -44,7 +49,14 @@ const ResourceDetail: React.FC = (props: any) => {
   // 是否被禁用账号
   const [forbidden, setForbidden] = useState(false);
 
+  // 是否已关注
+  const [attention, setAttention] = useState(false);
+
+  // 是否登录
+  // const [isLogin, setIsLogin] = useState(false);
+
   useEffect(() => {
+    // 获取用户信息
     const { username: supplierUsername, role, status } = JSON.parse(getUserInfo() || '{}');
     console.log('判断是否已投标', supplierUsername, id);
 
@@ -54,7 +66,36 @@ const ResourceDetail: React.FC = (props: any) => {
     if (status !== 'enable') {
       setForbidden(true);
     }
+    const reqData = {
+      username: supplierUsername,
+      announcementId: id,
+      announcementType:
+        current == 1
+          ? 'consultation'
+          : current == 2
+          ? 'purchaseannouncement'
+          : current == 3
+          ? 'resultannouncement'
+          : 'correctannouncement',
+      // current
+    };
 
+    // 查看是否已关注
+    getAttentionList(reqData)
+      .then((res) => {
+        console.log('关注返回的信息是', res);
+        if (res?.data?.length == 0) {
+          setAttention(false);
+        } else {
+          setAttention(true);
+        }
+      })
+      .catch((err) => {
+        console.log('发生了错误', err);
+      });
+    console.log('11111111111111111111', reqData);
+
+    // 查看是否已投标
     getTenderList({ supplierUsername, announcementId: id })
       .then((res) => {
         console.log('已投标', res, tendered);
@@ -68,7 +109,7 @@ const ResourceDetail: React.FC = (props: any) => {
       .catch((err) => {
         message.error(err);
       });
-  });
+  }, []);
 
   const [tenderPageVisiable, setTenderPageVisiable] = useState(false);
   // const [result, setResult] = useState({});
@@ -134,15 +175,76 @@ const ResourceDetail: React.FC = (props: any) => {
       .catch((err) => {
         console.log('错误', err);
       });
+    // if (supplierName) setIsLogin(true);
 
     console.log('返回的数据是');
   };
 
   const [top, setTop] = useState(10);
 
+  const isLogin = !!JSON.parse(getUserInfo() || '{}').username;
+
+  const handleAttention = async (data: any) => {
+    const username = JSON.parse(getUserInfo() || '{}')?.username;
+    console.log('点击了关注', data, username);
+    const announcement = [
+      'consultation',
+      'purchaseannouncement',
+      'resultannouncement',
+      'correctannouncement',
+    ];
+    await createAttention({
+      username,
+      announcementId: data?.id,
+      announcementName: data?.name,
+      announcementType: announcement[current - 1],
+      announcementDescription: data?.description,
+    })
+      .then((res) => {
+        console.log('关注成功', res);
+        message.info('关注成功！');
+        setAttention(true);
+      })
+      .catch((err) => {
+        console.log('关注发生了错误', err);
+        message.error('网络异常，请稍后重试！');
+      });
+  };
+  const cancelAttention = async (data: any) => {
+    const username = JSON.parse(getUserInfo() || '{}')?.username;
+    console.log('点击了关注', data, username);
+    const announcement = [
+      'consultation',
+      'purchaseannouncement',
+      'resultannouncement',
+      'correctannouncement',
+    ];
+    const reqData = {
+      username,
+      announcementId: data?.id,
+      // announcementName: data?.name,
+      announcementType: announcement[current - 1],
+      // announcementDescription: data?.description,
+    };
+    console.log('11111111取消关注', reqData);
+
+    await deleteAttention(reqData)
+      .then((res) => {
+        console.log('取消关注成功', res);
+        message.success('取消关注成功！');
+        // setAttention(true);
+        setAttention(false);
+      })
+      .catch((err) => {
+        message.error('网络异常，请稍后重试！');
+        console.log('取消关注发生了错误', err);
+      });
+  };
+
   return (
     <>
       <Frame>
+        {/* {isLogin ? '已登录' : '未登录'} */}
         <div className={styles.contentWrapper}>
           <div className={styles.contentTitle}>
             <div className={styles.contentTitleText}>{data?.name}</div>
@@ -177,18 +279,34 @@ const ResourceDetail: React.FC = (props: any) => {
               )}
             </div>
             <Affix offsetTop={top}>
-              {/* <Button type="primary" onClick={() => setTop(top + 10)} shape="round">
-                <>
-                  <PlusOutlined />
-                  关注
-                </>
-              </Button> */}
-              <Button type="primary" onClick={() => setTop(top + 10)} shape="round" disabled>
-                <>
-                  <PlusOutlined />
-                  已关注
-                </>
-              </Button>
+              {!attention && isLogin && (
+                <Button
+                  type="primary"
+                  onClick={() => {
+                    setTop(top + 10), handleAttention(data);
+                  }}
+                  shape="round"
+                >
+                  <>
+                    <PlusOutlined />
+                    关注
+                  </>
+                </Button>
+              )}
+              {attention && isLogin && (
+                <Button
+                  type="dashed"
+                  onClick={() => {
+                    setTop(top + 10), cancelAttention(data);
+                  }}
+                  shape="round"
+                >
+                  <>
+                    <MinusOutlined />
+                    取消关注
+                  </>
+                </Button>
+              )}
             </Affix>
           </div>
 
