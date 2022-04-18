@@ -1,5 +1,6 @@
 import Frame from '@/components/Frame';
 import styles from './index.less';
+import Workplace from './workplace';
 
 const myTender: React.FC = (props: any) => {
   const data = props.location?.query;
@@ -7,7 +8,9 @@ const myTender: React.FC = (props: any) => {
   return (
     <>
       <Frame>
-        <div className={styles.contentWrapper}>我的投标</div>
+        <div className={styles.contentWrapper}>
+          <Workplace />
+        </div>
       </Frame>
     </>
   );

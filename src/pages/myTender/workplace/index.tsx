@@ -135,9 +135,9 @@ const Workplace: FC = () => {
             <Card
               className={styles.projectList}
               style={{ marginBottom: 24 }}
-              title="我关注的公告"
+              title="我的已投标"
               bordered={false}
-              extra={<Link to="/">全部公告</Link>}
+              extra={<Link to="/">全部投标</Link>}
               // loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >

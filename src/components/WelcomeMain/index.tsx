@@ -80,74 +80,75 @@ const WelcomeMain: any = () => {
   }, [calendarSearchTime]);
 
   return (
-    <div className={styles.mainWrapper}>
-      <div className={styles.cardContent}>
-        <div className={styles.firstLineBox}>
-          <div className={styles.calendarWrapper}>
-            <Row className={styles.title}>
-              <Typography.Title className={styles.typographytitle} level={5}>
-                <CalendarOutlined style={{ margin: '0 10px' }} />
-                投标日历
-              </Typography.Title>
-            </Row>
-            <Card className={styles.calendarCard}>
-              <CalendarTender
-                setCalendarSearchTime={setCalendarSearchTime}
-                setCalendarSearch={setCalendarSearch}
-              />
-            </Card>
-          </div>
-
-          {/* 不是通过日历搜索 */}
-          {!calendarSearch && (
-            <div className={styles.resourceWrapper}>
-              <ResourceAnnounce onLoginCardVisiable={setLoginCardVisiable} />
-            </div>
-          )}
-          {loginCardVisiable && !calendarSearch && (
-            <div className={styles.loginWrapper}>
+    <>
+      <div className={styles.mainWrapper}>
+        <div className={styles.cardContent}>
+          <div className={styles.firstLineBox}>
+            <div className={styles.calendarWrapper}>
               <Row className={styles.title}>
                 <Typography.Title className={styles.typographytitle} level={5}>
-                  <LoginOutlined style={{ margin: '0 10px' }} />
-                  用户登录
+                  <CalendarOutlined style={{ margin: '0 10px' }} />
+                  投标日历
                 </Typography.Title>
               </Row>
-              <Card className={styles.loginCard}>
-                <FormNormalLogin />
-                <JumpSystemLine />
+              <Card className={styles.calendarCard}>
+                <CalendarTender
+                  setCalendarSearchTime={setCalendarSearchTime}
+                  setCalendarSearch={setCalendarSearch}
+                />
               </Card>
             </div>
-          )}
-          {/* 通过日历搜索 */}
-          {calendarSearch && (
-            <>
-              <div className={styles.calendarSearchWrapper}>
-                <Card className={styles.calendarSearchTitle}>
-                  <Row>
-                    <p>
-                      <ContainerOutlined style={{ fontSize: 22, marginRight: 10 }} />
-                      {calendarSearchTime}投标项目
-                    </p>
-                    <p
-                      className={styles.calendarSearchTitleText}
-                      onClick={() => window.location.reload()}
-                    >
-                      {' '}
-                      <DoubleLeftOutlined />
-                      返回
-                    </p>
-                  </Row>
-                  <Divider dashed />
-                </Card>
-                <Card className={styles.calendarSearchContent}>
-                  <ResourceItemElemMore data={purchaseAnnouncement} />
+            {/* 不是通过日历搜索 */}
+            {!calendarSearch && (
+              <div className={styles.resourceWrapper}>
+                <ResourceAnnounce onLoginCardVisiable={setLoginCardVisiable} />
+              </div>
+            )}
+            {loginCardVisiable && !calendarSearch && (
+              <div className={styles.loginWrapper}>
+                <Row className={styles.title}>
+                  <Typography.Title className={styles.typographytitle} level={5}>
+                    <LoginOutlined style={{ margin: '0 10px' }} />
+                    用户登录
+                  </Typography.Title>
+                </Row>
+                <Card className={styles.loginCard}>
+                  <FormNormalLogin />
+                  <JumpSystemLine />
                 </Card>
               </div>
-            </>
-          )}
+            )}
+            {/* 通过日历搜索 */}
+            {calendarSearch && (
+              <>
+                <div className={styles.calendarSearchWrapper}>
+                  <Card className={styles.calendarSearchTitle}>
+                    <Row>
+                      <p>
+                        <ContainerOutlined style={{ fontSize: 22, marginRight: 10 }} />
+                        {calendarSearchTime}投标项目
+                      </p>
+                      <p
+                        className={styles.calendarSearchTitleText}
+                        onClick={() => window.location.reload()}
+                      >
+                        {' '}
+                        <DoubleLeftOutlined />
+                        返回
+                      </p>
+                    </Row>
+                    <Divider dashed />
+                  </Card>
+                  <Card className={styles.calendarSearchContent}>
+                    <ResourceItemElemMore data={purchaseAnnouncement} />
+                  </Card>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 export default WelcomeMain;
