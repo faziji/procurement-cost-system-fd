@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic, Tag, Empty } from 'antd';
+import { Avatar, Card, Col, List, Skeleton, Row, Statistic, Tag, Empty, Button, message } from 'antd';
 
 import { Link, useRequest } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -7,7 +7,7 @@ import moment from 'moment';
 import EditableLinkGroup from './components/EditableLinkGroup';
 import styles from './style.less';
 // import type { ActivitiesType, CurrentUser } from './data.d';
-import { queryProjectNotice, queryActivities, fakeChartData, getAttentionList } from './service';
+import { getAttentionList, deleteAttention, createAttention } from './service';
 
 import { getUserInfo } from '@/utils';
 
@@ -90,41 +90,12 @@ const Workplace: FC = () => {
   // const { data } = useRequest(fakeChartData);
   // const { loading, data = [] } = useRequest();
 
-  const renderActivities = (item: any) => {
-    const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-      if (item[key]) {
-        return (
-          <a href={item[key].link} key={item[key].name}>
-            {item[key].name}
-          </a>
-        );
-      }
-      return key;
-    });
-    return (
-      <List.Item key={item.id}>
-        <List.Item.Meta
-          avatar={<Avatar src={item.user.avatar} />}
-          title={
-            <span>
-              <a className={styles.username}>{item.user.name}</a>
-              &nbsp;
-              <span className={styles.event}>{events}</span>
-            </span>
-          }
-          description={
-            <span className={styles.datetime} title={item.updatedAt}>
-              {moment(item.updatedAt).fromNow()}
-            </span>
-          }
-        />
-      </List.Item>
-    );
-  };
-
   // 获取用户信息
   const currentUser = JSON.parse(getUserInfo() || '{}');
   const [attentions, setAttentions] = useState([]);
+
+  // 是否取消关注
+  const [cancelAttention, setCancelAttention] = useState(false)
 
   useEffect(() => {
     // 获取用户信息
@@ -139,6 +110,44 @@ const Workplace: FC = () => {
         console.log('发生了错误');
       });
   }, []);
+
+  /**
+   * 取消关注
+   * @param id 关注编号
+   */
+  const handleCancelAttention = async (data: any) => {
+    const { id } = data
+    await deleteAttention({ id }).then(res => {
+      console.log('取消关注成功', res);
+      setCancelAttention(true)
+      message.success("取消关注成功")
+    }).catch(err => {
+      console.log("deleteAttention error:", err);
+      message.error("网络异常，请稍后重试！")
+    })
+  }
+  /**
+   * 重新关注
+   */
+  const handleAttention = async (data: any) => {
+    const { username } = JSON.parse(getUserInfo() || '{}');
+    const { announcementId, announcementName, announcementType, announcementDescription } = data
+
+    await createAttention({
+      username,
+      announcementId,
+      announcementName,
+      announcementType,
+      announcementDescription
+    }).then(res => {
+      console.log('重新关注成功', res);
+      setCancelAttention(false);
+      message.success("重新关注成功！")
+    }).catch(err => {
+      console.log('重新关注成功', err);
+      message.error("网络异常，请稍后重试！")
+    })
+  }
 
   return (
     <Card>
@@ -168,15 +177,14 @@ const Workplace: FC = () => {
                           <div className={styles.cardTitle}>
                             {/* <Avatar size="small" src={item.logo} /> */}
                             <Link
-                              to={`/resourceDetail?current=${
-                                item.announcementType == 'consultation'
-                                  ? 1
-                                  : item.announcementType == 'purchaseannouncement'
+                              to={`/resourceDetail?current=${item.announcementType == 'consultation'
+                                ? 1
+                                : item.announcementType == 'purchaseannouncement'
                                   ? 2
                                   : item.announcementType == 'resultannouncement'
-                                  ? 3
-                                  : 4
-                              }&id=${item.announcementId}`}
+                                    ? 3
+                                    : 4
+                                }&id=${item.announcementId}`}
                             >
                               {item.announcementName}
                             </Link>
@@ -184,6 +192,11 @@ const Workplace: FC = () => {
                         }
                         description={'描述：' + item.announcementDescription}
                       />
+                      {/* 存在bug，取消按钮统一状态了 */}
+                      {/* {cancelAttention ? <Button className={styles.attentionButton} type="primary" onClick={() => handleAttention(item)}>重新关注</Button> :
+                        <Button className={styles.attentionButton} danger onClick={() => handleCancelAttention(item)}>取消关注</Button>
+                      } */}
+
                       <div className={styles.projectItemContent}>
                         {item.announcementType == 'consultation' ? (
                           <Tag color="green" key={item?.announcementType}>
@@ -224,7 +237,7 @@ const Workplace: FC = () => {
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
-              <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
+              <EditableLinkGroup onAdd={() => { }} links={links} linkElement={Link} />
             </Card>
           </Col>
         </Row>

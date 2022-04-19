@@ -73,10 +73,10 @@ const ResourceDetail: React.FC = (props: any) => {
         current == 1
           ? 'consultation'
           : current == 2
-          ? 'purchaseannouncement'
-          : current == 3
-          ? 'resultannouncement'
-          : 'correctannouncement',
+            ? 'purchaseannouncement'
+            : current == 3
+              ? 'resultannouncement'
+              : 'correctannouncement',
       // current
     };
 
@@ -202,7 +202,7 @@ const ResourceDetail: React.FC = (props: any) => {
     })
       .then((res) => {
         console.log('关注成功', res);
-        message.info('关注成功！');
+        message.success('关注成功！');
         setAttention(true);
       })
       .catch((err) => {
@@ -371,7 +371,7 @@ const ResourceDetail: React.FC = (props: any) => {
                       listType: 'picture-card',
                     }}
                     action="/upload.do"
-                    // extra="longgggggggggggggggggggggggggggggggggg"
+                  // extra="longgggggggggggggggggggggggggggggggggg"
                   />
                 </ProForm>
               </div>
