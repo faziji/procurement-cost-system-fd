@@ -1,15 +1,29 @@
 import { FC, useEffect, useState } from 'react';
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic, Tag, Empty, Button, message } from 'antd';
+import {
+  Avatar,
+  Card,
+  Col,
+  List,
+  Skeleton,
+  Row,
+  Statistic,
+  Tag,
+  Empty,
+  Button,
+  message,
+} from 'antd';
 
 import { Link, useRequest } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
 import moment from 'moment';
+import { history } from 'umi';
 import EditableLinkGroup from './components/EditableLinkGroup';
 import styles from './style.less';
 // import type { ActivitiesType, CurrentUser } from './data.d';
 import { getAttentionList, deleteAttention, createAttention } from './service';
 
 import { getUserInfo } from '@/utils';
+import { getCurrentUserInfo } from '@/services/user/api';
 
 const links = [
   {
@@ -95,10 +109,22 @@ const Workplace: FC = () => {
   const [attentions, setAttentions] = useState([]);
 
   // 是否取消关注
-  const [cancelAttention, setCancelAttention] = useState(false)
+  const [cancelAttention, setCancelAttention] = useState(false);
 
   useEffect(() => {
-    // 获取用户信息
+    getCurrentUserInfo()
+      .then((res: any) => {
+        if (res?.data == 'noLoginUser' || !currentUser) {
+          message.error('用户未登录，跳转登录...');
+          history.push('/welcome');
+          return;
+        }
+      })
+      .catch((err: any) => {
+        console.log('发生了错误', err);
+      });
+
+    // 获取关注列表
     getAttentionList({
       username: currentUser?.username,
     })
@@ -116,38 +142,42 @@ const Workplace: FC = () => {
    * @param id 关注编号
    */
   const handleCancelAttention = async (data: any) => {
-    const { id } = data
-    await deleteAttention({ id }).then(res => {
-      console.log('取消关注成功', res);
-      setCancelAttention(true)
-      message.success("取消关注成功")
-    }).catch(err => {
-      console.log("deleteAttention error:", err);
-      message.error("网络异常，请稍后重试！")
-    })
-  }
+    const { id } = data;
+    await deleteAttention({ id })
+      .then((res) => {
+        console.log('取消关注成功', res);
+        setCancelAttention(true);
+        message.success('取消关注成功');
+      })
+      .catch((err) => {
+        console.log('deleteAttention error:', err);
+        message.error('网络异常，请稍后重试！');
+      });
+  };
   /**
    * 重新关注
    */
   const handleAttention = async (data: any) => {
     const { username } = JSON.parse(getUserInfo() || '{}');
-    const { announcementId, announcementName, announcementType, announcementDescription } = data
+    const { announcementId, announcementName, announcementType, announcementDescription } = data;
 
     await createAttention({
       username,
       announcementId,
       announcementName,
       announcementType,
-      announcementDescription
-    }).then(res => {
-      console.log('重新关注成功', res);
-      setCancelAttention(false);
-      message.success("重新关注成功！")
-    }).catch(err => {
-      console.log('重新关注成功', err);
-      message.error("网络异常，请稍后重试！")
+      announcementDescription,
     })
-  }
+      .then((res) => {
+        console.log('重新关注成功', res);
+        setCancelAttention(false);
+        message.success('重新关注成功！');
+      })
+      .catch((err) => {
+        console.log('重新关注成功', err);
+        message.error('网络异常，请稍后重试！');
+      });
+  };
 
   return (
     <Card>
@@ -177,14 +207,15 @@ const Workplace: FC = () => {
                           <div className={styles.cardTitle}>
                             {/* <Avatar size="small" src={item.logo} /> */}
                             <Link
-                              to={`/resourceDetail?current=${item.announcementType == 'consultation'
-                                ? 1
-                                : item.announcementType == 'purchaseannouncement'
+                              to={`/resourceDetail?current=${
+                                item.announcementType == 'consultation'
+                                  ? 1
+                                  : item.announcementType == 'purchaseannouncement'
                                   ? 2
                                   : item.announcementType == 'resultannouncement'
-                                    ? 3
-                                    : 4
-                                }&id=${item.announcementId}`}
+                                  ? 3
+                                  : 4
+                              }&id=${item.announcementId}`}
                             >
                               {item.announcementName}
                             </Link>
@@ -237,7 +268,7 @@ const Workplace: FC = () => {
               bordered={false}
               bodyStyle={{ padding: 0 }}
             >
-              <EditableLinkGroup onAdd={() => { }} links={links} linkElement={Link} />
+              <EditableLinkGroup onAdd={() => {}} links={links} linkElement={Link} />
             </Card>
           </Col>
         </Row>

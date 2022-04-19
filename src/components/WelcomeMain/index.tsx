@@ -8,20 +8,27 @@ import {
   ContainerOutlined,
   DoubleLeftOutlined,
   LoginOutlined,
-  MergeCellsOutlined,
-  ToolOutlined,
 } from '@ant-design/icons';
 import ResourceAnnounce from './ResourceAnnounce';
 import ResourceItemElemMore from './ResourceItemElemMore';
-import { useRequest } from 'umi';
 import { getPurchaseAnnouncementList } from '@/services/resource/api';
-import { Link } from 'umi';
+import { history } from 'umi';
+import { getUserInfo } from '@/utils';
 
 const JumpSystemLine = () => {
+  const handleClick = (route: any) => {
+    // 已登录
+    if (getUserInfo() && getUserInfo() != 'undefined') {
+      history.push(route);
+    } else {
+      message.info('请登录！');
+    }
+  };
+
   return (
     <Row>
       <Col span={8}>
-        <Link to={'/my'} className={styles.loginFormEntry1}>
+        <div onClick={() => handleClick('/my')} className={styles.loginFormEntry1}>
           <div className={styles.entryWrapper}>
             <img
               className={styles.imagePic}
@@ -30,10 +37,10 @@ const JumpSystemLine = () => {
             />
             <p>我的信息</p>
           </div>
-        </Link>
+        </div>
       </Col>
       <Col span={8}>
-        <Link to={'/myAttention'} className={styles.loginFormEntry2}>
+        <div onClick={() => handleClick('/myAttention')} className={styles.loginFormEntry2}>
           <div className={styles.entryWrapper}>
             <img
               className={styles.imagePic}
@@ -42,10 +49,10 @@ const JumpSystemLine = () => {
             />
             <p>我的关注</p>
           </div>
-        </Link>
+        </div>
       </Col>
       <Col span={8}>
-        <Link to={'/myTender'} className={styles.loginFormEntry3}>
+        <div onClick={() => handleClick('/myTender')} className={styles.loginFormEntry3}>
           <div className={styles.entryWrapper}>
             <img
               className={styles.imagePic}
@@ -54,7 +61,7 @@ const JumpSystemLine = () => {
             />
             <p>我的投标</p>
           </div>
-        </Link>
+        </div>
       </Col>
     </Row>
   );

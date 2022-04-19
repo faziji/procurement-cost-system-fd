@@ -61,18 +61,17 @@ const BaseView: any = () => {
   useEffect(() => {
     getCurrentUserInfo()
       .then((res: any) => {
-        setCurrentUser(res?.data);
+        if (res?.data == 'noLoginUser' || !currentUser) {
+          message.error('用户未登录，跳转登录...');
+          history.push('/welcome');
+          return;
+        }
+        setCurrentUser(res?.data || null);
       })
       .catch((err) => {
         console.log('发生了错误', err);
       });
   }, []);
-
-  if (currentUser == 'noLoginUser') {
-    message.error('用户未登录，跳转登录...');
-    history.push('/welcome');
-    return;
-  }
 
   const getAvatarURL = () => {
     if (currentUser) {

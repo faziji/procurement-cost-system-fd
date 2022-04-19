@@ -1,5 +1,5 @@
-import type { FC } from 'react';
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic } from 'antd';
+import { FC, useEffect, useState } from 'react';
+import { Avatar, Card, Col, List, Skeleton, Row, Statistic, message, Tag } from 'antd';
 
 import { Link, useRequest } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -8,7 +8,10 @@ import EditableLinkGroup from './components/EditableLinkGroup';
 import styles from './style.less';
 // import type { ActivitiesType, CurrentUser } from './data.d';
 import { queryProjectNotice, queryActivities, fakeChartData } from './service';
+import { history } from 'umi';
 import { getUserInfo } from '@/utils';
+import { getCurrentUserInfo } from '@/services/user/api';
+import { getTenderList } from './service';
 
 const links = [
   {
@@ -46,10 +49,6 @@ const links = [
 ];
 
 const PageHeaderContent: FC<any> = ({ currentUser }) => {
-  // const loading = currentUser && Object.keys(currentUser).length;
-  // if (!loading) {
-  //   return <Skeleton avatar paragraph={{ rows: 1 }} active />;
-  // }
   return (
     <div className={styles.pageHeaderContent}>
       <div className={styles.avatar}>
@@ -69,16 +68,16 @@ const PageHeaderContent: FC<any> = ({ currentUser }) => {
   );
 };
 
-const ExtraContent: FC<Record<string, any>> = () => (
+const ExtraContent: FC<Record<string, any>> = (tenderData: any) => (
   <div className={styles.extraContent}>
     <div className={styles.statItem}>
-      <Statistic title="关注公告数" value={56} />
+      <Statistic title="总投标数" value={tenderData?.tenderData?.length || '-'} />
     </div>
     <div className={styles.statItem}>
-      <Statistic title="活跃度排名" value={5} suffix="/ 24" />
+      <Statistic title="投标排名" value={5} suffix="/ 13" />
     </div>
     <div className={styles.statItem}>
-      <Statistic title="访问公告数" value={102} />
+      <Statistic title="访问投标公告" value={6} />
     </div>
   </div>
 );
@@ -88,48 +87,46 @@ const Workplace: FC = () => {
   // const { loading: activitiesLoading, data: activities = [] } = useRequest(queryActivities);
   // const { data } = useRequest(fakeChartData);
 
-  const renderActivities = (item: ActivitiesType) => {
-    const events = item.template.split(/@\{([^{}]*)\}/gi).map((key) => {
-      if (item[key]) {
-        return (
-          <a href={item[key].link} key={item[key].name}>
-            {item[key].name}
-          </a>
-        );
-      }
-      return key;
-    });
-    return (
-      <List.Item key={item.id}>
-        <List.Item.Meta
-          avatar={<Avatar src={item.user.avatar} />}
-          title={
-            <span>
-              <a className={styles.username}>{item.user.name}</a>
-              &nbsp;
-              <span className={styles.event}>{events}</span>
-            </span>
-          }
-          description={
-            <span className={styles.datetime} title={item.updatedAt}>
-              {moment(item.updatedAt).fromNow()}
-            </span>
-          }
-        />
-      </List.Item>
-    );
-  };
+  const currentUser = JSON.parse(getUserInfo() || '{}');
+  const [tenderData, setTenderData] = useState([]);
+
+  useEffect(() => {
+    // 未登录，跳转首页
+    getCurrentUserInfo()
+      .then((res: any) => {
+        if (res?.data == 'noLoginUser' || !res?.data) {
+          message.error('用户未登录，跳转登录...');
+          history.push('/welcome');
+          return;
+        } else {
+        }
+      })
+      .catch((err) => {
+        console.log('发生了错误', err);
+      });
+
+    // 获取投标列表
+    getTenderList({
+      supplierUsername: currentUser?.username,
+    })
+      .then((res) => {
+        console.log('返回的值是', res);
+        setTenderData(res?.data);
+      })
+      .catch((err) => {
+        console.log('发生了错误');
+      });
+  }, []);
 
   // 获取用户信息
-  const currentUser = JSON.parse(getUserInfo() || '{}');
 
   return (
     <Card>
       <PageContainer
         content={<PageHeaderContent currentUser={currentUser} />}
-        extraContent={<ExtraContent />}
+        extraContent={<ExtraContent tenderData={tenderData} />}
       >
-        {/* {getUserInfo()} */}
+        {/* {JSON.stringify(tenderData)} */}
         <Row gutter={24}>
           <Col xl={16} lg={24} md={24} sm={24} xs={24}>
             <Card
@@ -141,29 +138,33 @@ const Workplace: FC = () => {
               // loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
-              {/* {projectNotice.map((item) => (
-              <Card.Grid className={styles.projectGrid} key={item.id}>
-                <Card bodyStyle={{ padding: 0 }} bordered={false}>
-                  <Card.Meta
-                    title={
-                      <div className={styles.cardTitle}>
-                        <Avatar size="small" src={item.logo} />
-                        <Link to={item.href}>{item.title}</Link>
-                      </div>
-                    }
-                    description={item.description}
-                  />
-                  <div className={styles.projectItemContent}>
-                    <Link to={item.memberLink}>{item.member || ''}</Link>
-                    {item.updatedAt && (
-                      <span className={styles.datetime} title={item.updatedAt}>
-                        {moment(item.updatedAt).fromNow()}
-                      </span>
-                    )}
-                  </div>
-                </Card>
-              </Card.Grid>
-            ))} */}
+              {tenderData.map((item: any) => (
+                <Card.Grid className={styles.projectGrid} key={item.id}>
+                  <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                    <Card.Meta
+                      title={
+                        <div className={styles.cardTitle}>
+                          {/* <Avatar size="small" src={item.logo} /> */}
+                          <Link to={`/resourceDetail?current=2&id=${item?.announcementId}`}>
+                            {item.announcementName}
+                          </Link>
+                        </div>
+                      }
+                      description={'描述：' + item.announcementDescription}
+                    />
+                    <div className={styles.projectItemContent}>
+                      <Tag color="green" key={item?.id}>
+                        投标报价：{item.amount}元
+                      </Tag>
+                      {item.createdAt && (
+                        <span className={styles.datetime} title={item.updatedAt}>
+                          投标时间：{moment(item.createdAt).fromNow()}
+                        </span>
+                      )}
+                    </div>
+                  </Card>
+                </Card.Grid>
+              ))}
             </Card>
           </Col>
           <Col xl={8} lg={24} md={24} sm={24} xs={24}>

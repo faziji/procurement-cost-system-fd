@@ -73,10 +73,10 @@ const ResourceDetail: React.FC = (props: any) => {
         current == 1
           ? 'consultation'
           : current == 2
-            ? 'purchaseannouncement'
-            : current == 3
-              ? 'resultannouncement'
-              : 'correctannouncement',
+          ? 'purchaseannouncement'
+          : current == 3
+          ? 'resultannouncement'
+          : 'correctannouncement',
       // current
     };
 
@@ -93,7 +93,6 @@ const ResourceDetail: React.FC = (props: any) => {
       .catch((err) => {
         console.log('发生了错误', err);
       });
-    console.log('11111111111111111111', reqData);
 
     // 查看是否已投标
     getTenderList({ supplierUsername, announcementId: id })
@@ -371,7 +370,7 @@ const ResourceDetail: React.FC = (props: any) => {
                       listType: 'picture-card',
                     }}
                     action="/upload.do"
-                  // extra="longgggggggggggggggggggggggggggggggggg"
+                    // extra="longgggggggggggggggggggggggggggggggggg"
                   />
                 </ProForm>
               </div>
