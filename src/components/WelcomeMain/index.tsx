@@ -14,6 +14,7 @@ import ResourceItemElemMore from './ResourceItemElemMore';
 import { getPurchaseAnnouncementList } from '@/services/resource/api';
 import { history } from 'umi';
 import { getUserInfo } from '@/utils';
+import moment from 'moment';
 
 const JumpSystemLine = () => {
   const handleClick = (route: any) => {
@@ -76,12 +77,23 @@ const WelcomeMain: any = () => {
 
   const [purchaseAnnouncement, setPurchaseAnnouncement] = useState({});
 
+  const [tenderDateArr, setTenderDateArr] = useState<string[]>([]);
+
   // 获取征询意见列表
   useEffect(() => {
     // 之后要传到后台筛选数据
     getPurchaseAnnouncementList()
       .then((res) => {
-        setPurchaseAnnouncement(res?.data);
+        const data = res?.data;
+        setPurchaseAnnouncement(data);
+
+        // 筛选具有投标的日期
+        const tenderDate = [];
+        for (let item of data) {
+          let date = moment(item?.startTime).format('YYYY-MM-DD');
+          tenderDate.push(date);
+        }
+        setTenderDateArr(tenderDate);
       })
       .catch((err) => console.log(err));
   }, [calendarSearchTime]);
@@ -102,6 +114,7 @@ const WelcomeMain: any = () => {
                 <CalendarTender
                   setCalendarSearchTime={setCalendarSearchTime}
                   setCalendarSearch={setCalendarSearch}
+                  tenderDateArr={tenderDateArr}
                 />
               </Card>
             </div>
@@ -147,7 +160,10 @@ const WelcomeMain: any = () => {
                     <Divider dashed />
                   </Card>
                   <Card className={styles.calendarSearchContent}>
-                    <ResourceItemElemMore data={purchaseAnnouncement} />
+                    <ResourceItemElemMore
+                      data={purchaseAnnouncement}
+                      calendarSearchTime={calendarSearchTime}
+                    />
                   </Card>
                 </div>
               </>

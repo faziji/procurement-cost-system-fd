@@ -1,55 +1,37 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Select, Typography, Row, Col, Card, message } from 'antd';
 import styles from './index.less';
-
-
 
 import { Calendar } from 'antd';
 import moment from 'moment';
 import TimeComponent from '../TimeComponent';
 
-
-// const TimeComponent: React.FC = () => {
-//   // 时间更新
-//   let time = moment(new Date()).format('YYYY-MM-DD hh:mm:ss')
-//   const [nowTime, setNowTime] = useState(time)
-//   setInterval(() => setNowTime(moment(new Date()).format('YYYY-MM-DD hh:mm:ss')), 1000);
-//   return <p>{nowTime}</p>
-// }
-
-
-const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) => {
-  let resData = ['2022-03-07', '2022-03-10']
-
+const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch, tenderDateArr }: any) => {
   const dateCellRender = (value: any) => {
-    // 需要标记的时间 // 待请求完善
-
     // 每次读取的时间
-    let reverst = moment(value).format('YYYY-MM-DD')
+    let reverst = moment(value).format('YYYY-MM-DD');
     // 获取获取当天
-    let nowDate = moment(new Date()).format('YYYY-MM-DD')
+    let nowDate = moment(new Date()).format('YYYY-MM-DD');
 
     const render = () => {
-      if (resData.includes(reverst)) {
+      if (tenderDateArr?.includes(reverst)) {
         if (nowDate === reverst) {
-          return <div style={{ backgroundColor: "#C7D9F1", color: "#FAAD14", border: 'solid 1px' }}>{value.date()}</div>
+          return (
+            <div style={{ backgroundColor: '#C7D9F1', color: '#FAAD14', border: 'solid 1px' }}>
+              {value.date()}
+            </div>
+          );
         } else {
-          return <div style={{ backgroundColor: "#C7D9F1" }}>{value.date()}</div>
+          return <div style={{ backgroundColor: '#C7D9F1' }}>{value.date()}</div>;
         }
       } else if (nowDate == reverst) {
-        return <div style={{ color: "#0170fe", border: 'solid 1px' }}>{value.date()}</div>
+        return <div style={{ color: '#0170fe', border: 'solid 1px' }}>{value.date()}</div>;
+      } else {
+        return <div>{value.date()}</div>;
       }
-      else {
-        return <div>{value.date()}</div>
-      }
-    }
-    return (
-      <>
-        {render()}
-      </>
-    );
-  }
-
+    };
+    return <>{render()}</>;
+  };
 
   const headerRender: React.FC = ({ value, onChange }) => {
     const start = 0;
@@ -93,7 +75,7 @@ const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) 
               size="small"
               dropdownMatchSelectWidth={false}
               className="my-year-select"
-              onChange={newYear => {
+              onChange={(newYear) => {
                 const now = value.clone().year(newYear);
                 onChange(now);
               }}
@@ -107,7 +89,7 @@ const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) 
               size="small"
               dropdownMatchSelectWidth={false}
               value={String(month)}
-              onChange={selectedMonth => {
+              onChange={(selectedMonth) => {
                 const newValue = value.clone();
                 newValue.month(parseInt(selectedMonth, 10));
                 onChange(newValue);
@@ -116,29 +98,32 @@ const CalendarTender: any = ({ setCalendarSearchTime, setCalendarSearch }: any) 
               {monthOptions}
             </Select>
           </Col>
-
         </Row>
       </>
     );
-  }
+  };
 
   // 存在bug:切换年份或月份时提示错误
   const handleSelect = (value: any) => {
     // 之后在这里点击跳转
-    let handleData = moment(value).format('YYYY-MM-DD')
+    let handleData = moment(value).format('YYYY-MM-DD');
 
-    if (resData.includes(handleData)) {
-      setCalendarSearchTime(handleData)
-      setCalendarSearch(true)
-    }
-    else message.info('所选日期无投标项目开放！')
-  }
+    if (tenderDateArr.includes(handleData)) {
+      setCalendarSearchTime(handleData);
+      setCalendarSearch(true);
+    } else message.info('所选日期无投标项目开放！');
+  };
 
   return (
     <div className={styles.calendarWrapper}>
-      <Calendar fullscreen={false} onSelect={handleSelect} dateFullCellRender={dateCellRender} headerRender={headerRender} />
+      <Calendar
+        fullscreen={false}
+        onSelect={handleSelect}
+        dateFullCellRender={dateCellRender}
+        headerRender={headerRender}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default CalendarTender
+export default CalendarTender;
