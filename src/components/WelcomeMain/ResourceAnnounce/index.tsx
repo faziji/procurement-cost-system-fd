@@ -35,7 +35,7 @@ const ResourceAnnounce: any = (props: any) => {
                     </Link>
                   </Col>
                   <Col span={4} style={{ color: '#ff4d4f', fontSize: 12 }}>
-                    活动已结束
+                    {state == 2 && '活动已结束'}
                   </Col>
                   <Col span={4} style={{ fontSize: 12 }}>
                     {item.publishTime}
