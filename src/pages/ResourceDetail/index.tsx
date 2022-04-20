@@ -39,6 +39,7 @@ import FileViewer from 'react-file-viewer';
 import { CustomErrorComponent } from 'custom-error';
 import { Affix, Alert, Button, message } from 'antd';
 import { useEffect, useState } from 'react';
+import { history } from 'umi';
 
 const ResourceDetail: React.FC = (props: any) => {
   const { current, id } = props.location?.query;
@@ -138,6 +139,12 @@ const ResourceDetail: React.FC = (props: any) => {
     data = detailCorrectAnnouncementRes?.data;
   } else {
     data = { name: '网络异常' };
+  }
+
+  // 资源状态更新，无法访问该资源
+  if (data != undefined && data?.status != 1) {
+    history.push('/welcome');
+    message.error('该资源状态已变更，无法访问！');
   }
 
   const onError = (e: any) => {

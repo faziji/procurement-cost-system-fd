@@ -91,7 +91,10 @@ const WelcomeMain: any = () => {
         const tenderDate = [];
         for (let item of data) {
           let date = moment(item?.startTime).format('YYYY-MM-DD');
-          tenderDate.push(date);
+          // 筛选非上线公告
+          if (item?.status == 1) {
+            tenderDate.push(date);
+          }
         }
         setTenderDateArr(tenderDate);
       })

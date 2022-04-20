@@ -78,7 +78,9 @@ const ResourceAnnounce: any = (props: any) => {
                 <Row>
                   <Col span={1}>[{index + 1}]</Col>
                   <Col span={13} className={styles.itemHoverMore}>
-                    <Link to={`/resourceDetail?current=${state}&id=${item.id}`}>{item.name}</Link>
+                    <a href={`/resourceDetail?current=${state}&id=${item.id}`} target="_blank">
+                      {item.name}
+                    </a>
                   </Col>
                   <Col span={4} style={{ color: '#ff4d4f', fontSize: 12, paddingLeft: 25 }}>
                     {state == 2 && '活动已结束'}
