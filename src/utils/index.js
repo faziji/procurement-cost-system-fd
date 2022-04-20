@@ -11,3 +11,10 @@ export const getToken = (name = 'fdToken') => {
 export const getUserInfo = (name = 'fdUserInfo') => {
   return localStorage.getItem(name);
 };
+
+/**
+ * 修改本地用户信息
+ */
+export const setCurrentUserInfo = (data, name = 'fdUserInfo') => {
+  return localStorage.setItem(name, JSON.stringify(data));
+};

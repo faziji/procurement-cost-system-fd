@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { UploadOutlined } from '@ant-design/icons';
-import { Button, Input, Upload, message } from 'antd';
+import { Button, Input, Upload, message, Divider } from 'antd';
 import ProForm, { ProFormFieldSet, ProFormText } from '@ant-design/pro-form';
 import { useRequest } from 'umi';
 import { history } from 'umi';
 import { getCurrentUserInfo } from '@/services/user/api';
-import { getUserInfo } from '@/utils';
+import { getUserInfo, setCurrentUserInfo } from '@/utils';
 
 import styles from './BaseView.less';
 
@@ -58,6 +58,7 @@ const AvatarView = ({ avatar }: { avatar: string }) => {
 
 const BaseView: any = () => {
   const [currentUser, setCurrentUser] = useState({});
+  const userInfo = JSON.parse(getUserInfo() || '{}');
   useEffect(() => {
     getCurrentUserInfo()
       .then((res: any) => {
@@ -73,22 +74,20 @@ const BaseView: any = () => {
       });
   }, []);
 
-  const getAvatarURL = () => {
-    if (currentUser) {
-      if (currentUser?.avatar) {
-        return currentUser?.avatar;
-      }
-      const url = 'https://a.msstatic.com/huya/main3/components/helperbar/img/mm_de16b.png';
-      return url;
-    }
-    return '';
-  };
-  const handleFinish = async (data: any) => {
-    let info = {
-      ...data,
-      phone: data.phone[0],
-    };
+  const handleFinish = async (info: any) => {
+    // let info = {
+    //   ...data,
+    //   // phone: data.phone[0,
+    // };
     console.log('提交的数据是', info);
+
+    setCurrentUserInfo({ ...userInfo, ...info });
+
+    message.success('信息更新成功！');
+
+    // 需要替换的本地信息（bug）
+    // console.log(userInfo);
+    // const userInfoNew
 
     // baseSettings(info)
     //   .then((result) => {
@@ -100,7 +99,6 @@ const BaseView: any = () => {
   };
 
   // const currentUser
-  console.log('111111111111', currentUser);
 
   return (
     <div className={styles.baseView}>
@@ -119,11 +117,7 @@ const BaseView: any = () => {
                 children: '更新基本信息',
               },
             }}
-            initialValues={{
-              ...currentUser,
-              // phone: currentUser?.phone?.split('-'),
-              // ...currentUser,
-            }}
+            initialValues={{ ...userInfo }}
             hideRequiredMark
           >
             <ProFormText
@@ -148,7 +142,8 @@ const BaseView: any = () => {
                 },
               ]}
             />
-            <ProFormFieldSet
+            <ProFormText
+              width="md"
               name="phone"
               label="联系电话"
               rules={[
@@ -156,15 +151,34 @@ const BaseView: any = () => {
                   required: true,
                   message: '请输入您的联系电话!',
                 },
+                // {
+                //   validator: (rule: any, value: any, callback: (message?: string) => void) => {
+                //     const mobile = /^(((13[0-9]{1})|(15[0-9]{1}))+\d{8})$/;
+                //     if (value[0]?.length == 11 || mobile.test(value[0])) {
+                //       callback();
+                //     } else {
+                //       callback('请输入正确的手机号码');
+                //     }
+                //   },
+                // },
               ]}
-            >
-              <Input className={styles.phone_number} />
-            </ProFormFieldSet>
+            />
+            <Divider />
+            <h2>完善信息</h2>
+            <ProFormText width="md" name="shoukuanAccount" label="收款银行账户" />
+            <ProFormText width="md" name="shoukuan" label="收款人/公司" />
+            <ProFormText width="md" name="fukuanAccount" label="付款银行账户" />
+            <ProFormText width="md" name="付款" label="付款人/公司" />
           </ProForm>
-          {JSON.stringify(currentUser)}
+          {/* {JSON.stringify(currentUser)} */}
         </div>
         <div className={styles.right}>
-          <AvatarView avatar={getAvatarURL()} />
+          <AvatarView
+            avatar={
+              userInfo?.avatar ||
+              'https://a.msstatic.com/huya/main3/components/helperbar/img/mm_de16b.png'
+            }
+          />
         </div>
       </>
     </div>
