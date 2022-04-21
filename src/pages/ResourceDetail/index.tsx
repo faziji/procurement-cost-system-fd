@@ -92,11 +92,11 @@ const ResourceDetail: React.FC = (props: any) => {
         }
       })
       .catch((err) => {
-        console.log('发生了错误', err);
+        console.log('发生了错误1', err);
       });
 
-    // 查看是否已投标
-    getTenderList({ supplierUsername, announcementId: id })
+    // 查看是否已投标: -1 保证未登录用户显示为我要投标
+    getTenderList({ supplierUsername: supplierUsername || -1, announcementId: id })
       .then((res) => {
         console.log('已投标', res, tendered);
         const { data } = res;
@@ -275,7 +275,7 @@ const ResourceDetail: React.FC = (props: any) => {
             </div>
 
             <div>
-              {(!applyed || forbidden) && (
+              {(!applyed || forbidden) && current == 2 && (
                 <Alert
                   style={{ width: 350, marginLeft: 520 }}
                   message="未登录、审核未通过、禁用账户无法投标！"

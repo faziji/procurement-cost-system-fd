@@ -24,10 +24,8 @@ const Countdown: any = (props: any) => {
 
     // 时间戳差值：结束时间 - 当前时间
     let subTamp = endTamp - nowTamp;
-    // 时间戳差值：开始时间晚于当天
-    let subLateTamp = startTime - nowTamp;
 
-    console.log('插值', subTamp);
+    // console.log('插值', subTamp);
     // 转化为具体时差:获取天时分秒的时间戳
     let day_ms = 24 * 60 * 60 * 1000;
     let hour_ms = 60 * 60 * 1000;
@@ -53,7 +51,7 @@ const Countdown: any = (props: any) => {
     //   setRemainTime(startTime);
     // }
     else {
-      setRemainTime(`倒计时：${subTimeTime}天${hour}时${min}分${ss}秒`);
+      setRemainTime(`倒计时:${subTimeTime}天${hour}时${min}分${ss}秒`);
       // setRemainTime('倒计时：' + subTamp);
     }
   }, 1000);
