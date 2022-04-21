@@ -1,11 +1,11 @@
 import { Form, Input, Button, Checkbox, Row, Col, message, Card, Avatar, Descriptions } from 'antd';
-import { UserOutlined, LockOutlined, AntDesignOutlined } from '@ant-design/icons';
+import { UserOutlined, LockOutlined, AntDesignOutlined, ReloadOutlined } from '@ant-design/icons';
 // import UserOutlined from "@ant-design/icons"
 // import LockOutlined from "@ant-design/icons"
 import { NavLink } from 'react-router-dom';
 
 import { login, getCurrentUserInfo } from '@/services/user/api';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { getToken, getUserInfo } from '@/utils';
 
 const NormalLoginForm = (props: any) => {
@@ -110,13 +110,24 @@ const NormalLoginedForm = (props: any) => {
   /**
    * 从本地获取用户信息
    */
-  const userInfo = JSON.parse(getUserInfo() || '');
+  const [userInfo, setUserInfo] = useState(JSON.parse(getUserInfo() || ''));
+
+  // useEffect(() => {
+  //   setUserInfo(JSON.parse(getUserInfo() || ''));
+  // }, []);
+  const handleReflash = async () => {
+    let resData = await getCurrentUserInfo();
+    localStorage.setItem('fdUserInfo', JSON.stringify(resData?.data));
+    // console.log('点击了按钮', resData);
+    window.location.reload();
+  };
 
   return (
     <Form name="normal_login" className="login-form" style={{ height: 270 }}>
       <Form.Item>
         <Avatar icon={<AntDesignOutlined />} src={userInfo?.avatar} />
         登录成功,欢迎您{userInfo.name}!<a onClick={removelocalStorage}>[退出登录]</a>
+        <ReloadOutlined onClick={handleReflash} style={{ color: 'blue', marginLeft: 10 }} />
       </Form.Item>
       <Form.Item>
         {/* {getUserInfo()} */}
@@ -132,7 +143,7 @@ const NormalLoginedForm = (props: any) => {
             : userInfo.role === 'supplier-unaccess'
             ? '已拒绝'
             : userInfo.role === 'supplier'
-            ? '正常'
+            ? '申请通过'
             : '账号异常'}
         </Row>
         <Row style={{ color: 'red' }}>

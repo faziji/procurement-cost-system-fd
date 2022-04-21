@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from 'react';
-import { Avatar, Card, Col, List, Skeleton, Row, Statistic, message, Tag } from 'antd';
+import { Avatar, Card, Col, List, Skeleton, Row, Statistic, message, Tag, Empty } from 'antd';
 
 import { Link, useRequest } from 'umi';
 import { PageContainer } from '@ant-design/pro-layout';
@@ -167,40 +167,44 @@ const Workplace: FC = () => {
               // loading={projectLoading}
               bodyStyle={{ padding: 0 }}
             >
-              {tenderData.map((item: any) => (
-                <Card.Grid className={styles.projectGrid} key={item.id}>
-                  <Card bodyStyle={{ padding: 0 }} bordered={false}>
-                    <Card.Meta
-                      title={
-                        <div className={styles.cardTitle}>
-                          {/* <Avatar size="small" src={item.logo} /> */}
-                          <Link to={`/resourceDetail?current=2&id=${item?.announcementId}`}>
-                            {item.announcementName}
-                          </Link>
-                        </div>
-                      }
-                      description={'描述：' + item.announcementName}
-                    />
-                    <div className={styles.projectItemContent}>
-                      <Tag color="green" key={item?.id}>
-                        投标报价：{item.amount}元
-                      </Tag>
-                      <Tag color="blue" key={item?.supplierUsername}>
-                        {item?.tender &&
-                          (item?.tender == currentUser.username
-                            ? '您已中标！请等待工作人员联系！'
-                            : '好可惜，您未中标！')}
-                        {!item?.tender && '尚未开标，请稍等！'}
-                      </Tag>
-                      {item.createdAt && (
-                        <span className={styles.datetime} title={item.updatedAt}>
-                          投标时间：{moment(item.createdAt).fromNow()}
-                        </span>
-                      )}
-                    </div>
-                  </Card>
-                </Card.Grid>
-              ))}
+              {tenderData?.length != 0 &&
+                tenderData.map((item: any) => (
+                  <Card.Grid className={styles.projectGrid} key={item.id}>
+                    <Card bodyStyle={{ padding: 0 }} bordered={false}>
+                      <Card.Meta
+                        title={
+                          <div className={styles.cardTitle}>
+                            {/* <Avatar size="small" src={item.logo} /> */}
+                            <Link to={`/resourceDetail?current=2&id=${item?.announcementId}`}>
+                              {item.announcementName}
+                            </Link>
+                          </div>
+                        }
+                        description={'描述：' + item.announcementName}
+                      />
+                      <div className={styles.projectItemContent}>
+                        <Tag color="green" key={item?.id}>
+                          投标报价：{item.amount}元
+                        </Tag>
+                        <Tag color="blue" key={item?.supplierUsername}>
+                          {item?.tender &&
+                            (item?.tender == currentUser.username
+                              ? '您已中标！请等待工作人员联系！'
+                              : '好可惜，您未中标！')}
+                          {!item?.tender && '尚未开标，请稍等！'}
+                        </Tag>
+                        {item.createdAt && (
+                          <span className={styles.datetime} title={item.updatedAt}>
+                            投标时间：{moment(item.createdAt).fromNow()}
+                          </span>
+                        )}
+                      </div>
+                    </Card>
+                  </Card.Grid>
+                ))}
+              {tenderData?.length == 0 && (
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="暂无关注" />
+              )}
             </Card>
           </Col>
           <Col xl={8} lg={24} md={24} sm={24} xs={24}>

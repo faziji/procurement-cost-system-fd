@@ -1,15 +1,9 @@
-import styles from "./index.less";
+import styles from './index.less';
 import { history } from 'umi';
 
-import {
-  Form,
-  Input,
-  Checkbox,
-  Button,
-  message,
-} from "antd";
-import { ProFormTextArea } from "@ant-design/pro-form";
-import { createSupplier } from '@/services/user/api'
+import { Form, Input, Checkbox, Button, message } from 'antd';
+import { ProFormTextArea } from '@ant-design/pro-form';
+import { createSupplier } from '@/services/user/api';
 
 const formItemLayout = {
   labelCol: {
@@ -39,59 +33,42 @@ const RegistrationForm = (props: any) => {
 
   const onFinish = async (values: any) => {
     if (!values.agreement) {
-      message.info('请勾选确认查看注册说明')
-      return
+      message.info('请勾选确认查看注册说明');
+      return;
     }
 
-    let resData = await createSupplier(values).then(res => {
-      if (!res?.code) {
-        message.success(res.msg)
-        props.handleSuccess(true)
+    let resData = await createSupplier(values)
+      .then((res) => {
+        if (!res?.code) {
+          message.success(res.msg);
+          props.handleSuccess(true);
 
-        // 暂存用户名
-        localStorage.setItem('fdUsername', res?.data?.username)
-        console.log('res?.data?.username', res?.data?.username);
+          // 暂存用户名
+          localStorage.setItem('fdUsername', res?.data?.username);
+          console.log('res?.data?.username', res?.data?.username);
+        } else {
+          message.error(res.msg);
+          return;
+        }
 
+        console.log('2222222222222222222', res);
 
-      } else {
-        message.error(res.msg)
-        return;
-      }
-
-      console.log('2222222222222222222', res);
-
-
-      // history.push('/welcome')
-      // 后端需要返回token和用户信息，在这里需要存在本地
-
-    }).catch(err => {
-      message.error(err)
-    })
-
+        // history.push('/welcome')
+        // 后端需要返回token和用户信息，在这里需要存在本地
+      })
+      .catch((err) => {
+        message.error(err);
+      });
   };
 
-
   return (
-    <Form
-      {...formItemLayout}
-      form={form}
-      name="register"
-      onFinish={onFinish}
-      scrollToFirstError
-    >
-      <Form.Item
-        name="username"
-        label="社会统一信用代码"
-      >
+    <Form {...formItemLayout} form={form} name="register" onFinish={onFinish} scrollToFirstError>
+      <Form.Item name="username" label="社会统一信用代码">
         <Input />
       </Form.Item>
-      <Form.Item
-        name="companyName"
-        label="公司名称"
-      >
+      <Form.Item name="companyName" label="公司名称">
         <Input />
       </Form.Item>
-
 
       <Form.Item
         name="password"
@@ -99,7 +76,7 @@ const RegistrationForm = (props: any) => {
         rules={[
           {
             required: true,
-            message: "请输入密码",
+            message: '请输入密码',
           },
         ]}
         hasFeedback
@@ -110,21 +87,19 @@ const RegistrationForm = (props: any) => {
       <Form.Item
         name="confirm"
         label="确认密码"
-        dependencies={["password"]}
+        dependencies={['password']}
         hasFeedback
         rules={[
           {
             required: true,
-            message: "请再次输入密码",
+            message: '请再次输入密码',
           },
           ({ getFieldValue }) => ({
             validator(rule, value) {
-              if (!value || getFieldValue("password") === value) {
+              if (!value || getFieldValue('password') === value) {
                 return Promise.resolve();
               }
-              return Promise.reject(
-                "两次输入密码不一致"
-              );
+              return Promise.reject('两次输入密码不一致');
             },
           }),
         ]}
@@ -132,18 +107,17 @@ const RegistrationForm = (props: any) => {
         <Input.Password />
       </Form.Item>
 
-
       <Form.Item
         name="email"
         label="联系人邮箱"
         rules={[
           {
-            type: "email",
-            message: "The input is not valid E-mail!",
+            type: 'email',
+            message: 'The input is not valid E-mail!',
           },
           {
             required: true,
-            message: "Please input your E-mail!",
+            message: 'Please input your E-mail!',
           },
         ]}
       >
@@ -152,15 +126,11 @@ const RegistrationForm = (props: any) => {
 
       <Form.Item
         name="name"
-        label={
-          <span>
-            联系人姓名
-          </span>
-        }
+        label={<span>联系人姓名</span>}
         rules={[
           {
             required: true,
-            message: "请输入联系人姓名",
+            message: '请输入联系人姓名',
             whitespace: true,
           },
         ]}
@@ -171,34 +141,18 @@ const RegistrationForm = (props: any) => {
       <Form.Item
         name="phone"
         label="联系人电话号码"
-        rules={[{ required: true, message: "Please input your phone number!" }]}
+        rules={[{ required: true, message: 'Please input your phone number!' }]}
       >
-        <Input style={{ width: "100%" }} />
+        <Input style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item
-        name="inviter"
-        label={
-          <span>
-            邀请人姓名
-          </span>
-        }
-      >
+      <Form.Item name="inviter" label={<span>邀请人姓名</span>}>
         <Input />
       </Form.Item>
 
+      <ProFormTextArea name="note" width="md" label="备注" />
 
-      <ProFormTextArea
-        name="note"
-        width="md"
-        label="备注"
-      />
-
-      <Form.Item
-        name="agreement"
-        valuePropName="checked"
-        {...tailFormItemLayout}
-      >
+      <Form.Item name="agreement" valuePropName="checked" {...tailFormItemLayout}>
         <Checkbox>
           I have read the <a href="">agreement</a>
         </Checkbox>

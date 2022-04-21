@@ -1,5 +1,5 @@
 import { DingdingOutlined } from '@ant-design/icons';
-import { Button, Card, Steps, Result, Descriptions } from 'antd';
+import { Button, Card, Steps, Result, Descriptions, message } from 'antd';
 import { Fragment } from 'react';
 import { GridContent } from '@ant-design/pro-layout';
 import { history } from 'umi';
@@ -21,8 +21,13 @@ const desc1 = (
 const desc2 = (
   <div style={{ fontSize: 12 }} className={styles.title}>
     <div style={{ margin: '8px 0 4px' }}>
-      <span>周毛毛</span>
-      <a href="">
+      <span>诸人事</span>
+      <a
+        onClick={() => {
+          message.info('当前处于正常时效，请耐心等待！');
+          return;
+        }}
+      >
         <DingdingOutlined style={{ color: '#00A0E9', marginLeft: 8 }} />
         <span>催一下</span>
       </a>
@@ -48,14 +53,15 @@ const content = (
 );
 
 const extra = (handleRegisterComplete: any) => {
-
   return (
     <Fragment>
-      <Button type="primary" onClick={() => history.push('/welcome')}>登录</Button>
+      <Button type="primary" onClick={() => history.push('/welcome')}>
+        登录
+      </Button>
       <Button onClick={() => handleRegisterComplete(true)}>去完善信息</Button>
     </Fragment>
   );
-}
+};
 
 export default ({ handleRegisterComplete }: any) => (
   <GridContent>
