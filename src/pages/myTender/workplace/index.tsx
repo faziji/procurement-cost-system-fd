@@ -7,7 +7,7 @@ import moment from 'moment';
 import EditableLinkGroup from './components/EditableLinkGroup';
 import styles from './style.less';
 // import type { ActivitiesType, CurrentUser } from './data.d';
-import { queryProjectNotice, queryActivities, fakeChartData } from './service';
+import { queryProjectNotice, queryActivities, fakeChartData, getResultList } from './service';
 import { history } from 'umi';
 import { getUserInfo } from '@/utils';
 import { getCurrentUserInfo } from '@/services/user/api';
@@ -83,10 +83,6 @@ const ExtraContent: FC<Record<string, any>> = (tenderData: any) => (
 );
 
 const Workplace: FC = () => {
-  // const { loading: projectLoading, data: projectNotice = [] } = useRequest(queryProjectNotice);
-  // const { loading: activitiesLoading, data: activities = [] } = useRequest(queryActivities);
-  // const { data } = useRequest(fakeChartData);
-
   const currentUser = JSON.parse(getUserInfo() || '{}');
   const [tenderData, setTenderData] = useState([]);
 
@@ -111,11 +107,44 @@ const Workplace: FC = () => {
     })
       .then((res) => {
         console.log('返回的值是', res);
-        setTenderData(res?.data);
+        let data = res?.data;
+
+        let promiseList: any[] = [];
+        data.forEach((item: any) => {
+          promiseList.push(getResultList({ announcementId: item?.announcementId }));
+        });
+        Promise.all(promiseList).then((value: any) => {
+          console.log('222222promiseList', value);
+          //...下一步其他操作
+
+          let newData = res?.data;
+
+          for (let i = 0; i < newData?.length; i++) {
+            if (value[i].data[0]) {
+              newData[i]['tender'] = value[i].data[0].supplierUsername;
+            }
+          }
+          setTenderData(res?.data);
+        });
       })
       .catch((err) => {
         console.log('发生了错误');
       });
+
+    // 获取投标已投标公告的投标结果
+    // for(let item of tenderData){
+
+    // }
+    // console.log('111111111promiseList', data);
+
+    // let promiseList = [];
+    // list.forEach((item) => {
+    //   promiseList.push(this.getPhotoData(item));
+    // });
+    // Promise.all(promiseList).then((value) => {
+    //   console.log(value);
+    //   //...下一步其他操作
+    // });
   }, []);
 
   // 获取用户信息
@@ -155,6 +184,13 @@ const Workplace: FC = () => {
                     <div className={styles.projectItemContent}>
                       <Tag color="green" key={item?.id}>
                         投标报价：{item.amount}元
+                      </Tag>
+                      <Tag color="blue" key={item?.supplierUsername}>
+                        {item?.tender &&
+                          (item?.tender == currentUser.username
+                            ? '您已中标！请等待工作人员联系！'
+                            : '好可惜，您未中标！')}
+                        {!item?.tender && '尚未开标，请稍等！'}
                       </Tag>
                       {item.createdAt && (
                         <span className={styles.datetime} title={item.updatedAt}>

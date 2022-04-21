@@ -177,6 +177,8 @@ const ResourceDetail: React.FC = (props: any) => {
       .then((res) => {
         setTenderPageVisiable(false);
         message.success('投标成功！');
+        // fix：按钮可能不刷新
+        window.location.reload();
       })
       .catch((err) => {
         console.log('错误', err);
