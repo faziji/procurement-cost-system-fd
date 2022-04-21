@@ -7,8 +7,8 @@ const Countdown: any = (props: any) => {
 
   // 开始时间在第二天以后
   const nowTime = moment(new Date()).format('YYYY-MM-DD hh:mm:ss');
-  let startTimeDay = startTime.slice(8, 10);
-  let nowTimeDay: any = String(nowTime.slice(8, 10));
+  let startTimeDay = startTime?.slice(8, 10);
+  let nowTimeDay: any = String(nowTime?.slice(8, 10));
   let subTimeTime = startTimeDay - nowTimeDay;
 
   console.log('111111111111111', subTimeTime);

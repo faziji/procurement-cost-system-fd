@@ -24,6 +24,7 @@ import { getAttentionList, deleteAttention, createAttention } from './service';
 
 import { getUserInfo } from '@/utils';
 import { getCurrentUserInfo } from '@/services/user/api';
+import Countdown from '@/components/WelcomeMain/Countdown';
 
 const links = [
   {
@@ -234,9 +235,13 @@ const Workplace: FC = () => {
                             征询意见
                           </Tag>
                         ) : item.announcementType == 'purchaseannouncement' ? (
-                          <Tag color="orange" key={item?.announcementType}>
-                            采购公告
-                          </Tag>
+                          <>
+                            <Tag color="orange" key={item?.announcementType}>
+                              采购公告
+                            </Tag>
+                            {/* <Countdown endTime={item.endTime} startTime={item?.startTime} /> */}
+                            {/* {JSON.stringify(item)} */}
+                          </>
                         ) : item.announcementType == 'resultannouncement' ? (
                           <Tag color="blue" key={item?.announcementType}>
                             结果公告

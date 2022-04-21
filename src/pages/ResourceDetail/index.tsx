@@ -175,7 +175,7 @@ const ResourceDetail: React.FC = (props: any) => {
 
     await createTender(reqData)
       .then((res) => {
-        console.log('成功返回', res);
+        setTenderPageVisiable(false);
         message.success('投标成功！');
       })
       .catch((err) => {
