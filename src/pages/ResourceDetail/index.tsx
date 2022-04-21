@@ -285,7 +285,7 @@ const ResourceDetail: React.FC = (props: any) => {
               )}
             </div>
             <Affix offsetTop={top}>
-              {!attention && isLogin && (
+              {!attention && isLogin && !tenderPageVisiable && (
                 <Button
                   type="primary"
                   onClick={() => {

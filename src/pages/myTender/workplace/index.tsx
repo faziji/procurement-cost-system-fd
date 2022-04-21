@@ -150,7 +150,7 @@ const Workplace: FC = () => {
                           </Link>
                         </div>
                       }
-                      description={'描述：' + item.announcementDescription}
+                      description={'描述：' + item.announcementName}
                     />
                     <div className={styles.projectItemContent}>
                       <Tag color="green" key={item?.id}>
