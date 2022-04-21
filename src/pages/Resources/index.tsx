@@ -11,6 +11,7 @@ import {
 import { Card, Col, Empty, Row } from 'antd';
 import styles from './index.less';
 import { DoubleRightOutlined } from '@ant-design/icons';
+import Countdown from '@/components/WelcomeMain/Countdown';
 
 /**
  * 渲染具体内容
@@ -29,10 +30,10 @@ const ResourceItemElem = ({ data, state }: any) => {
                   {item?.name?.length <= 23 ? item.name : item.name?.slice(0, 23) + '...'}
                 </Col>
                 <Col span={4} style={{ color: '#ff4d4f', fontSize: 12 }}>
-                  {state == 2 && '活动已结束'}
+                  {state == 2 && <Countdown endTime={item.endTime} startTime={item?.startTime} />}
                 </Col>
                 <Col span={4} style={{ fontSize: 12 }}>
-                  {item.publishTime}
+                  <p title="公告发布时间">{item.publishTime}</p>
                 </Col>
               </Row>
             </div>

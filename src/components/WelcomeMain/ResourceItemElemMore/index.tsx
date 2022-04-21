@@ -1,6 +1,7 @@
 import { Col, Divider, Empty, Pagination, Row } from 'antd';
 import moment from 'moment';
 import { Link } from 'umi';
+import Countdown from '../Countdown';
 import styles from './index.less';
 
 /**
@@ -26,10 +27,10 @@ const ResourceItemElemMore: any = ({ data, calendarSearchTime, state = 2 }: any)
                   <Link to={`/resourceDetail?current=${state}&id=${item.id}`}>{item.name}</Link>
                 </Col>
                 <Col span={4} style={{ color: '#ff4d4f', fontSize: 12, paddingLeft: 25 }}>
-                  {state == 2 && '活动已结束'}
+                  {state == 2 && <Countdown endTime={item.endTime} startTime={item?.startTime} />}
                 </Col>
                 <Col span={4} style={{ fontSize: 12 }}>
-                  {item.publishTime}
+                  <p title="公告发布时间">{item.publishTime}</p>
                 </Col>
               </Row>
               <Divider dashed />
